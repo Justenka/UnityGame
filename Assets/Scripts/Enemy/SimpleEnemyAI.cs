@@ -2,13 +2,15 @@ using UnityEngine;
 
 public class SimpleEnemyAI : MonoBehaviour
 {
-    public GameObject player;
-    public float speed;
+    private GameObject player;
+    public float speedModifier;
     private float distance;
+    public float speed;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        player = GameObject.FindGameObjectWithTag("Player");
+        speed = Random.Range(0.5f,4.5f) * speedModifier;
     }
 
     // Update is called once per frame

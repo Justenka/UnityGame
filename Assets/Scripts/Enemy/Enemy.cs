@@ -2,12 +2,13 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    public int maxHealth = 100;
+    public int maxHealthModifier;
     public int currentHealth;
+    //private int maxHealth = 100;
 
     void Start()
     {
-        currentHealth = maxHealth;
+        currentHealth = Random.Range(50,300)*maxHealthModifier;
     }
 
     // Update is called once per frame
