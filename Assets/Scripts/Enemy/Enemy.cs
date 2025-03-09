@@ -4,11 +4,18 @@ public class Enemy : MonoBehaviour
 {
     public int maxHealthModifier;
     public int currentHealth;
-    //private int maxHealth = 100;
+    private int minHealth = 100;
 
     void Start()
     {
-        currentHealth = Random.Range(50,300)*maxHealthModifier;
+        if (maxHealthModifier != 0)
+        {
+            currentHealth = Random.Range(50, 300) * maxHealthModifier;
+        }
+        else
+        {
+            currentHealth = minHealth;
+        }
     }
 
     // Update is called once per frame
