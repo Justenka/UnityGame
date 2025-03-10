@@ -2,15 +2,10 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public int maxHealth = 100;
-    public int currentHealth;
-    public int maxStamina = 100;
-    public int currentStamina;
-    public int maxMana = 100;
-    public int currentMana;
+    public int maxHealth = 100, maxMana = 100;
+    public int currentHealth, currentMana;
     public HealthBar healthBar;
     public ManaBar manaBar;
-    public StaminaBar staminaBar;
 
     void Start()
     {
@@ -18,8 +13,6 @@ public class Player : MonoBehaviour
         healthBar.SetMaxHealth(maxHealth);
         currentMana = maxMana;
         manaBar.SetMaxMana(maxMana);
-        currentStamina = maxStamina;
-        staminaBar.SetMaxStamina(maxStamina);
     }
 
     void Update()
@@ -38,11 +31,5 @@ public class Player : MonoBehaviour
         currentMana -= amount;
 
         manaBar.SetMana(currentMana);
-    }
-    public void UseStamina(int amount)
-    {
-        currentStamina -= amount;
-
-        staminaBar.SetStamina(currentStamina);
     }
 }
