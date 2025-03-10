@@ -30,6 +30,7 @@ public class Enemy : MonoBehaviour
         {
             Die();
         }
+        DamageNumberController.instance.SpawnDamage(damage, transform.position);
     }
     void Die()
     {
