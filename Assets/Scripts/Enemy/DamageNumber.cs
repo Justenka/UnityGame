@@ -7,6 +7,8 @@ public class DamageNumber : MonoBehaviour
     public float lifeTime = 2;
     private float lifeCounter;
 
+    public float floatSpeed = 1f;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -22,9 +24,13 @@ public class DamageNumber : MonoBehaviour
             lifeCounter -= Time.deltaTime;
             if (lifeCounter <= 0)
             {
-                Destroy(gameObject);
+                //Destroy(gameObject);
+
+                DamageNumberController.instance.PlaceInPool(this);
             }
         }
+
+        transform.position += Vector3.up * floatSpeed * Time.deltaTime;
     }
     public void Setup(int damageDisplay)
     {
