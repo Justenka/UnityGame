@@ -1066,14 +1066,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c5ec89a2701e2e4092d5fcd0265d53d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxStamina: 100
-  currentStamina: 0
+  player: {fileID: 708523006}
   moveSpeed: 5
   rigidBody: {fileID: 708523003}
   running: 0
   runCost: 10
-  ChargeRate: 30
-  staminaBar: {fileID: 58415458}
 --- !u!50 &708523003
 Rigidbody2D:
   serializedVersion: 5
@@ -1186,10 +1183,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   maxMana: 100
+  maxStamina: 100
   currentHealth: 0
   currentMana: 0
+  currentStamina: 100
   healthBar: {fileID: 1054900598}
   manaBar: {fileID: 1874854289}
+  staminaBar: {fileID: 58415458}
 --- !u!114 &708523007
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1217,11 +1217,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Projectile: {fileID: 268461493443850436, guid: b37d4ce32a4372d4e8d6d32bad9d07f1, type: 3}
   projectileSpeed: 10
+  player: {fileID: 708523006}
   manaCost: 10
-  maxMana: 100
-  currentMana: 0
-  manaBar: {fileID: 1874854289}
-  manaRegenRate: 30
 --- !u!70 &708523009
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -2384,11 +2381,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4238842157911947280, guid: a6e49e22516c1b34c8d527a31b310f3a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 4238842157911947280, guid: a6e49e22516c1b34c8d527a31b310f3a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.029
       objectReference: {fileID: 0}
     - target: {fileID: 4238842157911947280, guid: a6e49e22516c1b34c8d527a31b310f3a, type: 3}
       propertyPath: m_LocalPosition.z
