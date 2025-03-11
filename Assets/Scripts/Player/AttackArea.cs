@@ -10,7 +10,7 @@ public class AttackArea : MonoBehaviour
         if (collider.GetComponent<Enemy>() != null)
         {
             Enemy enemy = collider.GetComponent<Enemy>();
-            enemy.TakeDamage(damage);
+            enemy.TakeDamage(damage, transform.position);
         }
     }
 }
