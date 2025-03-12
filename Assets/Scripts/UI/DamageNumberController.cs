@@ -26,7 +26,7 @@ public class DamageNumberController : MonoBehaviour
     {
         
     }
-    public void SpawnDamage(float damageAmount, Vector3 location)
+    public void SpawnDamage(float damageAmount, Vector3 location, bool isPlayerDamage)
     {
         int rounded = Mathf.RoundToInt(damageAmount);
 
@@ -34,7 +34,7 @@ public class DamageNumberController : MonoBehaviour
 
         DamageNumber newDamage = GetFromPool();
 
-        newDamage.Setup(rounded);
+        newDamage.Setup(rounded, isPlayerDamage);
         newDamage.gameObject.SetActive(true);
 
         newDamage.transform.position = location;

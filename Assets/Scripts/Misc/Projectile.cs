@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    public int damage = 5;
+    public int damage = 50;
     public float lifetime = 10f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created

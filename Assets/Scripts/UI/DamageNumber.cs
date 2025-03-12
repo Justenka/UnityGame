@@ -32,9 +32,10 @@ public class DamageNumber : MonoBehaviour
 
         transform.position += Vector3.up * floatSpeed * Time.deltaTime;
     }
-    public void Setup(int damageDisplay)
+    public void Setup(int damageDisplay, bool isPlayerDamage)
     {
         lifeCounter = lifeTime;
         damageText.text = damageDisplay.ToString();
+        damageText.color = isPlayerDamage ? Color.red : Color.white;
     }
 }

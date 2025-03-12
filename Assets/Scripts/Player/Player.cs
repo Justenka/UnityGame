@@ -9,7 +9,7 @@ public class Player : MonoBehaviour
     public ManaBar manaBar;
     public StaminaBar staminaBar;
 
-    private Coroutine rechargeStam, rechargeMana;
+    private Coroutine rechargeStam, rechargeMana, rechargeHealth;
 
     void Start()
     {
@@ -26,11 +26,17 @@ public class Player : MonoBehaviour
 
     }
 
-    public void TakeDamage(float amount)
+    public void TakeDamage(int amount)
     {
-        currentHealth -= amount;
+        UseHealth(amount);
 
         healthBar.SetHealth(currentHealth);
+        
+        if (currentHealth <= 0)
+        {
+            Die();
+        }
+        DamageNumberController.instance.SpawnDamage(amount, transform.position, true);
     }
     public void UseMana(float amount)
     {
@@ -73,5 +79,30 @@ public class Player : MonoBehaviour
             yield return new WaitForSeconds(.1f);
 
         }
+    }
+    public void UseHealth(float amount)
+    {
+        currentHealth -= amount;
+        if (currentHealth < 0) currentHealth = 0;
+        healthBar.SetHealth(currentHealth);
+        if (rechargeHealth != null) StopCoroutine(rechargeHealth);
+        rechargeHealth = StartCoroutine(RechargeHealth());
+    }
+    private IEnumerator RechargeHealth()
+    {
+        yield return new WaitForSeconds(1f);
+        float ChargeRate = maxHealth / 10;
+        while (currentHealth < maxHealth)
+        {
+            currentHealth += ChargeRate / 10f;
+            healthBar.SetHealth(currentHealth);
+            if (currentHealth > maxHealth) currentHealth = maxHealth;
+            yield return new WaitForSeconds(.1f);
+
+        }
+    }
+    void Die()
+    {
+        Destroy(gameObject);
     }
 }

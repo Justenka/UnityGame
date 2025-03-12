@@ -148,6 +148,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   expValue: 1
-  moveSpeed: 3
+  moveSpeed: 5
   timeBetweenChecks: 0.2
   pickupRange: 10

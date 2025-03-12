@@ -33,7 +33,9 @@ public class PlayerShooting : MonoBehaviour
 
             Vector2 shootDirection = (mousePosition - firePoint.position).normalized;
 
-            GameObject projectile = Instantiate(Projectile, firePoint.position, Quaternion.identity);
+            Vector3 adjustedFirePoint = firePoint.position + new Vector3(0.5f, 1f, 0);
+
+            GameObject projectile = Instantiate(Projectile, adjustedFirePoint, Quaternion.identity);
             Rigidbody2D rigidbody = projectile.GetComponent<Rigidbody2D>();
 
             if(rigidbody != null)

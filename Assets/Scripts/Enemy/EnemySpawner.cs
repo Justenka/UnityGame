@@ -25,14 +25,17 @@ public class EnemySpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        spawnCounter -= Time.deltaTime;
-        if (spawnCounter <= 0)
+        if(target != null)
         {
-            spawnCounter = timeToSpawn;
-            Vector3 spawnPosition = GetSpawnPositionOutsideView();
-            Instantiate(enemyToSpawn, spawnPosition, transform.rotation);
+            spawnCounter -= Time.deltaTime;
+            if (spawnCounter <= 0)
+            {
+                spawnCounter = timeToSpawn;
+                Vector3 spawnPosition = GetSpawnPositionOutsideView();
+                Instantiate(enemyToSpawn, spawnPosition, transform.rotation);
+            }
+            transform.position = target.position;
         }
-        transform.position = target.position;
     }
     Vector3 GetSpawnPositionOutsideView()
     {
