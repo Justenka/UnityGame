@@ -167,3 +167,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 50
   lifetime: 10
+  knockBack: 1.5
