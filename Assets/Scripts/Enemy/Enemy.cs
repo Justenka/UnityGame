@@ -14,6 +14,9 @@ public class Enemy : MonoBehaviour
     private float lastAttackTime;
     private Player playerInTrigger;
 
+    private bool isInvincible = false;
+    public float invincibilityDuration = 0.5f;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -60,6 +63,8 @@ public class Enemy : MonoBehaviour
     }
     public void TakeDamage(int damage, Vector2 attackerPosition)
     {
+        if (isInvincible) return;
+
         currentHealth -= damage;
         if (currentHealth <= 0)
         {
@@ -68,15 +73,7 @@ public class Enemy : MonoBehaviour
         else
         {
             ApplyKnockback(attackerPosition);
-        }
-        DamageNumberController.instance.SpawnDamage(damage, transform.position, false);
-    }
-    public void TakeDamage(int damage)
-    {
-        currentHealth -= damage;
-        if (currentHealth <= 0)
-        {
-            Die();
+            StartInvincibility();
         }
         DamageNumberController.instance.SpawnDamage(damage, transform.position, false);
     }
@@ -98,6 +95,15 @@ public class Enemy : MonoBehaviour
             rb.linearVelocity = Vector2.zero;
             isKnockedBack = false;
         }
+    }
+    void StartInvincibility()
+    {
+        isInvincible = true;
+        Invoke("EndInvincibility", invincibilityDuration);
+    }
+    void EndInvincibility()
+    {
+        isInvincible = false;
     }
     void Die()
     {

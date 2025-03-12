@@ -11,6 +11,9 @@ public class Player : MonoBehaviour
 
     private Coroutine rechargeStam, rechargeMana, rechargeHealth;
 
+    private bool isInvincible = false;
+    public float invincibilityDuration = 0.5f;
+
     void Start()
     {
         currentHealth = maxHealth;
@@ -28,6 +31,8 @@ public class Player : MonoBehaviour
 
     public void TakeDamage(int amount)
     {
+        if (isInvincible) return;
+
         UseHealth(amount);
 
         healthBar.SetHealth(currentHealth);
@@ -35,6 +40,10 @@ public class Player : MonoBehaviour
         if (currentHealth <= 0)
         {
             Die();
+        }
+        else
+        {
+            StartInvincibility();
         }
         DamageNumberController.instance.SpawnDamage(amount, transform.position, true);
     }
@@ -100,6 +109,15 @@ public class Player : MonoBehaviour
             yield return new WaitForSeconds(.1f);
 
         }
+    }
+    void StartInvincibility()
+    {
+        isInvincible = true;
+        Invoke("EndInvincibility", invincibilityDuration);
+    }
+    void EndInvincibility()
+    {
+        isInvincible = false;
     }
     void Die()
     {
