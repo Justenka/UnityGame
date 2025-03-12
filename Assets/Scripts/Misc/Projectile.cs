@@ -4,6 +4,8 @@ public class Projectile : MonoBehaviour
 {
     public int damage = 50;
     public float lifetime = 10f;
+    public float knockBack = 1.5f;
+    private bool doesKnockBack = true;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -21,7 +23,7 @@ public class Projectile : MonoBehaviour
         Enemy enemy = collision.GetComponent<Enemy>();
         if(enemy != null)
         {
-            enemy.TakeDamage(damage, transform.position);
+            enemy.TakeDamage(damage, transform.position, knockBack, doesKnockBack);
             Destroy(gameObject);
         }
     }

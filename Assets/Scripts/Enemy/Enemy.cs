@@ -6,7 +6,6 @@ public class Enemy : MonoBehaviour
     public int currentHealth;
     private int minHealth = 100;
     public int damageToPlayer = 10;
-    public float knockbackForce = 5f;
     private Rigidbody2D rb;
     private bool isKnockedBack = false;
 
@@ -61,7 +60,7 @@ public class Enemy : MonoBehaviour
             playerInTrigger = null;
         }
     }
-    public void TakeDamage(int damage, Vector2 attackerPosition)
+    public void TakeDamage(int damage, Vector2 attackerPosition, float knockbackForce, bool KnockBack)
     {
         if (isInvincible) return;
 
@@ -70,14 +69,14 @@ public class Enemy : MonoBehaviour
         {
             Die();
         }
-        else
+        else if(KnockBack)
         {
-            ApplyKnockback(attackerPosition);
+            ApplyKnockback(attackerPosition, knockbackForce);
             StartInvincibility();
         }
         DamageNumberController.instance.SpawnDamage(damage, transform.position, false);
     }
-    void ApplyKnockback(Vector2 attackerPosition)
+    void ApplyKnockback(Vector2 attackerPosition, float knockbackForce)
     {
         if (rb != null && !isKnockedBack)
         {
