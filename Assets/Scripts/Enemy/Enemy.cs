@@ -16,6 +16,8 @@ public class Enemy : MonoBehaviour
     private bool isInvincible = false;
     public float invincibilityDuration = 0.5f;
 
+    public Animator animator;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -71,6 +73,7 @@ public class Enemy : MonoBehaviour
         }
         else if(KnockBack)
         {
+            animator.SetBool("isHit", true);
             ApplyKnockback(attackerPosition, knockbackForce);
             StartInvincibility();
         }
@@ -103,6 +106,7 @@ public class Enemy : MonoBehaviour
     void EndInvincibility()
     {
         isInvincible = false;
+        animator.SetBool("isHit", false);
     }
     void Die()
     {

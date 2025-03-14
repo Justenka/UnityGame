@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1884262854379103290}
   - component: {fileID: 6135305365425720006}
   - component: {fileID: 1534254762742278452}
+  - component: {fileID: -5780201929352805491}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -31,7 +32,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 6.44, y: -0.01, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -80,8 +81,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee, type: 3}
-  m_Color: {r: 0.5660378, g: 0, b: 0, a: 1}
+  m_Sprite: {fileID: 8536121584949983522, guid: 57ff270bf3c9c204fab6c9877c6a6354, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -132,6 +133,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealthModifier: 1
   currentHealth: 0
+  damageToPlayer: 10
+  attackCooldown: 1.5
+  invincibilityDuration: 0.5
+  animator: {fileID: -5780201929352805491}
 --- !u!114 &6135305365425720006
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -145,6 +150,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speedModifier: 1
+  speed: 0
+  despawnDistance: 80
 --- !u!61 &1534254762742278452
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -179,15 +186,37 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.0038337708, y: 0.4687271}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 2}
+    pivot: {x: 0.4945055, y: -0.3846154}
+    oldSize: {x: 0.91, y: 0.52}
     newSize: {x: 1, y: 2}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 2}
+  m_Size: {x: 0.9693222, y: 0.5881958}
   m_EdgeRadius: 0
+--- !u!95 &-5780201929352805491
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7531382611090056820}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 469b0e1ca81920546ab77451c42b1a2d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
