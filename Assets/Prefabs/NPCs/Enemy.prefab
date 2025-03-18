@@ -137,6 +137,9 @@ MonoBehaviour:
   attackCooldown: 1.5
   invincibilityDuration: 0.5
   animator: {fileID: -5780201929352805491}
+  experiencePickupPrefab: {fileID: 728426883571097644, guid: a6e49e22516c1b34c8d527a31b310f3a, type: 3}
+  baseXPDrop: 10
+  xpMultiplier: 0.1
 --- !u!114 &6135305365425720006
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -18,6 +18,10 @@ public class Enemy : MonoBehaviour
 
     public Animator animator;
 
+    public GameObject experiencePickupPrefab;
+    public int baseXPDrop = 10;
+    public float xpMultiplier = 0.1f;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -110,6 +114,16 @@ public class Enemy : MonoBehaviour
     }
     void Die()
     {
+        DropXP();
         Destroy(gameObject);
+    }
+    void DropXP()
+    {
+        if (experiencePickupPrefab != null)
+        {
+            int xpToDrop = Mathf.RoundToInt(baseXPDrop + (currentHealth * xpMultiplier));
+            GameObject xpPickup = Instantiate(experiencePickupPrefab, transform.position, Quaternion.identity);
+            xpPickup.GetComponent<ExperiencePickup>().expValue = xpToDrop;
+        }
     }
 }
