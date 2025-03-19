@@ -1,9 +1,10 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ExperienceUI : MonoBehaviour
 {
-    public Text levelText;
+    public TextMeshProUGUI levelText;
     public Slider xpBar;
 
     private ExperienceLevelController expController;
