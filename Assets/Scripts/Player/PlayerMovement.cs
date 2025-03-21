@@ -11,9 +11,16 @@ public class PlayerMovement : MonoBehaviour
     public bool running = false;
     public float runCost;
 
+    private bool canDash = true;
+    private bool isDashing;
+    public float dashingPower = 24f;
+    public float dashingTime = 0.2f;
+    public float dashingCooldown = 1f;
+    public float dashCost = 20f;
+
     void Update()
     {
-        if(player.currentStamina > 0)
+        if (player.currentStamina > 0)
         {
             if (Input.GetKeyDown("left shift"))
             {
@@ -25,14 +32,25 @@ public class PlayerMovement : MonoBehaviour
             }
         }
         else running = false;
-           
+
         ProcessInput();
+        if (player.currentStamina >= 20)
+        {
+            if (Input.GetKeyDown(KeyCode.Space) && canDash)
+            {
+                StartCoroutine(Dash());
+            }
+        }
     }
 
     void FixedUpdate()
     {
-        Move();
+        if (!isDashing)
+        {
+            Move();
+        }
     }
+
     void ProcessInput()
     {
         float moveX = Input.GetAxisRaw("Horizontal");
@@ -40,6 +58,7 @@ public class PlayerMovement : MonoBehaviour
 
         moveDirection = new Vector2(moveX, moveY).normalized;
     }
+
     void Move()
     {
         if (running)
@@ -51,5 +70,20 @@ public class PlayerMovement : MonoBehaviour
         {
             rigidBody.linearVelocity = new Vector2(moveDirection.x * moveSpeed, moveDirection.y * moveSpeed);
         }
+    }
+
+    IEnumerator Dash()
+    {
+        canDash = false;
+        isDashing = true;
+        //float originalGravity = rigidBody.gravityScale;
+        //rigidBody.gravityScale = 0f;
+        rigidBody.linearVelocity = moveDirection * dashingPower;
+        player.UseStamina(dashCost);
+        yield return new WaitForSeconds(dashingTime);
+        //rigidBody.gravityScale = originalGravity;
+        isDashing = false;
+        yield return new WaitForSeconds(dashingCooldown);
+        canDash = true;
     }
 }
