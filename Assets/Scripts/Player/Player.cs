@@ -14,6 +14,8 @@ public class Player : MonoBehaviour
     private bool isInvincible = false;
     public float invincibilityDuration = 0.5f;
 
+    public float currencyHeld;
+
     void Start()
     {
         currentHealth = maxHealth;
@@ -122,5 +124,9 @@ public class Player : MonoBehaviour
     void Die()
     {
         Destroy(gameObject);
+    }
+    public void GetCurrency (float amount)
+    {
+        currencyHeld += amount;
     }
 }

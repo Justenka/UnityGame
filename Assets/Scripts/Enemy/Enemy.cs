@@ -115,6 +115,20 @@ public class Enemy : MonoBehaviour
     void Die()
     {
         DropXP();
+
+        // Find the Player object and give currency
+        GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
+        if (playerObj != null)
+        {
+            Player player = playerObj.GetComponent<Player>();
+            if (player != null)
+            {
+                // Increase the player's currency by, say, 5
+                player.GetCurrency(5);
+            }
+        }
+
+        // Destroy this enemy
         Destroy(gameObject);
     }
     void DropXP()
