@@ -41,8 +41,21 @@ public class PlayerMovement : MonoBehaviour
                 StartCoroutine(Dash());
             }
         }
+        FlipCharacter();
     }
+    void FlipCharacter()
+    {
+        Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
+        if (mouseWorldPosition.x < transform.position.x)
+        {
+            transform.right = Vector3.right;
+        }
+        else
+        {
+            transform.right = Vector3.left;
+        }
+    }
     void FixedUpdate()
     {
         if (!isDashing)
