@@ -131,4 +131,11 @@ public class Player : MonoBehaviour
     {
         currencyHeld += amount;
     }
+    public void RemoveCurrecny (float amount)
+    {
+        if (currencyHeld != 0)
+        {
+            currencyHeld -= amount;
+        }
+    }
 }
