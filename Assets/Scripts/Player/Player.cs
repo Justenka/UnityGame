@@ -13,12 +13,12 @@ public class Player : MonoBehaviour
 
     private Coroutine rechargeStam, rechargeMana, rechargeHealth;
 
-    private bool isInvincible = false;
+    public bool isInvincible = false;
     public float invincibilityDuration = 0.5f;
 
     public float currencyHeld;
 
-    void Start()
+    public void Start()
     {
         currentHealth = maxHealth;
         healthBar.SetMaxHealth(maxHealth);
@@ -136,6 +136,7 @@ public class Player : MonoBehaviour
         if (currencyHeld != 0)
         {
             currencyHeld -= amount;
+            if (currencyHeld < 0) currencyHeld = 0;
         }
     }
 }

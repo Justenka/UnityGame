@@ -2662,6 +2662,7 @@ MonoBehaviour:
   healthBar: {fileID: 1054900598}
   manaBar: {fileID: 1874854289}
   staminaBar: {fileID: 58415458}
+  isInvincible: 0
   invincibilityDuration: 0.5
   currencyHeld: 0
 --- !u!114 &708523007
