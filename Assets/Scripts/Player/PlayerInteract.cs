@@ -16,27 +16,45 @@ public class PlayerInteract : MonoBehaviour
         {
             Vector2 center = playerCollider.bounds.center;
             Collider2D[] colliderArray = Physics2D.OverlapCircleAll(center, interactRange);
+
             foreach (Collider2D collider in colliderArray)
             {
-                if(collider.TryGetComponent(out NPCInteractable npcInteractable))
+                if (collider.TryGetComponent(out NPCBase npc))
                 {
-                    npcInteractable.Interact();
+                    npc.Interact();
+                    Debug.Log($"Interacted with: {npc.name}");
+
+                    // Set this NPC as active in the UIController
+                    UIController uiController = Object.FindFirstObjectByType<UIController>();
+                    if (uiController != null)
+                    {
+                        uiController.SetActiveNPC(npc);
+                        Debug.Log("Set active NPC in UIController.");
+                    }
+                    else
+                    {
+                        Debug.LogWarning("UIController not found in scene!");
+                    }
+
+                    break; // Only interact with one NPC at a time
                 }
             }
         }
     }
 
-    public NPCInteractable GetInteractableObject()
+    public NPCBase GetInteractableObject()
     {
         Vector2 center = playerCollider.bounds.center;
         Collider2D[] colliderArray = Physics2D.OverlapCircleAll(center, interactRange);
+
         foreach (Collider2D collider in colliderArray)
         {
-            if (collider.TryGetComponent(out NPCInteractable npcInteractable))
+            if (collider.TryGetComponent(out NPCBase npc))
             {
-                return npcInteractable;
+                return npc;
             }
         }
+
         return null;
     }
 

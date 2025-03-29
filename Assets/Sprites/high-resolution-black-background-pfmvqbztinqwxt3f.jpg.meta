@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      high-resolution-black-background-pfmvqbztinqwxt3f_0: 150684504163307350
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

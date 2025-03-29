@@ -6,6 +6,9 @@ using UnityEngine.Tilemaps;
 public class Item : ScriptableObject
 {
     [Header("Only gameplay")]
+    public string itemName;
+    public string description;
+    public int price;
     public TileBase tile;
     public ItemType type;
     public ActionType actionType;
@@ -21,7 +24,8 @@ public class Item : ScriptableObject
 public enum ItemType
 {
     Weapon,
-    Tool
+    Tool,
+    Armor
 }
 public enum ActionType
 {

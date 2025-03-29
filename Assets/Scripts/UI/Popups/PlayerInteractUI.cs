@@ -2,12 +2,14 @@ using UnityEngine;
 
 public class PlayerInteractUI : MonoBehaviour
 {
-    [SerializeField] private GameObject containergameObject;
+    [SerializeField] private GameObject containerGameObject;
     [SerializeField] private PlayerInteract playerInteract;
 
     private void Update()
     {
-        if (playerInteract.GetInteractableObject() != null)
+        NPCBase interactable = playerInteract.GetInteractableObject();
+
+        if (interactable != null)
         {
             Show();
         }
@@ -16,12 +18,20 @@ public class PlayerInteractUI : MonoBehaviour
             Hide();
         }
     }
-    public void Show()
+
+    private void Show()
     {
-        containergameObject.SetActive(true);
+        if (!containerGameObject.activeSelf)
+        {
+            containerGameObject.SetActive(true);
+        }
     }
-    public void Hide()
+
+    private void Hide()
     {
-        containergameObject.SetActive(false);
+        if (containerGameObject.activeSelf)
+        {
+            containerGameObject.SetActive(false);
+        }
     }
 }
