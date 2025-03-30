@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
@@ -7,6 +8,8 @@ public class Enemy : MonoBehaviour
     private int minHealth = 100;
     public int damageToPlayer = 10;
     private Rigidbody2D rb;
+
+    public float knockbackForce = 10f;
     private bool isKnockedBack = false;
 
     public float attackCooldown = 1.5f;
@@ -21,6 +24,8 @@ public class Enemy : MonoBehaviour
     public GameObject experiencePickupPrefab;
     public int baseXPDrop = 10;
     public float xpMultiplier = 0.1f;
+
+    public bool isDead = false;
 
     void Start()
     {
@@ -88,10 +93,27 @@ public class Enemy : MonoBehaviour
         if (rb != null && !isKnockedBack)
         {
             isKnockedBack = true;
+
+            GetComponent<SimpleEnemyAI>().enabled = false;
+
             Vector2 knockbackDirection = (transform.position - (Vector3)attackerPosition).normalized;
-            rb.AddForce(knockbackDirection * knockbackForce, ForceMode2D.Impulse);
-            Invoke("ResetKnockback", 0.5f);
+            rb.linearVelocity = Vector2.zero;
+            rb.linearVelocity = knockbackDirection * knockbackForce;
+
+            StartCoroutine(HitFreezeDelayed(0.3f, 0.20f));
+            Invoke("ResetKnockback", 0.3f);
         }
+    }
+
+    IEnumerator HitFreezeDelayed(float delayBeforeFreeze, float freezeDuration)
+    {
+        yield return new WaitForSeconds(delayBeforeFreeze);
+        rb.simulated = false;
+
+        yield return new WaitForSeconds(freezeDuration);
+        rb.simulated = true;
+
+        GetComponent<SimpleEnemyAI>().enabled = true;
     }
 
     void ResetKnockback()
@@ -100,6 +122,8 @@ public class Enemy : MonoBehaviour
         {
             rb.linearVelocity = Vector2.zero;
             isKnockedBack = false;
+
+            
         }
     }
     void StartInvincibility()
@@ -114,23 +138,34 @@ public class Enemy : MonoBehaviour
     }
     void Die()
     {
+        if (isDead) return;
+        isDead = true;
+
         DropXP();
 
-        // Find the Player object and give currency
+        animator.SetTrigger("Die");
+
         GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
         if (playerObj != null)
         {
             Player player = playerObj.GetComponent<Player>();
             if (player != null)
             {
-                // Increase the player's currency by, say, 5
                 player.GetCurrency(5);
             }
         }
+        GetComponent<SimpleEnemyAI>().enabled = false;
+        GetComponent<Collider2D>().enabled = false;
 
-        // Destroy this enemy
+        StartCoroutine(DestroyAfterDeath());
+    }
+
+    IEnumerator DestroyAfterDeath()
+    {
+        yield return new WaitForSeconds(0.4f);
         Destroy(gameObject);
     }
+
     void DropXP()
     {
         if (experiencePickupPrefab != null)
