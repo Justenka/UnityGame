@@ -18,6 +18,15 @@ public class PlayerMovement : MonoBehaviour
     public float dashingCooldown = 1f;
     public float dashCost = 20f;
 
+    Rigidbody2D rb;
+    Animator animator;
+
+    private void Start()
+    {
+        rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
+    }
+
     void Update()
     {
         if (player.currentStamina > 0)
@@ -62,6 +71,7 @@ public class PlayerMovement : MonoBehaviour
         {
             Move();
         }
+        animator.SetFloat("xVelocity", System.Math.Abs(rb.linearVelocityX));
     }
 
     void ProcessInput()
