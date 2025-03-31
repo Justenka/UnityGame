@@ -22,21 +22,12 @@ public class PlayerInteract : MonoBehaviour
                 if (collider.TryGetComponent(out NPCBase npc))
                 {
                     npc.Interact();
-                    Debug.Log($"Interacted with: {npc.name}");
-
-                    // Set this NPC as active in the UIController
                     UIController uiController = Object.FindFirstObjectByType<UIController>();
                     if (uiController != null)
                     {
                         uiController.SetActiveNPC(npc);
-                        Debug.Log("Set active NPC in UIController.");
+                        break; // Only interact with one NPC at a time
                     }
-                    else
-                    {
-                        Debug.LogWarning("UIController not found in scene!");
-                    }
-
-                    break; // Only interact with one NPC at a time
                 }
             }
         }
