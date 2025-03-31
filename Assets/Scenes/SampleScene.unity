@@ -9822,8 +9822,13 @@ MonoBehaviour:
   maxHealthModifier: 0
   currentHealth: 0
   damageToPlayer: 10
+  rb: {fileID: 0}
   knockbackForce: 1
+  isKnockedBack: 0
   attackCooldown: 1.5
+  lastAttackTime: 0
+  playerInTrigger: {fileID: 0}
+  isInvincible: 0
   invincibilityDuration: 0.5
   animator: {fileID: 0}
   experiencePickupPrefab: {fileID: 0}
