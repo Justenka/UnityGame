@@ -7,16 +7,16 @@ public class Enemy : MonoBehaviour
     public int currentHealth;
     private int minHealth = 100;
     public int damageToPlayer = 10;
-    private Rigidbody2D rb;
+    public Rigidbody2D rb;
 
     public float knockbackForce = 10f;
-    private bool isKnockedBack = false;
+    public bool isKnockedBack = false;
 
     public float attackCooldown = 1.5f;
-    private float lastAttackTime;
-    private Player playerInTrigger;
+    public float lastAttackTime;
+    public Player playerInTrigger;
 
-    private bool isInvincible = false;
+    public bool isInvincible = false;
     public float invincibilityDuration = 0.5f;
 
     public Animator animator;
@@ -27,7 +27,7 @@ public class Enemy : MonoBehaviour
 
     public bool isDead = false;
 
-    void Start()
+    public void Start()
     {
         rb = GetComponent<Rigidbody2D>();
 
@@ -126,7 +126,7 @@ public class Enemy : MonoBehaviour
             
         }
     }
-    void StartInvincibility()
+    public void StartInvincibility()
     {
         isInvincible = true;
         Invoke("EndInvincibility", invincibilityDuration);
