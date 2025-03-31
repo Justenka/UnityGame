@@ -6,6 +6,45 @@ using System.Collections.Generic;
 using UnityEngine.TestTools;
 using TMPro;
 
+public class SpyHealthBar : HealthBar
+{
+    public bool SetHealthCalled = false;
+    public float LastHealthValue;
+
+    public override void SetHealth(float value)
+    {
+        SetHealthCalled = true;
+        LastHealthValue = value;
+        base.SetHealth(value);
+    }
+}
+
+public class SpyManaBar : ManaBar
+{
+    public bool SetManaCalled = false;
+    public float LastManaValue;
+
+    public override void SetMana(float value)
+    {
+        SetManaCalled = true;
+        LastManaValue = value;
+        base.SetMana(value);
+    }
+}
+
+public class SpyStaminaBar : StaminaBar
+{
+    public bool SetStaminaCalled = false;
+    public float LastStaminaValue;
+
+    public override void SetStamina(float value)
+    {
+        SetStaminaCalled = true;
+        LastStaminaValue = value;
+        base.SetStamina(value);
+    }
+}
+
 public class PlayerTests
 {
     private GameObject playerGameObject;
@@ -21,17 +60,17 @@ public class PlayerTests
         player = playerGameObject.AddComponent<Player>();
 
         GameObject healthBarObject = new GameObject("HealthBar");
-        mockHealthBar = healthBarObject.AddComponent<HealthBar>();
+        mockHealthBar = healthBarObject.AddComponent<SpyHealthBar>();
         mockHealthBar.healthSlider = healthBarObject.AddComponent<Slider>();
         player.healthBar = mockHealthBar;
 
         GameObject manaBarObject = new GameObject("ManaBar");
-        mockManaBar = manaBarObject.AddComponent<ManaBar>();
+        mockManaBar = manaBarObject.AddComponent<SpyManaBar>();
         mockManaBar.manaSlider = manaBarObject.AddComponent<Slider>();
         player.manaBar = mockManaBar;
 
         GameObject staminaBarObject = new GameObject("StaminaBar");
-        mockStaminaBar = staminaBarObject.AddComponent<StaminaBar>();
+        mockStaminaBar = staminaBarObject.AddComponent<SpyStaminaBar>();
         mockStaminaBar.staminaSlider = staminaBarObject.AddComponent<Slider>();
         player.staminaBar = mockStaminaBar;
 
@@ -42,6 +81,7 @@ public class PlayerTests
         player.Start(); 
     }
 
+
     [TearDown]
     public void Teardown()
     {
@@ -50,7 +90,11 @@ public class PlayerTests
         Object.DestroyImmediate(player.manaBar.gameObject);
         Object.DestroyImmediate(player.staminaBar.gameObject);
     }
-
+    //===================================================================================================================//
+    //===================================================================================================================//
+    // UNIT TEST PART BEGIN//
+    //===================================================================================================================//
+    //===================================================================================================================//
     [Test]
     public void Start_InitializesHealthManaStamina()
     {
@@ -73,11 +117,12 @@ public class PlayerTests
         Assert.AreEqual(80, mockHealthBar.healthSlider.value);
     }
 
-    [Test]
-    public void TakeDamage_KillsPlayerWhenHealthIsZero()
+    [UnityTest]
+    public IEnumerator TakeDamage_KillsPlayerWhenHealthIsZero()
     {
         player.TakeDamage(100);
-        Assert.IsNull(playerGameObject);
+        yield return new WaitForSeconds(1.5f);
+        Assert.IsTrue(playerGameObject == null);
     }
 
     [UnityTest]
@@ -182,5 +227,114 @@ public class PlayerTests
         player.currencyHeld = 10;
         player.RemoveCurrecny(20);
         Assert.AreEqual(0, player.currencyHeld);
+    }
+    //===================================================================================================================//
+    //===================================================================================================================//
+    // UNIT TEST PART END//SPYTEST PART BEGIN
+    //===================================================================================================================//
+    //===================================================================================================================//
+
+    [Test]
+    public void TakeDamage_CallsSetHealthOnHealthBar()
+    {
+        player.TakeDamage(10);
+
+        var spy = mockHealthBar as SpyHealthBar;
+
+        Assert.IsTrue(spy.SetHealthCalled, "SetHealth was not called.");
+        Assert.AreEqual(90, spy.LastHealthValue, "SetHealth was called with wrong value.");
+    }
+
+    [Test]
+    public void UseMana_CallsSetManaOnManaBar()
+    {
+        player.UseMana(25);
+
+        var spy = mockManaBar as SpyManaBar;
+
+        Assert.IsTrue(spy.SetManaCalled, "SetMana was not called.");
+        Assert.AreEqual(75, spy.LastManaValue, "SetMana was called with wrong value.");
+    }
+
+    [Test]
+    public void UseStamina_CallsSetStaminaOnStaminaBar()
+    {
+        player.UseStamina(40);
+
+        var spy = mockStaminaBar as SpyStaminaBar;
+
+        Assert.IsTrue(spy.SetStaminaCalled, "SetStamina was not called.");
+        Assert.AreEqual(60, spy.LastStaminaValue, "SetStamina was called with wrong value.");
+    }
+    [Test]
+    public void UseMana_BeyondAvailable_CallsSetManaWithZero()
+    {
+        player.currentMana = 10;
+        player.UseMana(50);
+
+        var spy = mockManaBar as SpyManaBar;
+
+        Assert.IsTrue(spy.SetManaCalled);
+        Assert.AreEqual(0, spy.LastManaValue);
+    }
+
+    [Test]
+    public void UseStamina_BeyondAvailable_CallsSetStaminaWithZero()
+    {
+        player.currentStamina = 10;
+        player.UseStamina(50);
+
+        var spy = mockStaminaBar as SpyStaminaBar;
+
+        Assert.IsTrue(spy.SetStaminaCalled);
+        Assert.AreEqual(0, spy.LastStaminaValue);
+    }
+
+    [Test]
+    public void UseHealth_BeyondAvailable_CallsSetHealthWithZero()
+    {
+        player.currentHealth = 5;
+        player.UseHealth(100);
+
+        var spy = mockHealthBar as SpyHealthBar;
+
+        Assert.IsTrue(spy.SetHealthCalled);
+        Assert.AreEqual(0, spy.LastHealthValue);
+    }
+
+    [Test]
+    public void UseHealth_NegativeAmount_CallsSetHealthWithIncreasedValue()
+    {
+        player.currentHealth = 50;
+        player.UseHealth(-30); // Heal for 30
+
+        var spy = mockHealthBar as SpyHealthBar;
+
+        Assert.IsTrue(spy.SetHealthCalled);
+        Assert.AreEqual(80, spy.LastHealthValue);
+    }
+
+    [Test]
+    public void UseMana_NegativeAmount_CallsSetManaWithIncreasedValue()
+    {
+        player.currentMana = 40;
+        player.UseMana(-20); // Simulate regen/heal
+
+        var spy = mockManaBar as SpyManaBar;
+
+        Assert.IsTrue(spy.SetManaCalled);
+        Assert.AreEqual(60, spy.LastManaValue);
+    }
+
+    [Test]
+    public void UseStamina_NegativeAmount_CallsSetStaminaWithIncreasedValue()
+    {
+        player.currentStamina = 70;
+        player.UseStamina(-20);
+
+        var spy = mockStaminaBar as SpyStaminaBar;
+
+        Assert.IsTrue(spy.SetStaminaCalled);
+        Assert.AreEqual(90, spy.LastStaminaValue);
     }
 }

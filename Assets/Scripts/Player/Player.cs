@@ -33,7 +33,7 @@ public class Player : MonoBehaviour
 
     }
 
-    public void TakeDamage(int amount)
+    public void TakeDamage(float amount)
     {
         if (isInvincible) return;
 
@@ -41,7 +41,7 @@ public class Player : MonoBehaviour
 
         healthBar.SetHealth(currentHealth);
         
-        if (currentHealth <= 0)
+        if (currentHealth < 1)
         {
             Die();
         }
@@ -49,7 +49,7 @@ public class Player : MonoBehaviour
         {
             StartInvincibility();
         }
-        DamageNumberController.instance.SpawnDamage(amount, transform.position, true);
+        //DamageNumberController.instance.SpawnDamage(amount, transform.position, true);
     }
     public void UseMana(float amount)
     {
