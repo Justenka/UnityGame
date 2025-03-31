@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 6135305365425720006}
   - component: {fileID: 1534254762742278452}
   - component: {fileID: -5780201929352805491}
+  - component: {fileID: -9112137079326044575}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -134,12 +135,14 @@ MonoBehaviour:
   maxHealthModifier: 1
   currentHealth: 0
   damageToPlayer: 10
+  knockbackForce: 1
   attackCooldown: 1.5
   invincibilityDuration: 0.5
   animator: {fileID: -5780201929352805491}
   experiencePickupPrefab: {fileID: 728426883571097644, guid: a6e49e22516c1b34c8d527a31b310f3a, type: 3}
   baseXPDrop: 10
   xpMultiplier: 0.1
+  isDead: 0
 --- !u!114 &6135305365425720006
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -223,3 +226,22 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &-9112137079326044575
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7531382611090056820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bee353f19fd316e4b923134ab00ad6fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickupPrefab: {fileID: 7906979942403835689, guid: 19ea26d0a4e19144aa9fd2046c899c88, type: 3}
+  dropTable:
+  - type: 0
+    minAmount: 1
+    maxAmount: 5
+    itemData: {fileID: 0}
+    dropChance: 1

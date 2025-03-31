@@ -27,9 +27,12 @@ public class Enemy : MonoBehaviour
 
     public bool isDead = false;
 
+    private EnemyDropItem dropItem;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        dropItem = GetComponent<EnemyDropItem>();
 
         if (maxHealthModifier != 0)
         {
@@ -145,15 +148,6 @@ public class Enemy : MonoBehaviour
 
         animator.SetTrigger("Die");
 
-        GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
-        if (playerObj != null)
-        {
-            Player player = playerObj.GetComponent<Player>();
-            if (player != null)
-            {
-                player.GetCurrency(5);
-            }
-        }
         GetComponent<SimpleEnemyAI>().enabled = false;
         GetComponent<Collider2D>().enabled = false;
 
@@ -163,6 +157,7 @@ public class Enemy : MonoBehaviour
     IEnumerator DestroyAfterDeath()
     {
         yield return new WaitForSeconds(0.4f);
+        dropItem.DropAll();
         Destroy(gameObject);
     }
 
