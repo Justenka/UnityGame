@@ -7,7 +7,7 @@ public class EnemyTests
 {
     private GameObject enemyObject;
     private Enemy enemy;
-    private 
+    
 
     [SetUp]
     public void SetUp()
