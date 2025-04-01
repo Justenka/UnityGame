@@ -13,6 +13,7 @@ public class Item : ScriptableObject
     public ItemType type;
     public ActionType actionType;
     public Vector2Int range = new Vector2Int(5, 4);
+    public int healAmount;
 
     [Header("Only UI")]
     public bool stackable = true;
@@ -25,7 +26,8 @@ public enum ItemType
 {
     Weapon,
     Tool,
-    Armor
+    Armor,
+    Consumable
 }
 public enum ActionType
 {
