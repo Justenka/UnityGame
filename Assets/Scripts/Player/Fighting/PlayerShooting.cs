@@ -26,24 +26,24 @@ public class PlayerShooting : MonoBehaviour
     }
     void Shoot()
     {
-        if(Projectile != null && firePoint != null && player.manaBar != null && player.currentMana >= manaCost) 
+        if (Projectile != null && firePoint != null && player.manaBar != null && player.stats[StatType.Mana].currentValue >= manaCost)
         {
             Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             mousePosition.z = 0f;
 
             Vector2 shootDirection = (mousePosition - firePoint.position).normalized;
-
             Vector3 adjustedFirePoint = firePoint.position + new Vector3(0.5f, 1f, 0);
 
             GameObject projectile = Instantiate(Projectile, adjustedFirePoint, Quaternion.identity);
             Rigidbody2D rigidbody = projectile.GetComponent<Rigidbody2D>();
 
-            if(rigidbody != null)
+            if (rigidbody != null)
             {
-
                 rigidbody.linearVelocity = shootDirection * projectileSpeed;
             }
+
             player.UseMana(manaCost);
         }
     }
+
 }

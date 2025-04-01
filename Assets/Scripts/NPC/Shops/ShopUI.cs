@@ -41,7 +41,7 @@ public class ShopUI : MonoBehaviour
     {
         if (player.currencyHeld >= item.price)
         {
-            player.RemoveCurrecny(item.price);
+            player.RemoveCurrency(item.price);
             AddItemToInventory(item);
             Debug.Log($"Bought {item.itemName} for {item.price}g.");
         }

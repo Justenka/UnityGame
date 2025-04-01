@@ -1,97 +1,78 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 public class PlayerMovement : MonoBehaviour
 {
     public Player player;
-    public float moveSpeed;
     public Rigidbody2D rigidBody;
+    public Animator animator;
+
     private Vector2 moveDirection;
     public bool running = false;
-    public float runCost;
 
     private bool canDash = true;
     private bool isDashing;
+
+    public float dashCost = 20f;
     public float dashingPower = 24f;
     public float dashingTime = 0.2f;
     public float dashingCooldown = 1f;
-    public float dashCost = 20f;
-
-    Rigidbody2D rb;
-    Animator animator;
 
     private void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
+        rigidBody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
     }
 
     void Update()
     {
-        if (player.currentStamina > 0)
+        if (player.stats[StatType.Stamina].currentValue > 0)
         {
-            if (Input.GetKeyDown("left shift"))
-            {
+            if (Input.GetKeyDown(KeyCode.LeftShift))
                 running = true;
-            }
-            else if (Input.GetKeyUp("left shift"))
-            {
+            else if (Input.GetKeyUp(KeyCode.LeftShift))
                 running = false;
-            }
         }
         else running = false;
 
         ProcessInput();
-        if (player.currentStamina >= 20)
+        if (player.stats[StatType.Stamina].currentValue >= dashCost)
         {
             if (Input.GetKeyDown(KeyCode.Space) && canDash)
             {
                 StartCoroutine(Dash());
             }
         }
+
         FlipCharacter();
     }
-    void FlipCharacter()
-    {
-        Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        if (mouseWorldPosition.x < transform.position.x)
-        {
-            transform.right = Vector3.right;
-        }
-        else
-        {
-            transform.right = Vector3.left;
-        }
-    }
     void FixedUpdate()
     {
         if (!isDashing)
-        {
             Move();
-        }
-        animator.SetFloat("xVelocity", System.Math.Abs(rb.linearVelocityX));
+
+        animator.SetFloat("xVelocity", Mathf.Abs(rigidBody.linearVelocity.x));
     }
 
     void ProcessInput()
     {
         float moveX = Input.GetAxisRaw("Horizontal");
         float moveY = Input.GetAxisRaw("Vertical");
-
         moveDirection = new Vector2(moveX, moveY).normalized;
     }
 
     void Move()
     {
+        float speed = player.stats[StatType.Speed].Total;
+        float moveMultiplier = running ? 2f : 1f;
+
+        rigidBody.linearVelocity = moveDirection * speed * moveMultiplier;
+
         if (running)
         {
-            rigidBody.linearVelocity = new Vector2(moveDirection.x * moveSpeed * 2, moveDirection.y * moveSpeed * 2);
-            player.UseStamina(runCost * Time.deltaTime);
-        }
-        else
-        {
-            rigidBody.linearVelocity = new Vector2(moveDirection.x * moveSpeed, moveDirection.y * moveSpeed);
+            float runCostPerSecond = 10f;
+            player.UseStamina(runCostPerSecond * Time.deltaTime);
         }
     }
 
@@ -99,14 +80,21 @@ public class PlayerMovement : MonoBehaviour
     {
         canDash = false;
         isDashing = true;
-        //float originalGravity = rigidBody.gravityScale;
-        //rigidBody.gravityScale = 0f;
+
         rigidBody.linearVelocity = moveDirection * dashingPower;
         player.UseStamina(dashCost);
+
         yield return new WaitForSeconds(dashingTime);
-        //rigidBody.gravityScale = originalGravity;
+
         isDashing = false;
         yield return new WaitForSeconds(dashingCooldown);
+
         canDash = true;
+    }
+
+    void FlipCharacter()
+    {
+        Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        transform.right = (mouseWorldPosition.x < transform.position.x) ? Vector3.right : Vector3.left;
     }
 }

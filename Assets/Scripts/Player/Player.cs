@@ -1,12 +1,9 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
-    public float maxHealth = 100, maxMana = 100, maxStamina = 100;
-    public float currentHealth, currentMana, currentStamina = 100;
     public HealthBar healthBar;
     public ManaBar manaBar;
     public StaminaBar staminaBar;
@@ -18,30 +15,58 @@ public class Player : MonoBehaviour
 
     public float currencyHeld;
 
-    public void Start()
+    public Dictionary<StatType, StatValue> stats = new();
+
+    public void Awake()
     {
-        currentHealth = maxHealth;
-        healthBar.SetMaxHealth(maxHealth);
-        currentMana = maxMana;
-        manaBar.SetMaxMana(maxMana);
-        currentStamina = maxStamina;
-        staminaBar.SetMaxStamina(maxStamina);
+        InitializeStats();
     }
 
-    void Update()
+    public void Start()
     {
+        SetInitialValues();
+    }
 
+    void InitializeStats()
+    {
+        stats[StatType.Health] = new StatValue { baseValue = 100 };
+        stats[StatType.Mana] = new StatValue { baseValue = 100 };
+        stats[StatType.Stamina] = new StatValue { baseValue = 100 };
+        stats[StatType.Attack] = new StatValue { baseValue = 10 };
+        stats[StatType.Defense] = new StatValue { baseValue = 5 };
+        stats[StatType.Speed] = new StatValue { baseValue = 5 };
+    }
+
+    void SetInitialValues()
+    {
+        float maxHealth = stats[StatType.Health].Total;
+        float maxMana = stats[StatType.Mana].Total;
+        float maxStamina = stats[StatType.Stamina].Total;
+
+        stats[StatType.Health].currentValue = maxHealth;
+        stats[StatType.Mana].currentValue = maxMana;
+        stats[StatType.Stamina].currentValue = maxStamina;
+
+        healthBar.SetMaxHealth(maxHealth);
+        healthBar.SetHealth(maxHealth);
+
+        manaBar.SetMaxMana(maxMana);
+        manaBar.SetMana(maxMana);
+
+        staminaBar.SetMaxStamina(maxStamina);
+        staminaBar.SetStamina(maxStamina);
     }
 
     public void TakeDamage(float amount)
     {
         if (isInvincible) return;
 
-        UseHealth(amount);
+        float defense = stats[StatType.Defense].Total;
+        float damageTaken = Mathf.Max(0, amount - defense);
 
-        healthBar.SetHealth(currentHealth);
-        
-        if (currentHealth < 1)
+        UseHealth(damageTaken);
+
+        if (stats[StatType.Health].currentValue < 1)
         {
             Die();
         }
@@ -49,94 +74,101 @@ public class Player : MonoBehaviour
         {
             StartInvincibility();
         }
-        //DamageNumberController.instance.SpawnDamage(amount, transform.position, true);
     }
+
     public void UseMana(float amount)
     {
-        currentMana -= amount;
-        if (currentMana < 0) currentMana = 0;
-        manaBar.SetMana(currentMana);
+        StatValue mana = stats[StatType.Mana];
+        mana.currentValue -= amount;
+        if (mana.currentValue < 0) mana.currentValue = 0;
+        manaBar.SetMana(mana.currentValue);
+
         if (rechargeMana != null) StopCoroutine(rechargeMana);
         rechargeMana = StartCoroutine(RegenerateMana());
     }
+
     private IEnumerator RegenerateMana()
     {
         yield return new WaitForSeconds(1f);
-        float manaRegenRate = maxMana / 10;
-        while (currentMana < maxMana)
+        float regenRate = stats[StatType.Mana].Total / 10;
+        while (stats[StatType.Mana].currentValue < stats[StatType.Mana].Total)
         {
-            currentMana += manaRegenRate / 10f;
-            manaBar.SetMana(currentMana);
-            if (currentMana > maxMana) currentMana = maxMana;
-            yield return new WaitForSeconds(.1f);
-
+            stats[StatType.Mana].currentValue += regenRate / 10f;
+            manaBar.SetMana(stats[StatType.Mana].currentValue);
+            yield return new WaitForSeconds(0.1f);
         }
     }
+
     public void UseStamina(float amount)
     {
-        currentStamina -= amount;
-        if (currentStamina < 0) currentStamina = 0;
-        staminaBar.SetStamina(currentStamina);
+        StatValue stam = stats[StatType.Stamina];
+        stam.currentValue -= amount;
+        if (stam.currentValue < 0) stam.currentValue = 0;
+        staminaBar.SetStamina(stam.currentValue);
+
         if (rechargeStam != null) StopCoroutine(rechargeStam);
         rechargeStam = StartCoroutine(RechargeStamina());
     }
+
     private IEnumerator RechargeStamina()
     {
         yield return new WaitForSeconds(1f);
-        float ChargeRate = maxStamina / 10;
-        while (currentStamina < maxStamina)
+        float regenRate = stats[StatType.Stamina].Total / 10;
+        while (stats[StatType.Stamina].currentValue < stats[StatType.Stamina].Total)
         {
-            currentStamina += ChargeRate / 10f;
-            staminaBar.SetStamina(currentStamina);
-            if (currentStamina > maxStamina) currentStamina = maxStamina;
-            yield return new WaitForSeconds(.1f);
-
+            stats[StatType.Stamina].currentValue += regenRate / 10f;
+            staminaBar.SetStamina(stats[StatType.Stamina].currentValue);
+            yield return new WaitForSeconds(0.1f);
         }
     }
+
     public void UseHealth(float amount)
     {
-        currentHealth -= amount;
-        if (currentHealth < 0) currentHealth = 0;
-        healthBar.SetHealth(currentHealth);
+        StatValue hp = stats[StatType.Health];
+        hp.currentValue -= amount;
+        if (hp.currentValue < 0) hp.currentValue = 0;
+        healthBar.SetHealth(hp.currentValue);
+
         if (rechargeHealth != null) StopCoroutine(rechargeHealth);
         rechargeHealth = StartCoroutine(RechargeHealth());
     }
+
     private IEnumerator RechargeHealth()
     {
         yield return new WaitForSeconds(1f);
-        float ChargeRate = maxHealth / 10;
-        while (currentHealth < maxHealth)
+        float regenRate = stats[StatType.Health].Total / 10;
+        while (stats[StatType.Health].currentValue < stats[StatType.Health].Total)
         {
-            currentHealth += ChargeRate / 10f;
-            healthBar.SetHealth(currentHealth);
-            if (currentHealth > maxHealth) currentHealth = maxHealth;
-            yield return new WaitForSeconds(.1f);
-
+            stats[StatType.Health].currentValue += regenRate / 10f;
+            healthBar.SetHealth(stats[StatType.Health].currentValue);
+            yield return new WaitForSeconds(0.1f);
         }
     }
+
     void StartInvincibility()
     {
         isInvincible = true;
         Invoke("EndInvincibility", invincibilityDuration);
     }
+
     void EndInvincibility()
     {
         isInvincible = false;
     }
+
     void Die()
     {
         Destroy(gameObject);
     }
-    public void GetCurrency (float amount)
+
+    public void GetCurrency(float amount)
     {
         currencyHeld += amount;
     }
-    public void RemoveCurrecny (float amount)
+
+    public void RemoveCurrency(float amount)
     {
-        if (currencyHeld != 0)
-        {
-            currencyHeld -= amount;
-            if (currencyHeld < 0) currencyHeld = 0;
-        }
+        currencyHeld -= amount;
+        if (currencyHeld < 0) currencyHeld = 0;
     }
 }
