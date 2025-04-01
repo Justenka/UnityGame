@@ -86,7 +86,7 @@ public class Enemy : MonoBehaviour
             ApplyKnockback(attackerPosition, knockbackForce);
             StartInvincibility();
         }
-        DamageNumberController.instance.SpawnDamage(damage, transform.position, false);
+    //    DamageNumberController.instance.SpawnDamage(damage, transform.position, false);
     }
     void ApplyKnockback(Vector2 attackerPosition, float knockbackForce)
     {
