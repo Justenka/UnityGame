@@ -16,8 +16,9 @@ MonoBehaviour:
   description: 
   price: 20
   tile: {fileID: 0}
-  type: 1
+  type: 3
   actionType: 2
   range: {x: 5, y: 4}
+  healAmount: 50
   stackable: 1
   image: {fileID: -2132131600891923224, guid: 706aaffffaca5534881bcfdf3589877c, type: 3}

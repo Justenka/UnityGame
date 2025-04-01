@@ -21,27 +21,35 @@ public class InventoryManager : MonoBehaviour
     }
     public bool AddItem(Item item)
     {
-        for (int i = 0; i < inventorySlots.Length; i++) // checking if there are any slots that have the current item that is not max count
+        // First, check if we already have this item in the inventory and if it is stackable
+        for (int i = 0; i < inventorySlots.Length; i++)
         {
             InventorySlot slot = inventorySlots[i];
             InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
+
             if (itemInSlot != null && itemInSlot.item == item && itemInSlot.count < maxStackedItems)
             {
                 itemInSlot.count++;
-                itemInSlot.RefreshCount();
+                itemInSlot.RefreshCount(); // Update UI count
                 return true;
             }
         }
-        for (int i = 0; i < inventorySlots.Length; i++)// checking for any empty slot
+
+        // Then, check for any empty slot
+        for (int i = 0; i < inventorySlots.Length; i++)
         {
             InventorySlot slot = inventorySlots[i];
             InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
+
             if (itemInSlot == null)
             {
                 SpawnNewItem(item, slot);
                 return true;
             }
         }
+
+        // If no free slot or room to stack, return false
+        Debug.LogWarning("Inventory is full, item could not be added.");
         return false;
     }
     void SpawnNewItem(Item item, InventorySlot slot)

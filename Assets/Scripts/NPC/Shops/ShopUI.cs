@@ -7,6 +7,7 @@ public class ShopUI : MonoBehaviour
     public ShopItemSlot[] shopSlots; // Fixed 3 slots
     public Item[] itemsForSale; // Drag in 3 items in Inspector
     public GameObject inventoryItemPrefab;
+    public InventoryManager inventoryManager;
 
     private void OnEnable()
     {
@@ -51,36 +52,53 @@ public class ShopUI : MonoBehaviour
         }
     }
 
+    //private void AddItemToInventory(Item item)
+    //{
+    //    if (inventoryItemPrefab == null)
+    //    {
+    //        Debug.LogError("inventoryItemPrefab is NOT assigned!");
+    //        return;
+    //    }
+
+    //    GameObject itemObject = Instantiate(inventoryItemPrefab);
+    //    InventoryItem invItem = itemObject.GetComponent<InventoryItem>();
+    //    if (invItem == null)
+    //    {
+    //        Debug.LogError("InventoryItem component missing on prefab!");
+    //        Destroy(itemObject);
+    //        return;
+    //    }
+
+    //    invItem.InitialiseItem(item);
+
+    //    foreach (var slot in Object.FindObjectsByType<InventorySlot>(FindObjectsSortMode.None))
+    //    {
+    //        if (slot.transform.childCount == 0)
+    //        {
+    //            itemObject.transform.SetParent(slot.transform, false);
+    //            return;
+    //        }
+    //    }
+
+    //    Destroy(itemObject); // No free slot
+    //    Debug.LogWarning("Inventory is full!");
+    //}
     private void AddItemToInventory(Item item)
     {
-        if (inventoryItemPrefab == null)
+        if (inventoryManager == null)
         {
-            Debug.LogError("inventoryItemPrefab is NOT assigned!");
+            Debug.LogError("InventoryManager is not assigned!");
             return;
         }
 
-        GameObject itemObject = Instantiate(inventoryItemPrefab);
-        InventoryItem invItem = itemObject.GetComponent<InventoryItem>();
-        if (invItem == null)
+        // Try to add the item using the InventoryManager
+        if (inventoryManager.AddItem(item))
         {
-            Debug.LogError("InventoryItem component missing on prefab!");
-            Destroy(itemObject);
-            return;
+            Debug.Log($"Item {item.itemName} added to inventory.");
         }
-
-        invItem.InitialiseItem(item);
-
-        foreach (var slot in Object.FindObjectsByType<InventorySlot>(FindObjectsSortMode.None))
+        else
         {
-            if (slot.transform.childCount == 0)
-            {
-                itemObject.transform.SetParent(slot.transform, false);
-                return;
-            }
+            Debug.LogWarning("Inventory is full, could not add item.");
         }
-
-        Destroy(itemObject); // No free slot
-        Debug.LogWarning("Inventory is full!");
     }
-
 }
