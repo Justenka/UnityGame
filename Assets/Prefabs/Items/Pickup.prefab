@@ -170,4 +170,4 @@ MonoBehaviour:
   itemData: {fileID: 0}
   goldSprite: {fileID: -2318934116623252977, guid: be203c3e19d02634b84f41069ec71890, type: 3}
   potionSprite: {fileID: -2132131600891923224, guid: 706aaffffaca5534881bcfdf3589877c, type: 3}
-  defaultSprite: {fileID: 0}
+  defaultSprite: {fileID: -8403564350996133833, guid: c40bc45bd1302d44bac67fa3a193ac60, type: 3}

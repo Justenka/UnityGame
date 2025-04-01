@@ -8,7 +8,6 @@ public class PickupItem : MonoBehaviour
 
     [Header("Visuals")]
     public Sprite goldSprite;
-    public Sprite potionSprite;
     public Sprite defaultSprite;
 
     private void Start()
@@ -20,9 +19,6 @@ public class PickupItem : MonoBehaviour
     {
         case PickupType.Currency:
             sr.sprite = goldSprite;
-            break;
-        case PickupType.Potion:
-            sr.sprite = potionSprite;
             break;
         //case PickupType.Item:
         //    if (itemData is ItemSO item)
