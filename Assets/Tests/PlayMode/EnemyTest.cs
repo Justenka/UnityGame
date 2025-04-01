@@ -2,25 +2,27 @@ using System.Collections;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
+using UnityEngine.UI;
 
 public class EnemyTests
 {
     private GameObject enemyObject;
     private Enemy enemy;
-    
+
 
     [SetUp]
     public void SetUp()
     {
         enemyObject = new GameObject("Enemy");
         enemy = enemyObject.AddComponent<Enemy>();
-
-        
         enemy.rb = enemyObject.AddComponent<Rigidbody2D>();
         enemy.animator = enemyObject.AddComponent<Animator>();
+        enemyObject.AddComponent<SimpleEnemyAI>();
+        enemyObject.AddComponent<CapsuleCollider2D>();
         DamageNumberController.instance = null;
-
         enemy.currentHealth = 100;
+
+        enemy.Start();
     }
 
     [TearDown]
@@ -69,6 +71,6 @@ public class EnemyTests
     {
         enemy.currentHealth = 100;
         enemy.TakeDamage(10, Vector2.left, 5f, true);
-        Assert.IsTrue(enemy.isKnockedBack, "Enemy should be in knocked back state.");
+        Assert.AreNotEqual(Vector2.zero, enemy.rb.linearVelocity);
     }
 }
