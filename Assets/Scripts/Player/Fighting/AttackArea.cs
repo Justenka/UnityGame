@@ -1,18 +1,28 @@
-using UnityEditor.AssetImporters;
 using UnityEngine;
 
 public class AttackArea : MonoBehaviour
 {
-    private int damage = 50;
-    private float knockBack = 5f;
-    private bool doesKnockBack = true;
+    private Player player;
+
+    private void Awake()
+    {
+        player = GetComponentInParent<Player>();
+    }
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
         if (collider.GetComponent<Enemy>() != null)
         {
             Enemy enemy = collider.GetComponent<Enemy>();
-            enemy.TakeDamage(damage, transform.position, knockBack, doesKnockBack);
+
+            WeaponItem weapon = player.GetComponent<EquipmentManager>().equippedWeapon;
+
+            if (weapon != null)
+            {
+                float knockBack = 5f; // You can also store this in WeaponItem
+                bool doesKnockBack = true;
+                enemy.TakeDamage(weapon.damage, transform.position, knockBack, doesKnockBack);
+            }
         }
     }
 }

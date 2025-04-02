@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -7,11 +7,17 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     [Header("UI")]
     public Image image;
     public Text countText;
-
-    [HideInInspector] public Item item;
+    public Item item;
     [HideInInspector] public int count = 10;
     [HideInInspector] public Transform parentAfterDrag;
 
+    void Start()
+    {
+        if (item != null)
+        {
+            InitialiseItem(item);
+        }
+    }
     public void InitialiseItem(Item newItem)
     {
         item = newItem;
@@ -31,14 +37,38 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         image.raycastTarget = false;
         parentAfterDrag = transform.parent;
         transform.SetParent(transform.root);
+
+        // Detect if dragging from an EquipmentSlot unequip
+        EquipmentSlot equipmentSlot = parentAfterDrag.GetComponent<EquipmentSlot>();
+        if (equipmentSlot != null && equipmentSlot.equipmentManager != null)
+        {
+            equipmentSlot.equipmentManager.Unequip(item);
+            Debug.Log(" Unequipped: " + item.itemName);
+        }
     }
+
     public void OnDrag(PointerEventData eventData)
     {
         transform.position = Input.mousePosition;
     }
+
     public void OnEndDrag(PointerEventData eventData)
     {
         image.raycastTarget = true;
         transform.SetParent(parentAfterDrag);
+        transform.localPosition = Vector3.zero;
+
+        Debug.Log("OnEndDrag: parentAfterDrag is " + parentAfterDrag.name);
+        EquipmentSlot equipmentSlot = parentAfterDrag.GetComponent<EquipmentSlot>();
+        if (equipmentSlot != null && equipmentSlot.equipmentManager != null)
+        {
+            Debug.Log(" Equipping item via OnEndDrag: " + item.itemName);
+            equipmentSlot.equipmentManager.Equip(item);
+        }
+        else
+        {
+            Debug.Log("OnEndDrag: Not dropped on an EquipmentSlot");
+        }
     }
+
 }

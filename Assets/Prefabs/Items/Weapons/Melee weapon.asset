@@ -9,15 +9,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a8db13e6bc4fa754d90fc9a823117ecc, type: 3}
-  m_Name: Coin
+  m_Script: {fileID: 11500000, guid: 718240cdfb2675e41805198cf26310f8, type: 3}
+  m_Name: Melee weapon
   m_EditorClassIdentifier: 
-  itemName: Coin
+  itemName: Sword
   description: 
+  image: {fileID: 7374356430820761151, guid: 03bcfc5733246404aa563748906abf19, type: 3}
   price: 0
-  tile: {fileID: 0}
-  type: 0
+  stackable: 0
+  type: 1
+  damage: 50
+  attackSpeed: 2
   actionType: 0
-  range: {x: 5, y: 4}
-  stackable: 1
-  image: {fileID: -2318934116623252977, guid: be203c3e19d02634b84f41069ec71890, type: 3}
+  projectilePrefab: {fileID: 0}
+  manaCost: 0

@@ -16,7 +16,7 @@ public class InventoryManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.H))
         {
-            UseHealingPotion();
+            //UseHealingPotion();
         }
     }
     public bool AddItem(Item item)
@@ -58,24 +58,24 @@ public class InventoryManager : MonoBehaviour
         InventoryItem inventoryItem = newItemGo.GetComponent<InventoryItem>();
         inventoryItem.InitialiseItem(item);
     }
-    public void UseHealingPotion()
-    {
-        for (int i = 0; i < inventorySlots.Length; i++)
-        {
-            InventorySlot slot = inventorySlots[i];
-            InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
+    //public void UseHealingPotion()
+    //{
+    //    for (int i = 0; i < inventorySlots.Length; i++)
+    //    {
+    //        InventorySlot slot = inventorySlots[i];
+    //        InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
 
-            if (itemInSlot != null && itemInSlot.item.type == ItemType.Consumable && itemInSlot.item.actionType == ActionType.Consumable)
-            {
-                player.UseHealth(-itemInSlot.item.healAmount); // Healing by negating damage
-                RemoveItem(itemInSlot);
-                Debug.Log($"Used {itemInSlot.item.itemName}, restored {itemInSlot.item.healAmount} HP.");
-                return;
-            }
-        }
+    //        if (itemInSlot != null && itemInSlot.item.type == ItemType.Consumable && itemInSlot.item.actionType == ActionType.Consumable)
+    //        {
+    //            player.UseHealth(-itemInSlot.item.healAmount); // Healing by negating damage
+    //            RemoveItem(itemInSlot);
+    //            Debug.Log($"Used {itemInSlot.item.itemName}, restored {itemInSlot.item.healAmount} HP.");
+    //            return;
+    //        }
+    //    }
 
-        Debug.Log("No healing potions available!");
-    }
+    //    Debug.Log("No healing potions available!");
+    //}
 
     void RemoveItem(InventoryItem itemInSlot)
     {

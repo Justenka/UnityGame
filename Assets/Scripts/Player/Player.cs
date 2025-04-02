@@ -37,6 +37,15 @@ public class Player : MonoBehaviour
         }
         SetInitialValues();
     }
+    void Update()
+    {
+        if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
+        {
+            GetComponent<EquipmentManager>().UseWeapon(gameObject);
+        }
+
+        // Rest of your update logic...
+    }
     void LateUpdate()
     {
         userName.transform.rotation = Quaternion.identity;

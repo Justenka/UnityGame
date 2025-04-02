@@ -1,49 +1,28 @@
-using System.Collections;
 using UnityEngine;
 
 public class PlayerShooting : MonoBehaviour
 {
-    public GameObject Projectile;
-    private Transform firePoint;
-    public float projectileSpeed = 10f;
     public Player player;
-    public float manaCost = 10;
-    private Coroutine recharge;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public void DoShoot(WeaponItem weapon)
     {
-        firePoint = GameObject.FindGameObjectWithTag("Player").transform;
-    }
+        if (weapon.projectilePrefab == null || player.stats[StatType.Mana].currentValue < weapon.manaCost)
+            return;
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetMouseButtonDown(1))
+        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mousePosition.z = 0f;
+
+        Vector2 shootDirection = (mousePosition - transform.position).normalized;
+        Vector3 adjustedFirePoint = transform.position + new Vector3(0.5f, 1f, 0);
+
+        GameObject projectile = Instantiate(weapon.projectilePrefab, adjustedFirePoint, Quaternion.identity);
+        Rigidbody2D rigidbody = projectile.GetComponent<Rigidbody2D>();
+
+        if (rigidbody != null)
         {
-            Shoot();
+            rigidbody.linearVelocity = shootDirection * weapon.attackSpeed;
         }
+
+        player.UseMana(weapon.manaCost);
     }
-    void Shoot()
-    {
-        if (Projectile != null && firePoint != null && player.manaBar != null && player.stats[StatType.Mana].currentValue >= manaCost)
-        {
-            Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            mousePosition.z = 0f;
-
-            Vector2 shootDirection = (mousePosition - firePoint.position).normalized;
-            Vector3 adjustedFirePoint = firePoint.position + new Vector3(0.5f, 1f, 0);
-
-            GameObject projectile = Instantiate(Projectile, adjustedFirePoint, Quaternion.identity);
-            Rigidbody2D rigidbody = projectile.GetComponent<Rigidbody2D>();
-
-            if (rigidbody != null)
-            {
-                rigidbody.linearVelocity = shootDirection * projectileSpeed;
-            }
-
-            player.UseMana(manaCost);
-        }
-    }
-
 }

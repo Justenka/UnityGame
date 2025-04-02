@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 718240cdfb2675e41805198cf26310f8, type: 3}
+  m_Name: Magic weapon
+  m_EditorClassIdentifier: 
+  itemName: Staff
+  description: 
+  image: {fileID: -6364941832325559699, guid: c63c6652c4aa67e47bd1bdbcedad8126, type: 3}
+  price: 0
+  stackable: 0
+  type: 1
+  damage: 50
+  attackSpeed: 2
+  actionType: 1
+  projectilePrefab: {fileID: 268461493443850436, guid: b37d4ce32a4372d4e8d6d32bad9d07f1, type: 3}
+  manaCost: 5
