@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -16,7 +18,8 @@ public class Player : MonoBehaviour
     public float currencyHeld;
 
     public Dictionary<StatType, StatValue> stats = new();
-
+    public string Name;
+    public TMP_Text userName;
     public void Awake()
     {
         InitializeStats();
@@ -24,9 +27,20 @@ public class Player : MonoBehaviour
 
     public void Start()
     {
+        if (PlayerPrefs.HasKey("PlayerUsername"))
+        {
+            Name = PlayerPrefs.GetString("PlayerUsername");
+            if(Name != "")
+            {
+                userName.text = Name;
+            }
+        }
         SetInitialValues();
     }
-
+    void LateUpdate()
+    {
+        userName.transform.rotation = Quaternion.identity;
+    }
     void InitializeStats()
     {
         stats[StatType.Health] = new StatValue { baseValue = 100 };
