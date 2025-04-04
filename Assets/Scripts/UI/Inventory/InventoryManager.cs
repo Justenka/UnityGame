@@ -6,6 +6,7 @@ public class InventoryManager : MonoBehaviour
     public int maxStackedItems = 10;
     public InventorySlot[] inventorySlots;
     public GameObject inventoryItemPrefab;
+    public ConsumableType consumableType;
     public Player player;
 
     public void Start()
@@ -16,7 +17,7 @@ public class InventoryManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.H))
         {
-            //UseHealingPotion();
+            UseHealthPotion();
         }
     }
     public bool AddItem(Item item)
@@ -58,24 +59,22 @@ public class InventoryManager : MonoBehaviour
         InventoryItem inventoryItem = newItemGo.GetComponent<InventoryItem>();
         inventoryItem.InitialiseItem(item);
     }
-    //public void UseHealingPotion()
-    //{
-    //    for (int i = 0; i < inventorySlots.Length; i++)
-    //    {
-    //        InventorySlot slot = inventorySlots[i];
-    //        InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
+    public void UseHealthPotion()
+    {
+        foreach (var slot in inventorySlots)
+        {
+            InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
+            if (itemInSlot != null && itemInSlot.item is ConsumableItem consumable &&
+                consumable.consumableType == ConsumableType.Health)
+            {
+                consumable.Use(player.gameObject);
+                RemoveItem(itemInSlot);
+                return;
+            }
+        }
 
-    //        if (itemInSlot != null && itemInSlot.item.type == ItemType.Consumable && itemInSlot.item.actionType == ActionType.Consumable)
-    //        {
-    //            player.UseHealth(-itemInSlot.item.healAmount); // Healing by negating damage
-    //            RemoveItem(itemInSlot);
-    //            Debug.Log($"Used {itemInSlot.item.itemName}, restored {itemInSlot.item.healAmount} HP.");
-    //            return;
-    //        }
-    //    }
-
-    //    Debug.Log("No healing potions available!");
-    //}
+        Debug.Log("No health potions available!");
+    }
 
     void RemoveItem(InventoryItem itemInSlot)
     {

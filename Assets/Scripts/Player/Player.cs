@@ -149,7 +149,13 @@ public class Player : MonoBehaviour
     {
         StatValue hp = stats[StatType.Health];
         hp.currentValue -= amount;
-        if (hp.currentValue < 0) hp.currentValue = 0;
+
+        if (hp.currentValue > hp.Total)
+            hp.currentValue = hp.Total;
+
+        if (hp.currentValue < 0)
+            hp.currentValue = 0;
+
         healthBar.SetHealth(hp.currentValue);
 
         if (rechargeHealth != null) StopCoroutine(rechargeHealth);
