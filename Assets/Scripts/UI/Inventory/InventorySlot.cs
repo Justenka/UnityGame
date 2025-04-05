@@ -8,29 +8,26 @@ public class InventorySlot : MonoBehaviour, IDropHandler
     public virtual void OnDrop(PointerEventData eventData)
     {
         Debug.Log("OnDrop called on " + gameObject.name);
-        if (transform.childCount == 0)
+
+        InventoryItem inventoryItem = eventData.pointerDrag.GetComponent<InventoryItem>();
+
+        if (inventoryItem != null &&
+            (acceptedType == ItemType.All || inventoryItem.item.type == acceptedType))
         {
-            InventoryItem inventoryItem = eventData.pointerDrag.GetComponent<InventoryItem>();
+            // Find ItemContainer if it exists
+            Transform container = transform.Find("ItemContainer");
+            Transform targetParent = container != null ? container : transform;
 
-            if (inventoryItem != null &&
-                (acceptedType == ItemType.All || inventoryItem.item.type == acceptedType))
-            {
-                Debug.Log("Item " + inventoryItem.item.itemName + " accepted by " + gameObject.name);
-                // Set new parent
-                inventoryItem.parentAfterDrag = transform;
+            inventoryItem.parentAfterDrag = targetParent;
 
-                // Reparent the item
-                inventoryItem.transform.SetParent(transform);
-                inventoryItem.transform.localPosition = Vector3.zero;
-            }
-            else
-            {
-                Debug.Log("Item not accepted by " + gameObject.name);
-            }
+            inventoryItem.transform.SetParent(targetParent);
+            inventoryItem.transform.localPosition = Vector3.zero;
+
+            Debug.Log("Item " + inventoryItem.item.itemName + " accepted by " + targetParent.name);
         }
         else
         {
-            Debug.Log("Slot " + gameObject.name + " already has a child.");
+            Debug.Log("Item not accepted by " + gameObject.name);
         }
     }
 }

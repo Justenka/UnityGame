@@ -18,6 +18,7 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
             InitialiseItem(item);
         }
     }
+
     public void InitialiseItem(Item newItem)
     {
         item = newItem;
@@ -70,5 +71,4 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
             Debug.Log("OnEndDrag: Not dropped on an EquipmentSlot");
         }
     }
-
 }

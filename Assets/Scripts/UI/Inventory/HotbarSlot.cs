@@ -5,37 +5,46 @@ using UnityEngine.UI;
 public class HotbarSlot : InventorySlot
 {
     public KeyCode useKey = KeyCode.Alpha1;
-
-    private float currentCooldown = 0f;
-    private float maxCooldown = 0f;
-
     private InventoryItem hotbarItem;
 
     public Image cooldownOverlay;
 
+    private float currentCooldown = 0f;
+    private float maxCooldown = 0f;
+    private bool isOnCooldown = false;
+
+    void Start()
+    {
+        if (cooldownOverlay != null)
+            cooldownOverlay.gameObject.SetActive(false);
+    }
     void Update()
     {
-        // Check if we have a valid item in this hotbar slot
-        if (transform.childCount == 1)
+        hotbarItem = GetComponentInChildren<InventoryItem>();
+
+        if (hotbarItem != null && hotbarItem.item is ConsumableItem)
         {
-            if (hotbarItem == null)
-                hotbarItem = transform.GetChild(0).GetComponent<InventoryItem>();
-
-            if (currentCooldown > 0)
-            {
-                currentCooldown -= Time.deltaTime;
-                if (cooldownOverlay != null)
-                    cooldownOverlay.fillAmount = currentCooldown / maxCooldown;
-            }
-            else
-            {
-                if (cooldownOverlay != null)
-                    cooldownOverlay.fillAmount = 0f;
-            }
-
-            if (Input.GetKeyDown(useKey) && currentCooldown <= 0)
+            if (!isOnCooldown && Input.GetKeyDown(useKey))
             {
                 UseHotbarItem();
+            }
+        }
+
+        if (isOnCooldown)
+        {
+            currentCooldown -= Time.deltaTime;
+
+            if (cooldownOverlay != null)
+            {
+                cooldownOverlay.gameObject.SetActive(true);
+                cooldownOverlay.fillAmount = currentCooldown / maxCooldown;
+            }
+
+            if (currentCooldown <= 0f)
+            {
+                isOnCooldown = false;
+                if (cooldownOverlay != null)
+                    cooldownOverlay.gameObject.SetActive(false);
             }
         }
     }
@@ -45,7 +54,14 @@ public class HotbarSlot : InventorySlot
         if (hotbarItem == null || hotbarItem.item == null)
             return;
 
-        hotbarItem.item.Use(GameObject.FindGameObjectWithTag("Player"));
+        if (!(hotbarItem.item is ConsumableItem consumable))
+        {
+            Debug.LogWarning("Only consumable items can be used from the hotbar.");
+            return;
+        }
+
+        consumable.Use(GameObject.FindGameObjectWithTag("Player"));
+
         hotbarItem.count--;
         hotbarItem.RefreshCount();
 
@@ -53,24 +69,23 @@ public class HotbarSlot : InventorySlot
         {
             Destroy(hotbarItem.gameObject);
             hotbarItem = null;
-            return; // skip cooldown
+            return;
         }
 
-        // Set cooldown from item
-        if (hotbarItem.item is ConsumableItem consumable)
+        // Start cooldown here in HotbarSlot, not on InventoryItem
+        maxCooldown = currentCooldown = consumable.cooldown;
+        isOnCooldown = true;
+
+        if (cooldownOverlay != null)
         {
-            maxCooldown = currentCooldown = consumable.cooldown;
+            cooldownOverlay.gameObject.SetActive(true);
+            cooldownOverlay.fillAmount = 1f;
         }
     }
 
     public override void OnDrop(PointerEventData eventData)
     {
         base.OnDrop(eventData);
-
-        // Refresh reference after drop
-        if (transform.childCount == 1)
-        {
-            hotbarItem = transform.GetChild(0).GetComponent<InventoryItem>();
-        }
+        hotbarItem = GetComponentInChildren<InventoryItem>();
     }
 }
