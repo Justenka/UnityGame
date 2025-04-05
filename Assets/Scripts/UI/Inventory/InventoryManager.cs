@@ -15,10 +15,10 @@ public class InventoryManager : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            UseHealthPotion();
-        }
+        //if (Input.GetKeyDown(KeyCode.H))
+        //{
+        //    UseHealthPotion();
+        //}
     }
     public bool AddItem(Item item)
     {
@@ -59,33 +59,33 @@ public class InventoryManager : MonoBehaviour
         InventoryItem inventoryItem = newItemGo.GetComponent<InventoryItem>();
         inventoryItem.InitialiseItem(item);
     }
-    public void UseHealthPotion()
-    {
-        foreach (var slot in inventorySlots)
-        {
-            InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
-            if (itemInSlot != null && itemInSlot.item is ConsumableItem consumable &&
-                consumable.consumableType == ConsumableType.Health)
-            {
-                consumable.Use(player.gameObject);
-                RemoveItem(itemInSlot);
-                return;
-            }
-        }
+    //public void UseHealthPotion()
+    //{
+    //    foreach (var slot in inventorySlots)
+    //    {
+    //        InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
+    //        if (itemInSlot != null && itemInSlot.item is ConsumableItem consumable &&
+    //            consumable.consumableType == ConsumableType.Health)
+    //        {
+    //            consumable.Use(player.gameObject);
+    //            RemoveItem(itemInSlot);
+    //            return;
+    //        }
+    //    }
 
-        Debug.Log("No health potions available!");
-    }
+    //    Debug.Log("No health potions available!");
+    //}
 
-    void RemoveItem(InventoryItem itemInSlot)
-    {
-        itemInSlot.count--;
-        if (itemInSlot.count <= 0)
-        {
-            Destroy(itemInSlot.gameObject);
-        }
-        else
-        {
-            itemInSlot.RefreshCount();
-        }
-    }
+    //void RemoveItem(InventoryItem itemInSlot)
+    //{
+    //    itemInSlot.count--;
+    //    if (itemInSlot.count <= 0)
+    //    {
+    //        Destroy(itemInSlot.gameObject);
+    //    }
+    //    else
+    //    {
+    //        itemInSlot.RefreshCount();
+    //    }
+    //}
 }

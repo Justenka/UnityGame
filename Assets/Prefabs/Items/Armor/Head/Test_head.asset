@@ -9,16 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c03e765e292af954ca66ca5e8e34e83f, type: 3}
-  m_Name: Mana potion
+  m_Script: {fileID: 11500000, guid: a0cc4f371ca642d4cb8a4762cb0ef8d6, type: 3}
+  m_Name: Test_head
   m_EditorClassIdentifier: 
-  itemName: Mana potion
+  itemName: 
   description: 
-  image: {fileID: -2744610230239163728, guid: 1d8be38fe515bf74ea8eb17a9d237f91, type: 3}
-  price: 10
-  stackable: 1
-  type: 3
+  image: {fileID: 0}
+  price: 0
+  stackable: 0
+  type: 0
   statModifiers: []
-  consumableType: 2
-  restoreAmount: 50
-  cooldown: 5
+  armorType: 0

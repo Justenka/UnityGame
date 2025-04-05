@@ -15,7 +15,7 @@ public class ConsumableItem : Item
         switch (consumableType)
         {
             case ConsumableType.Health:
-                player.RestoreHealth(-restoreAmount); 
+                player.RestoreHealth(restoreAmount); 
                 break;
 
             case ConsumableType.Stamina:

@@ -17,8 +17,8 @@ MonoBehaviour:
   image: {fileID: -1871516223859242191, guid: 601f2a18d0c0bc345bf5f2df8e7d3fa3, type: 3}
   price: 10
   stackable: 1
-  type: 4
+  type: 3
   statModifiers: []
   consumableType: 0
-  restoreAmount: 0
+  restoreAmount: 30
   cooldown: 5

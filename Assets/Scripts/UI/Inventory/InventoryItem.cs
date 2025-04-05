@@ -5,14 +5,15 @@ using UnityEngine.UI;
 public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     [Header("UI")]
-    public Image image;
+    private Image image;
     public Text countText;
     public Item item;
-    [HideInInspector] public int count = 10;
+    public int count;
     [HideInInspector] public Transform parentAfterDrag;
 
     void Start()
     {
+        image = GetComponent<Image>();
         if (item != null)
         {
             InitialiseItem(item);
@@ -22,6 +23,9 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     public void InitialiseItem(Item newItem)
     {
         item = newItem;
+        if (image == null)
+            image = GetComponent<Image>();
+
         image.sprite = newItem.image;
         RefreshCount();
     }
