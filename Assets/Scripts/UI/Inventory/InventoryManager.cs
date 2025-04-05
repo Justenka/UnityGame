@@ -9,9 +9,13 @@ public class InventoryManager : MonoBehaviour
     public ConsumableType consumableType;
     public Player player;
 
-    public void Start()
+    void Start()
     {
-
+        if (inventorySlots == null || inventorySlots.Length == 0)
+        {
+            inventorySlots = GetComponentsInChildren<InventorySlot>();
+            Debug.Log("Auto-filled inventory slots: " + inventorySlots.Length);
+        }
     }
     void Update()
     {

@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0cc4f371ca642d4cb8a4762cb0ef8d6, type: 3}
   m_Name: Test_head
   m_EditorClassIdentifier: 
-  itemName: 
+  itemName: Test_head
   description: 
-  image: {fileID: 0}
+  image: {fileID: -2997794184013798670, guid: 3b70b010e4c3bab4091f1a23a69a0bfb, type: 3}
   price: 0
   stackable: 0
-  type: 0
+  type: 2
   statModifiers: []
-  armorType: 0
+  armorType: 1

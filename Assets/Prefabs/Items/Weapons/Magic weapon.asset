@@ -21,8 +21,8 @@ MonoBehaviour:
   statModifiers:
   - statType: 3
     value: 50
-  fireRate: 2
+  fireRate: 4
   actionType: 1
-  projectilePrefab: {fileID: 268461493443850436, guid: b37d4ce32a4372d4e8d6d32bad9d07f1, type: 3}
+  projectilePrefab: {fileID: 268461493443850436, guid: 27fbd708d61df9b4780c2a1b5a0bf436, type: 3}
   projectileSpeed: 10
   manaCost: 5
