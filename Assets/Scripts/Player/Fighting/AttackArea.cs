@@ -19,9 +19,10 @@ public class AttackArea : MonoBehaviour
 
             if (weapon != null)
             {
+                float damage = player.stats[StatType.Attack].Total;
                 float knockBack = 5f; // You can also store this in WeaponItem
                 bool doesKnockBack = true;
-                enemy.TakeDamage(weapon.damage, transform.position, knockBack, doesKnockBack);
+                enemy.TakeDamage(damage, transform.position, knockBack, doesKnockBack);
             }
         }
     }

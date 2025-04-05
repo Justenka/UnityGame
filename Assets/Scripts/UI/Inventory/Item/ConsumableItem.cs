@@ -4,16 +4,27 @@ using UnityEngine;
 public class ConsumableItem : Item
 {
     public ConsumableType consumableType;
-    public int healAmount;
+    public int restoreAmount;
     public float cooldown;
 
     public override void Use(GameObject user)
     {
         Player player = user.GetComponent<Player>();
-        if (player != null)
+        if (player == null) return;
+
+        switch (consumableType)
         {
-            player.UseHealth(-healAmount); // healing by negative damage
-            Debug.Log($"Player healed by {healAmount} HP.");
+            case ConsumableType.Health:
+                player.RestoreHealth(-restoreAmount); 
+                break;
+
+            case ConsumableType.Stamina:
+                player.RestoreStamina(restoreAmount);
+                break;
+
+            case ConsumableType.Mana:
+                player.RestoreMana(restoreAmount);
+                break;
         }
     }
 }

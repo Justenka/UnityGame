@@ -18,8 +18,11 @@ MonoBehaviour:
   price: 0
   stackable: 0
   type: 1
-  damage: 50
-  attackSpeed: 2
+  statModifiers:
+  - statType: 3
+    value: 50
+  fireRate: 0
   actionType: 0
   projectilePrefab: {fileID: 0}
+  projectileSpeed: 0
   manaCost: 0

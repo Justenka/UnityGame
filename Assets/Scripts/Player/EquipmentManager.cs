@@ -8,23 +8,28 @@ public class EquipmentManager : MonoBehaviour
     public void Equip(Item item)
     {
         Debug.Log("Trying to equip: " + item.itemName + " (" + item.type + ")");
+
+        Player player = GetComponent<Player>();
+        if (player != null)
+            player.ApplyItemStats(item);
+
         if (item is WeaponItem weapon)
         {
             equippedWeapon = weapon;
             Debug.Log($"Equipped weapon: {weapon.itemName}");
         }
-
-        // You can add armor/other types here later too
     }
     public void Unequip(Item item)
     {
+        Player player = GetComponent<Player>();
+        if (player != null)
+            player.RemoveItemStats(item);
+
         if (item is WeaponItem && equippedWeapon == item)
         {
             equippedWeapon = null;
             Debug.Log("Weapon unequipped.");
         }
-
-        // You can add armor/other types here later too
     }
 
     public void UseWeapon(GameObject user)

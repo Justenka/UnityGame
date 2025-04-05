@@ -3,9 +3,9 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    public int maxHealthModifier;
-    public int currentHealth;
-    private int minHealth = 100;
+    public float maxHealthModifier;
+    public float currentHealth;
+    private float minHealth = 100;
     public int damageToPlayer = 10;
     public Rigidbody2D rb;
 
@@ -22,7 +22,7 @@ public class Enemy : MonoBehaviour
     public Animator animator;
 
     public GameObject experiencePickupPrefab;
-    public int baseXPDrop = 10;
+    public float baseXPDrop = 10;
     public float xpMultiplier = 0.1f;
 
     public bool isDead = false;
@@ -73,7 +73,7 @@ public class Enemy : MonoBehaviour
             playerInTrigger = null;
         }
     }
-    public void TakeDamage(int damage, Vector2 attackerPosition, float knockbackForce, bool KnockBack)
+    public void TakeDamage(float damage, Vector2 attackerPosition, float knockbackForce, bool KnockBack)
     {
         if (isInvincible) return;
 

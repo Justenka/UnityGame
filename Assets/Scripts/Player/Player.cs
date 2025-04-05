@@ -109,6 +109,12 @@ public class Player : MonoBehaviour
         if (rechargeMana != null) StopCoroutine(rechargeMana);
         rechargeMana = StartCoroutine(RegenerateMana());
     }
+    public void RestoreMana(int amount)
+    {
+        StatValue mana = stats[StatType.Mana];
+        mana.currentValue = Mathf.Min(mana.currentValue + amount, mana.Total);
+        manaBar.SetMana(mana.currentValue);
+    }
 
     private IEnumerator RegenerateMana()
     {
@@ -132,6 +138,12 @@ public class Player : MonoBehaviour
         if (rechargeStam != null) StopCoroutine(rechargeStam);
         rechargeStam = StartCoroutine(RechargeStamina());
     }
+    public void RestoreStamina(int amount)
+    {
+        StatValue stam = stats[StatType.Stamina];
+        stam.currentValue = Mathf.Min(stam.currentValue + amount, stam.Total);
+        staminaBar.SetStamina(stam.currentValue);
+    }
 
     private IEnumerator RechargeStamina()
     {
@@ -149,17 +161,17 @@ public class Player : MonoBehaviour
     {
         StatValue hp = stats[StatType.Health];
         hp.currentValue -= amount;
-
-        if (hp.currentValue > hp.Total)
-            hp.currentValue = hp.Total;
-
-        if (hp.currentValue < 0)
-            hp.currentValue = 0;
-
+        if (hp.currentValue < 0) hp.currentValue = 0;
         healthBar.SetHealth(hp.currentValue);
 
         if (rechargeHealth != null) StopCoroutine(rechargeHealth);
         rechargeHealth = StartCoroutine(RechargeHealth());
+    }
+    public void RestoreHealth(int amount)
+    {
+        StatValue hp = stats[StatType.Health];
+        hp.currentValue = Mathf.Min(hp.currentValue + amount, hp.Total);
+        healthBar.SetHealth(hp.currentValue);
     }
 
     private IEnumerator RechargeHealth()
@@ -199,5 +211,39 @@ public class Player : MonoBehaviour
     {
         currencyHeld -= amount;
         if (currencyHeld < 0) currencyHeld = 0;
+    }
+    private void RefreshStats()
+    {
+        healthBar.SetMaxHealth(stats[StatType.Health].Total);
+        manaBar.SetMaxMana(stats[StatType.Mana].Total);
+        staminaBar.SetMaxStamina(stats[StatType.Stamina].Total);
+
+        // Optional: Clamp current values if above new max
+        stats[StatType.Health].currentValue = Mathf.Min(stats[StatType.Health].currentValue, stats[StatType.Health].Total);
+        stats[StatType.Mana].currentValue = Mathf.Min(stats[StatType.Mana].currentValue, stats[StatType.Mana].Total);
+        stats[StatType.Stamina].currentValue = Mathf.Min(stats[StatType.Stamina].currentValue, stats[StatType.Stamina].Total);
+
+        healthBar.SetHealth(stats[StatType.Health].currentValue);
+        manaBar.SetMana(stats[StatType.Mana].currentValue);
+        staminaBar.SetStamina(stats[StatType.Stamina].currentValue);
+    }
+    public void ApplyItemStats(Item item)
+    {
+        foreach (var mod in item.statModifiers)
+        {
+            if (stats.ContainsKey(mod.statType))
+                stats[mod.statType].bonusValue += mod.value;
+        }
+        RefreshStats();
+    }
+
+    public void RemoveItemStats(Item item)
+    {
+        foreach (var mod in item.statModifiers)
+        {
+            if (stats.ContainsKey(mod.statType))
+                stats[mod.statType].bonusValue -= mod.value;
+        }
+        RefreshStats();
     }
 }

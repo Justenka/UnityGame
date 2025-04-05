@@ -4,8 +4,8 @@ public class ShopUI : MonoBehaviour
 {
     public Player player;
     public InventoryToggle inventoryUI;
-    public ShopItemSlot[] shopSlots; // Fixed 3 slots
-    public Item[] itemsForSale; // Drag in 3 items in Inspector
+    public ShopItemSlot[] shopSlots;
+    public Item[] itemsForSale;
     public GameObject inventoryItemPrefab;
     public InventoryManager inventoryManager;
 
@@ -51,38 +51,6 @@ public class ShopUI : MonoBehaviour
             Debug.Log("Not enough gold!");
         }
     }
-
-    //private void AddItemToInventory(Item item)
-    //{
-    //    if (inventoryItemPrefab == null)
-    //    {
-    //        Debug.LogError("inventoryItemPrefab is NOT assigned!");
-    //        return;
-    //    }
-
-    //    GameObject itemObject = Instantiate(inventoryItemPrefab);
-    //    InventoryItem invItem = itemObject.GetComponent<InventoryItem>();
-    //    if (invItem == null)
-    //    {
-    //        Debug.LogError("InventoryItem component missing on prefab!");
-    //        Destroy(itemObject);
-    //        return;
-    //    }
-
-    //    invItem.InitialiseItem(item);
-
-    //    foreach (var slot in Object.FindObjectsByType<InventorySlot>(FindObjectsSortMode.None))
-    //    {
-    //        if (slot.transform.childCount == 0)
-    //        {
-    //            itemObject.transform.SetParent(slot.transform, false);
-    //            return;
-    //        }
-    //    }
-
-    //    Destroy(itemObject); // No free slot
-    //    Debug.LogWarning("Inventory is full!");
-    //}
     private void AddItemToInventory(Item item)
     {
         if (inventoryManager == null)
@@ -91,7 +59,6 @@ public class ShopUI : MonoBehaviour
             return;
         }
 
-        // Try to add the item using the InventoryManager
         if (inventoryManager.AddItem(item))
         {
             Debug.Log($"Item {item.itemName} added to inventory.");

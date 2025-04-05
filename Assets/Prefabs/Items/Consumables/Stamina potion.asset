@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c03e765e292af954ca66ca5e8e34e83f, type: 3}
-  m_Name: Health potion
+  m_Name: Stamina potion
   m_EditorClassIdentifier: 
-  itemName: Health potion
+  itemName: Stamina potion
   description: 
-  image: {fileID: -1871516223859242191, guid: 601f2a18d0c0bc345bf5f2df8e7d3fa3, type: 3}
+  image: {fileID: -4713220520185040800, guid: 7142e71acf5739f42814b0c1b4ab6767, type: 3}
   price: 10
   stackable: 1
   type: 4
   statModifiers: []
-  consumableType: 0
-  restoreAmount: 0
+  consumableType: 1
+  restoreAmount: 50
   cooldown: 5

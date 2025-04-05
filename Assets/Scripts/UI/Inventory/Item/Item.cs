@@ -1,4 +1,12 @@
+using System.Collections.Generic;
 using UnityEngine;
+
+[System.Serializable]
+public class StatModifier
+{
+    public StatType statType;
+    public float value;
+}
 
 public abstract class Item : ScriptableObject
 {
@@ -9,6 +17,7 @@ public abstract class Item : ScriptableObject
     public bool stackable;
     public ItemType type;
 
-    // You can define a virtual method to override per item
+    public List<StatModifier> statModifiers = new();
+
     public virtual void Use(GameObject user) { }
 }
