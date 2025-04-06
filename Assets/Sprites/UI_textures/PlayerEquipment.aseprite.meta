@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 39ddce58257e9094eae42bb8aae05c6d
+guid: e3329b05abe47af46b9fbf78a5654aa1
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -123,7 +123,7 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: InventoryGridTileTexture
+  - name: dirbu
     originalName: 
     pivot: {x: 0.5, y: 0}
     alignment: 9
@@ -133,9 +133,9 @@ ScriptedImporter:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 80
-      height: 80
-    spriteID: e9a5683b55b7d454bb7c9b7119efb984
+      width: 999
+      height: 1506
+    spriteID: 26789accb10f6bb4aaeed67951a28454
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -147,21 +147,21 @@ ScriptedImporter:
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: 40154693
-    name: InventoryGridTileTexture
+    guid: -1409419604
+    name: dirbu
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: InventoryGridTileTexture
+    - name: PlayerEquipment
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
         x: 0
         y: 0
-        width: 80
-        height: 80
-      spriteId: e9a5683b55b7d454bb7c9b7119efb984
+        width: 999
+        height: 1506
+      spriteId: 26789accb10f6bb4aaeed67951a28454
     linkedCells: []
     parentIndex: -1
   platformSettings:
@@ -180,5 +180,5 @@ ScriptedImporter:
   generatePhysicsShape: 0
   secondarySpriteTextures: []
   spritePackingTag: 
-  canvasSize: {x: 80, y: 80}
-  previousTextureSize: {x: 128, y: 128}
+  canvasSize: {x: 999, y: 1506}
+  previousTextureSize: {x: 1024, y: 2048}
