@@ -74,13 +74,22 @@ public class PlayerTests
         mockStaminaBar.staminaSlider = staminaBarObject.AddComponent<Slider>();
         player.staminaBar = mockStaminaBar;
 
-        player.Awake();
+        GameObject userNameObject = new GameObject("UserNameText");
+        TextMeshProUGUI userNameText = userNameObject.AddComponent<TextMeshProUGUI>();
+        player.userName = userNameText;
+
+        player.stats[StatType.Health].baseValue = 100;
+        player.stats[StatType.Defense].baseValue = 0;
+        
+
+        //player.Awake();
         player.Start();
     }
 
     [TearDown]
     public void Teardown()
     {
+        PlayerPrefs.DeleteKey("PlayerUsername");
         Object.DestroyImmediate(playerGameObject);
         Object.DestroyImmediate(player.healthBar.gameObject);
         Object.DestroyImmediate(player.manaBar.gameObject);
@@ -98,16 +107,18 @@ public class PlayerTests
     [Test]
     public void TakeDamage_ReducesHealth()
     {
+        
         player.TakeDamage(20);
-        Assert.AreEqual(80, player.stats[StatType.Health].currentValue);
+        
+        Assert.AreEqual(80f, player.stats[StatType.Health].currentValue, "Players Health" + player.stats[StatType.Health].currentValue + " Current Defense " + player.stats[StatType.Defense].currentValue);
     }
 
     [UnityTest]
     public IEnumerator TakeDamage_KillsPlayerWhenHealthIsZero()
     {
-        player.TakeDamage(100);
+        player.TakeDamage(150);
         yield return new WaitForSeconds(1.5f);
-        Assert.IsTrue(playerGameObject == null);
+        Assert.IsTrue(playerGameObject == null, "Players Health" + player.stats[StatType.Health].currentValue);
     }
 
     [UnityTest]

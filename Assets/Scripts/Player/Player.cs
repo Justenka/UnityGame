@@ -48,7 +48,8 @@ public class Player : MonoBehaviour
     }
     void LateUpdate()
     {
-        userName.transform.rotation = Quaternion.identity;
+        if(userName != null)
+            userName.transform.rotation = Quaternion.identity;
     }
     void InitializeStats()
     {

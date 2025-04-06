@@ -4,12 +4,13 @@ using UnityEngine;
 using UnityEngine.TestTools;
 using UnityEngine.UI;
 
+
 public class EnemyTests
 {
     private GameObject enemyObject;
     private Enemy enemy;
-
-
+    private GameObject damageControllerObj;
+   
     [SetUp]
     public void SetUp()
     {
@@ -19,7 +20,7 @@ public class EnemyTests
         enemy.animator = enemyObject.AddComponent<Animator>();
         enemyObject.AddComponent<SimpleEnemyAI>();
         enemyObject.AddComponent<CapsuleCollider2D>();
-        DamageNumberController.instance = null;
+        
         enemy.currentHealth = 100;
 
         enemy.Start();
@@ -70,7 +71,13 @@ public class EnemyTests
     public void Enemy_Apply_Knockback_Sets_Velocity()
     {
         enemy.currentHealth = 100;
+        enemy.rb.linearVelocity = Vector2.zero;
+        enemy.isKnockedBack = false;
+
         enemy.TakeDamage(10, Vector2.left, 5f, true);
+
+        
         Assert.AreNotEqual(Vector2.zero, enemy.rb.linearVelocity);
     }
 }
+
