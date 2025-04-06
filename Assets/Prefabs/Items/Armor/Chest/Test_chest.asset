@@ -20,7 +20,7 @@ MonoBehaviour:
   type: 2
   statModifiers:
   - statType: 0
-    value: 300
+    value: 20
   - statType: 4
-    value: 50
+    value: 5
   armorType: 2
