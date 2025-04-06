@@ -1,9 +1,15 @@
+using System;
+using System.Collections;
 using UnityEngine;
 
 public class WeaponRotation : MonoBehaviour
 {
     private Camera mainCamera;
     private SpriteRenderer weaponSpriteRenderer, characterSpriteRenderer;
+
+    public Animator animator;
+    public float delay = 0.3f;
+    private bool attackBlocked;
 
     public float xOffset = 0.01f;
     public float yOffset = 0.15f;
@@ -53,5 +59,21 @@ public class WeaponRotation : MonoBehaviour
         {
             weaponSpriteRenderer.sortingOrder = characterSpriteRenderer.sortingOrder + 1;
         }
+    }
+
+    public void Attack()
+    {
+        if(attackBlocked) return;
+
+        Debug.Log("Triggering Attack animation");
+        animator.SetTrigger("Attack");
+        attackBlocked = true;
+        StartCoroutine(DelayAttack());
+    }
+
+    private IEnumerator DelayAttack()
+    {
+        yield return new WaitForSeconds(delay);
+        attackBlocked = false;
     }
 }

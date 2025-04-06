@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class Player : MonoBehaviour
@@ -20,9 +21,16 @@ public class Player : MonoBehaviour
     public Dictionary<StatType, StatValue> stats = new();
     public string Name;
     public TMP_Text userName;
+
+    //[SerializeField]
+    //private InputActionReference attack;
+
+    //private WeaponRotation weaponRotation;
+
     public void Awake()
     {
         InitializeStats();
+        //weaponRotation = GetComponentInChildren<WeaponRotation>();
     }
 
     public void Start()
@@ -247,4 +255,19 @@ public class Player : MonoBehaviour
         }
         RefreshStats();
     }
+
+    //private void OnEnable()
+    //{
+    //    attack.action.performed += PerformAttack;
+    //}
+
+    //private void OnDisable()
+    //{
+    //    attack.action.performed -= PerformAttack;
+    //}
+
+    //private void PerformAttack(InputAction.CallbackContext obj)
+    //{
+    //    weaponRotation.Attack();
+    //}
 }
