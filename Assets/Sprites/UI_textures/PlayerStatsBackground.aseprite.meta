@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 1e8901b260b36b44bb6885cae39d1eea
+guid: d010e9e466e70cf4cb00dacd25cf195c
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -123,7 +123,7 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: GridInventoryBackground
+  - name: PlayerStatsBackground
     originalName: 
     pivot: {x: 0.5, y: 0}
     alignment: 9
@@ -133,9 +133,9 @@ ScriptedImporter:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 920
-      height: 640
-    spriteID: 70f21f6a79de28546bccf4893b07ca3c
+      width: 1000
+      height: 1506
+    spriteID: 95de78159014f514380fc12049129ed3
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -147,21 +147,21 @@ ScriptedImporter:
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: -558127870
-    name: GridInventoryBackground
+    guid: 448852114
+    name: PlayerStatsBackground
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: GridInventoryBackground
+    - name: PlayerStatsBackground
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
         x: 0
         y: 0
-        width: 920
-        height: 640
-      spriteId: 70f21f6a79de28546bccf4893b07ca3c
+        width: 1000
+        height: 1506
+      spriteId: 95de78159014f514380fc12049129ed3
     linkedCells: []
     parentIndex: -1
   platformSettings:
@@ -180,5 +180,5 @@ ScriptedImporter:
   generatePhysicsShape: 0
   secondarySpriteTextures: []
   spritePackingTag: 
-  canvasSize: {x: 920, y: 640}
-  previousTextureSize: {x: 1024, y: 1024}
+  canvasSize: {x: 1000, y: 1506}
+  previousTextureSize: {x: 1024, y: 2048}
