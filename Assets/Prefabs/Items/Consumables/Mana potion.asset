@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Mana potion
   m_EditorClassIdentifier: 
   itemName: Mana potion
-  description: 
+  description: Basic mana potion, restore amount 50
   image: {fileID: -2744610230239163728, guid: 1d8be38fe515bf74ea8eb17a9d237f91, type: 3}
   price: 10
   stackable: 1

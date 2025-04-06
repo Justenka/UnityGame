@@ -4,7 +4,14 @@ public class EquipmentManager : MonoBehaviour
 {
     public WeaponItem equippedWeapon;
     public Transform firePoint;
+    public GameObject weaponVisual;
 
+    void Start()
+    {
+        // If weapon is equipped, show the visual; otherwise hide it
+        if (weaponVisual != null)
+            weaponVisual.SetActive(equippedWeapon != null);
+    }
     public void Equip(Item item)
     {
         Debug.Log("Trying to equip: " + item.itemName + " (" + item.type + ")");
@@ -17,6 +24,10 @@ public class EquipmentManager : MonoBehaviour
         {
             equippedWeapon = weapon;
             Debug.Log($"Equipped weapon: {weapon.itemName}");
+
+            // Show weapon visual
+            if (weaponVisual != null)
+                weaponVisual.SetActive(true);
         }
     }
     public void Unequip(Item item)
@@ -29,6 +40,10 @@ public class EquipmentManager : MonoBehaviour
         {
             equippedWeapon = null;
             Debug.Log("Weapon unequipped.");
+
+            // Hide weapon visual
+            if (weaponVisual != null)
+                weaponVisual.SetActive(false);
         }
     }
 

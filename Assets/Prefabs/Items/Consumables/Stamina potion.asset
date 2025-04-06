@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Stamina potion
   m_EditorClassIdentifier: 
   itemName: Stamina potion
-  description: 
+  description: Basic stamina potion, restore amount 50
   image: {fileID: -4713220520185040800, guid: 7142e71acf5739f42814b0c1b4ab6767, type: 3}
   price: 10
   stackable: 1

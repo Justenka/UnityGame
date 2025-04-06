@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Health potion
   m_EditorClassIdentifier: 
   itemName: Health potion
-  description: 
+  description: Basic healing potion, restore amount 30
   image: {fileID: -1871516223859242191, guid: 601f2a18d0c0bc345bf5f2df8e7d3fa3, type: 3}
   price: 10
   stackable: 1

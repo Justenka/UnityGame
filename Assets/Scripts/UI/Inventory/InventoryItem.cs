@@ -2,7 +2,8 @@
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler,
+                              IPointerEnterHandler, IPointerExitHandler
 {
     [Header("UI")]
     private Image image;
@@ -11,9 +12,17 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     public int count;
     [HideInInspector] public Transform parentAfterDrag;
 
+    public static TooltipUI tooltip; // Assign this in InventoryManager
+
     void Start()
     {
         image = GetComponent<Image>();
+
+        if (tooltip == null)
+        {
+            tooltip = Object.FindFirstObjectByType<TooltipUI>();
+        }
+
         if (item != null)
         {
             InitialiseItem(item);
@@ -43,13 +52,14 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         parentAfterDrag = transform.parent;
         transform.SetParent(transform.root);
 
-        // Detect if dragging from an EquipmentSlot unequip
         EquipmentSlot equipmentSlot = parentAfterDrag.GetComponent<EquipmentSlot>();
         if (equipmentSlot != null && equipmentSlot.equipmentManager != null)
         {
             equipmentSlot.equipmentManager.Unequip(item);
             Debug.Log(" Unequipped: " + item.itemName);
         }
+
+        InventoryItem.tooltip.Hide();
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -63,7 +73,6 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         transform.SetParent(parentAfterDrag);
         transform.localPosition = Vector3.zero;
 
-        Debug.Log("OnEndDrag: parentAfterDrag is " + parentAfterDrag.name);
         EquipmentSlot equipmentSlot = parentAfterDrag.GetComponent<EquipmentSlot>();
         if (equipmentSlot != null && equipmentSlot.equipmentManager != null)
         {
@@ -74,5 +83,19 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         {
             Debug.Log("OnEndDrag: Not dropped on an EquipmentSlot");
         }
+    }
+
+    // Tooltip triggers
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (item != null && tooltip != null)
+        {
+            tooltip.Show(item);
+        }
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        tooltip.Hide();
     }
 }
