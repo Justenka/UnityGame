@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class HotbarSlot : InventorySlot
 {
     public KeyCode useKey = KeyCode.Alpha1;
-    private InventoryItem hotbarItem;
+    public InventoryItem hotbarItem;
 
     public Image cooldownOverlay;
 
@@ -18,7 +18,7 @@ public class HotbarSlot : InventorySlot
         if (cooldownOverlay != null)
             cooldownOverlay.gameObject.SetActive(false);
     }
-    void Update()
+    public void Update()
     {
         hotbarItem = GetComponentInChildren<InventoryItem>();
 
@@ -49,7 +49,7 @@ public class HotbarSlot : InventorySlot
         }
     }
 
-    void UseHotbarItem()
+    public void UseHotbarItem()
     {
         if (hotbarItem == null || hotbarItem.item == null)
             return;

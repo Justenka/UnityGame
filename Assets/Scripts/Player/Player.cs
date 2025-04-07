@@ -66,7 +66,7 @@ public class Player : MonoBehaviour
         stats[StatType.Defense] = new StatValue { baseValue = 5 };
         stats[StatType.Speed] = new StatValue { baseValue = 5 };
     }
-
+    
     void SetInitialValues()
     {
         float maxHealth = stats[StatType.Health].Total;
