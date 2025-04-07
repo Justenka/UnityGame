@@ -45,14 +45,12 @@ public class Player : MonoBehaviour
         }
         SetInitialValues();
     }
-    void Update()
+    public void Update()
     {
-        if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(0))
         {
             GetComponent<EquipmentManager>().UseWeapon(gameObject);
         }
-
-        // Rest of your update logic...
     }
     void LateUpdate()
     {

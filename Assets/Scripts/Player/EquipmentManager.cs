@@ -47,7 +47,7 @@ public class EquipmentManager : MonoBehaviour
         }
     }
 
-    public void UseWeapon(GameObject user)
+    public virtual void UseWeapon(GameObject user)
     {
         if (equippedWeapon == null) return;
 
