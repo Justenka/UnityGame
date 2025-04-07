@@ -93,43 +93,44 @@ public class Enemy : MonoBehaviour
             DamageNumberController.instance.SpawnDamage(damage, transform.position, false);
         }
 
-        void ApplyKnockback(Vector2 attackerPosition, float knockbackForce)
+        
+    }
+    void ApplyKnockback(Vector2 attackerPosition, float knockbackForce)
+    {
+        if (rb != null && !isKnockedBack)
         {
-            if (rb != null && !isKnockedBack)
-            {
-                isKnockedBack = true;
+            isKnockedBack = true;
 
-                GetComponent<SimpleEnemyAI>().enabled = false;
+            GetComponent<SimpleEnemyAI>().enabled = false;
 
-                Vector2 knockbackDirection = (transform.position - (Vector3)attackerPosition).normalized;
-                rb.linearVelocity = Vector2.zero;
-                rb.linearVelocity = knockbackDirection * knockbackForce;
+            Vector2 knockbackDirection = (transform.position - (Vector3)attackerPosition).normalized;
+            rb.linearVelocity = Vector2.zero;
+            rb.linearVelocity = knockbackDirection * knockbackForce;
 
-                StartCoroutine(HitFreezeDelayed(0.3f, 0.20f));
-                Invoke("ResetKnockback", 0.3f);
-            }
+            StartCoroutine(HitFreezeDelayed(0.3f, 0.20f));
+            Invoke("ResetKnockback", 0.3f);
         }
+    }
 
-        IEnumerator HitFreezeDelayed(float delayBeforeFreeze, float freezeDuration)
+    IEnumerator HitFreezeDelayed(float delayBeforeFreeze, float freezeDuration)
+    {
+        yield return new WaitForSeconds(delayBeforeFreeze);
+        rb.simulated = false;
+
+        yield return new WaitForSeconds(freezeDuration);
+        rb.simulated = true;
+
+        GetComponent<SimpleEnemyAI>().enabled = true;
+    }
+
+    void ResetKnockback()
+    {
+        if (rb != null)
         {
-            yield return new WaitForSeconds(delayBeforeFreeze);
-            rb.simulated = false;
-
-            yield return new WaitForSeconds(freezeDuration);
-            rb.simulated = true;
-
-            GetComponent<SimpleEnemyAI>().enabled = true;
-        }
-
-        void ResetKnockback()
-        {
-            if (rb != null)
-            {
-                rb.linearVelocity = Vector2.zero;
-                isKnockedBack = false;
+            rb.linearVelocity = Vector2.zero;
+            isKnockedBack = false;
 
 
-            }
         }
     }
     public void StartInvincibility()
