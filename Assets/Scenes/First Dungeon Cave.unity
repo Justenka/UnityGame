@@ -4663,7 +4663,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 653063213}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1434ebdc9ddc95447a96f3ecb1246798, type: 3}
   m_Name: 
@@ -7999,6 +7999,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventoryUIGroup: {fileID: 137867269}
   inventoryButton: {fileID: 1429005068}
+  tooltipUI: {fileID: 0}
 --- !u!4 &910342131
 Transform:
   m_ObjectHideFlags: 0
@@ -10478,6 +10479,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1222612644}
   - component: {fileID: 1222612645}
+  - component: {fileID: 1222612646}
   m_Layer: 0
   m_Name: WeaponParent
   m_TagString: Untagged
@@ -10513,8 +10515,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdda2c0c775637c498283b700a9d393b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 1685621727}
+  delay: 0.3
   xOffset: 0.01
   yOffset: 0.15
+--- !u!114 &1222612646
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1222612643}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1434ebdc9ddc95447a96f3ecb1246798, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1224557844
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -88692,6 +88708,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1685621725}
   - component: {fileID: 1685621726}
+  - component: {fileID: 1685621727}
   m_Layer: 0
   m_Name: Weapon
   m_TagString: Untagged
@@ -88769,6 +88786,28 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &1685621727
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1685621724}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 3cbdf6f315e641847ac912242f418023, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &1687243128
 PrefabInstance:
   m_ObjectHideFlags: 0

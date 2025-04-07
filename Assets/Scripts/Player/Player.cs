@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class Player : MonoBehaviour
@@ -20,12 +21,19 @@ public class Player : MonoBehaviour
     public Dictionary<StatType, StatValue> stats = new();
     public string Name;
     public TMP_Text userName;
+
+    //[SerializeField]
+    //private InputActionReference attack;
+
+    //private WeaponRotation weaponRotation;
+
     public void Awake()
     {
         InitializeStats();
+        //weaponRotation = GetComponentInChildren<WeaponRotation>();
     }
 
-    public void Start()
+    public virtual void Start()
     {
         if (PlayerPrefs.HasKey("PlayerUsername"))
         {
@@ -37,14 +45,12 @@ public class Player : MonoBehaviour
         }
         SetInitialValues();
     }
-    void Update()
+    public void Update()
     {
-        if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(0))
         {
             GetComponent<EquipmentManager>().UseWeapon(gameObject);
         }
-
-        // Rest of your update logic...
     }
     void LateUpdate()
     {
@@ -81,7 +87,7 @@ public class Player : MonoBehaviour
         staminaBar.SetStamina(maxStamina);
     }
 
-    public void TakeDamage(float amount)
+    public virtual void TakeDamage(float amount)
     {
         if (isInvincible) return;
 
@@ -247,4 +253,19 @@ public class Player : MonoBehaviour
         }
         RefreshStats();
     }
+
+    //private void OnEnable()
+    //{
+    //    attack.action.performed += PerformAttack;
+    //}
+
+    //private void OnDisable()
+    //{
+    //    attack.action.performed -= PerformAttack;
+    //}
+
+    //private void PerformAttack(InputAction.CallbackContext obj)
+    //{
+    //    weaponRotation.Attack();
+    //}
 }

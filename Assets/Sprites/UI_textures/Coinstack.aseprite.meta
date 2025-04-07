@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 1bf2fdfa141b6e5439816c7001871ec5
+guid: 9f041fecb4abccf4fbccfddb9976409b
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -123,9 +123,9 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: PlayerItemMainTexture
+  - name: Coinstack
     originalName: 
-    pivot: {x: 0.5, y: 0}
+    pivot: {x: 0.49222222, y: -0.027058823}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -133,9 +133,9 @@ ScriptedImporter:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 530
-      height: 640
-    spriteID: d1db7ac1bb7b91342b4146784c77d3e3
+      width: 900
+      height: 850
+    spriteID: e4d0dc1d9fc1aae4390d905da5238a5f
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -147,21 +147,21 @@ ScriptedImporter:
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: -899789832
-    name: PlayerItemMainTexture
+    guid: -1907056235
+    name: Coinstack
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: PlayerItemMainTexture
+    - name: Coinstack
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
-        x: 0
-        y: 0
-        width: 530
-        height: 640
-      spriteId: d1db7ac1bb7b91342b4146784c77d3e3
+        x: 69
+        y: 23
+        width: 900
+        height: 850
+      spriteId: e4d0dc1d9fc1aae4390d905da5238a5f
     linkedCells: []
     parentIndex: -1
   platformSettings:
@@ -180,5 +180,5 @@ ScriptedImporter:
   generatePhysicsShape: 0
   secondarySpriteTextures: []
   spritePackingTag: 
-  canvasSize: {x: 530, y: 640}
+  canvasSize: {x: 1024, y: 1024}
   previousTextureSize: {x: 1024, y: 1024}

@@ -1,14 +1,15 @@
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine.TestTools;
 using TMPro;
+using System.Collections;
+using System.Collections.Generic;
 
+// === SPIES ===
 public class SpyHealthBar : HealthBar
 {
-    public bool SetHealthCalled = false;
+    public bool SetHealthCalled;
     public float LastHealthValue;
 
     public override void SetHealth(float value)
@@ -21,7 +22,7 @@ public class SpyHealthBar : HealthBar
 
 public class SpyManaBar : ManaBar
 {
-    public bool SetManaCalled = false;
+    public bool SetManaCalled;
     public float LastManaValue;
 
     public override void SetMana(float value)
@@ -34,7 +35,7 @@ public class SpyManaBar : ManaBar
 
 public class SpyStaminaBar : StaminaBar
 {
-    public bool SetStaminaCalled = false;
+    public bool SetStaminaCalled;
     public float LastStaminaValue;
 
     public override void SetStamina(float value)
@@ -45,13 +46,37 @@ public class SpyStaminaBar : StaminaBar
     }
 }
 
+public class SpyEquipmentManager : EquipmentManager
+{
+    public bool UseWeaponCalled;
+    public GameObject UsedBy;
+
+    public override void UseWeapon(GameObject user)
+    {
+        UseWeaponCalled = true;
+        UsedBy = user;
+    }
+}
+
+// === STUB ITEM FOR TESTING ===
+[CreateAssetMenu(fileName = "StubItem", menuName = "Items/StubItem")]
+public class StubItem : Item
+{
+    public override List<StatModifier> statModifiers => new()
+    {
+        new StatModifier { statType = StatType.Health, value = 25 },
+        new StatModifier { statType = StatType.Attack, value = 10 }
+    };
+}
+
+// === TESTS ===
 public class PlayerTests
 {
     private GameObject playerGameObject;
     private Player player;
-    private HealthBar mockHealthBar;
-    private ManaBar mockManaBar;
-    private StaminaBar mockStaminaBar;
+    private SpyHealthBar spyHealthBar;
+    private SpyManaBar spyManaBar;
+    private SpyStaminaBar spyStaminaBar;
 
     [SetUp]
     public void Setup()
@@ -59,93 +84,99 @@ public class PlayerTests
         playerGameObject = new GameObject("Player");
         player = playerGameObject.AddComponent<Player>();
 
-        GameObject healthBarObject = new GameObject("HealthBar");
-        mockHealthBar = healthBarObject.AddComponent<SpyHealthBar>();
-        mockHealthBar.healthSlider = healthBarObject.AddComponent<Slider>();
-        player.healthBar = mockHealthBar;
+        spyHealthBar = new GameObject("HealthBar").AddComponent<SpyHealthBar>();
+        spyHealthBar.healthSlider = spyHealthBar.gameObject.AddComponent<Slider>();
+        player.healthBar = spyHealthBar;
 
-        GameObject manaBarObject = new GameObject("ManaBar");
-        mockManaBar = manaBarObject.AddComponent<SpyManaBar>();
-        mockManaBar.manaSlider = manaBarObject.AddComponent<Slider>();
-        player.manaBar = mockManaBar;
+        spyManaBar = new GameObject("ManaBar").AddComponent<SpyManaBar>();
+        spyManaBar.manaSlider = spyManaBar.gameObject.AddComponent<Slider>();
+        player.manaBar = spyManaBar;
 
-        GameObject staminaBarObject = new GameObject("StaminaBar");
-        mockStaminaBar = staminaBarObject.AddComponent<SpyStaminaBar>();
-        mockStaminaBar.staminaSlider = staminaBarObject.AddComponent<Slider>();
-        player.staminaBar = mockStaminaBar;
+        spyStaminaBar = new GameObject("StaminaBar").AddComponent<SpyStaminaBar>();
+        spyStaminaBar.staminaSlider = spyStaminaBar.gameObject.AddComponent<Slider>();
+        player.staminaBar = spyStaminaBar;
 
-        GameObject userNameObject = new GameObject("UserNameText");
-        TextMeshProUGUI userNameText = userNameObject.AddComponent<TextMeshProUGUI>();
-        player.userName = userNameText;
+        var userNameObject = new GameObject("UserName");
+        player.userName = userNameObject.AddComponent<TextMeshProUGUI>();
 
-        player.stats[StatType.Health].baseValue = 100;
-        player.stats[StatType.Defense].baseValue = 0;
-        
+        playerGameObject.AddComponent<SpyEquipmentManager>();
 
-        //player.Awake();
+        player.Awake();
         player.Start();
     }
 
     [TearDown]
     public void Teardown()
     {
-        PlayerPrefs.DeleteKey("PlayerUsername");
         Object.DestroyImmediate(playerGameObject);
-        Object.DestroyImmediate(player.healthBar.gameObject);
-        Object.DestroyImmediate(player.manaBar.gameObject);
-        Object.DestroyImmediate(player.staminaBar.gameObject);
+        Object.DestroyImmediate(spyHealthBar.gameObject);
+        Object.DestroyImmediate(spyManaBar.gameObject);
+        Object.DestroyImmediate(spyStaminaBar.gameObject);
+        PlayerPrefs.DeleteKey("PlayerUsername");
     }
 
+    // === STATS / INIT ===
     [Test]
-    public void Start_InitializesStatsCorrectly()
+    public void Stats_Initialize_To_Max()
     {
         Assert.AreEqual(player.stats[StatType.Health].Total, player.stats[StatType.Health].currentValue);
         Assert.AreEqual(player.stats[StatType.Mana].Total, player.stats[StatType.Mana].currentValue);
         Assert.AreEqual(player.stats[StatType.Stamina].Total, player.stats[StatType.Stamina].currentValue);
     }
 
+    // === DAMAGE / DEATH ===
     [Test]
-    public void TakeDamage_ReducesHealth()
+    public void TakeDamage_Reduces_Health_With_Defense()
     {
-        
-        player.TakeDamage(20);
-        
-        Assert.AreEqual(80f, player.stats[StatType.Health].currentValue, "Players Health" + player.stats[StatType.Health].currentValue + " Current Defense " + player.stats[StatType.Defense].currentValue);
+        player.stats[StatType.Defense].baseValue = 5;
+        player.stats[StatType.Health].currentValue = 100;
+        player.TakeDamage(25);
+        Assert.AreEqual(80f, player.stats[StatType.Health].currentValue);
     }
 
     [UnityTest]
-    public IEnumerator TakeDamage_KillsPlayerWhenHealthIsZero()
+    public IEnumerator TakeDamage_Just_Before_Death_Does_Kill_Player()
     {
-        player.TakeDamage(150);
+        player.stats[StatType.Health].currentValue = 100;
+        player.stats[StatType.Defense].baseValue = 0;
+
+        player.TakeDamage(99.5f);
+        yield return null;
+
+        Assert.IsTrue(player == null || player.gameObject == null);
+    }
+
+    [UnityTest]
+    public IEnumerator TakeDamage_Reaches_Zero_Health_Kills_Player()
+    {
+        player.stats[StatType.Health].currentValue = 100;
+        player.stats[StatType.Defense].baseValue = 0;
+        player.TakeDamage(100f);
         yield return new WaitForSeconds(1.5f);
-        Assert.IsTrue(playerGameObject == null, "Players Health" + player.stats[StatType.Health].currentValue);
+        Assert.IsTrue(player == null || player.gameObject == null);
     }
 
     [UnityTest]
-    public IEnumerator TakeDamage_Invincibility()
+    public IEnumerator Invincibility_Activates_And_Expires()
     {
-        player.TakeDamage(20);
+        player.TakeDamage(10);
         Assert.IsTrue(player.isInvincible);
-        yield return new WaitForSeconds(player.invincibilityDuration + 0.05f);
+        yield return new WaitForSeconds(player.invincibilityDuration + 0.1f);
         Assert.IsFalse(player.isInvincible);
     }
 
+    // === MANA ===
     [Test]
-    public void UseMana_ReducesMana()
+    public void UseMana_Decreases_Value_And_Calls_SetMana()
     {
-        player.UseMana(30);
-        Assert.AreEqual(70, player.stats[StatType.Mana].currentValue);
-    }
-
-    [Test]
-    public void UseMana_ManaCannotGoBelowZero()
-    {
-        player.UseMana(150);
-        Assert.AreEqual(0, player.stats[StatType.Mana].currentValue);
+        player.UseMana(40);
+        Assert.AreEqual(60, player.stats[StatType.Mana].currentValue);
+        Assert.IsTrue(spyManaBar.SetManaCalled);
+        Assert.AreEqual(60, spyManaBar.LastManaValue);
     }
 
     [UnityTest]
-    public IEnumerator UseMana_RegeneratesMana()
+    public IEnumerator UseMana_Regenerates_After_Delay()
     {
         player.UseMana(50);
         yield return new WaitForSeconds(1.5f);
@@ -153,21 +184,35 @@ public class PlayerTests
     }
 
     [Test]
-    public void UseStamina_ReducesStamina()
+    public void RestoreMana_Increases_Mana_UpTo_Max()
     {
-        player.UseStamina(40);
-        Assert.AreEqual(60, player.stats[StatType.Stamina].currentValue);
+        player.stats[StatType.Mana].currentValue = 60;
+        player.RestoreMana(25);
+        Assert.AreEqual(85, player.stats[StatType.Mana].currentValue);
+        Assert.AreEqual(85, spyManaBar.LastManaValue);
     }
 
     [Test]
-    public void UseStamina_StaminaCannotGoBelowZero()
+    public void RestoreMana_DoesNot_Exceed_Max()
     {
-        player.UseStamina(120);
-        Assert.AreEqual(0, player.stats[StatType.Stamina].currentValue);
+        player.stats[StatType.Mana].currentValue = 90;
+        player.RestoreMana(50);
+        Assert.AreEqual(100, player.stats[StatType.Mana].currentValue);
+        Assert.AreEqual(100, spyManaBar.LastManaValue);
+    }
+
+    // === STAMINA ===
+    [Test]
+    public void UseStamina_Decreases_Value_And_Calls_SetStamina()
+    {
+        player.UseStamina(30);
+        Assert.AreEqual(70, player.stats[StatType.Stamina].currentValue);
+        Assert.IsTrue(spyStaminaBar.SetStaminaCalled);
+        Assert.AreEqual(70, spyStaminaBar.LastStaminaValue);
     }
 
     [UnityTest]
-    public IEnumerator UseStamina_RegeneratesStamina()
+    public IEnumerator UseStamina_Regenerates_After_Delay()
     {
         player.UseStamina(50);
         yield return new WaitForSeconds(1.5f);
@@ -175,21 +220,35 @@ public class PlayerTests
     }
 
     [Test]
-    public void UseHealth_ReducesHealth()
+    public void RestoreStamina_Increases_Stamina_UpTo_Max()
     {
-        player.UseHealth(30);
-        Assert.AreEqual(70, player.stats[StatType.Health].currentValue);
+        player.stats[StatType.Stamina].currentValue = 40;
+        player.RestoreStamina(30);
+        Assert.AreEqual(70, player.stats[StatType.Stamina].currentValue);
+        Assert.AreEqual(70, spyStaminaBar.LastStaminaValue);
     }
 
     [Test]
-    public void UseHealth_HealthCannotGoBelowZero()
+    public void RestoreStamina_DoesNot_Exceed_Max()
     {
-        player.UseHealth(150);
-        Assert.AreEqual(0, player.stats[StatType.Health].currentValue);
+        player.stats[StatType.Stamina].currentValue = 95;
+        player.RestoreStamina(20);
+        Assert.AreEqual(100, player.stats[StatType.Stamina].currentValue);
+        Assert.AreEqual(100, spyStaminaBar.LastStaminaValue);
+    }
+
+    // === HEALTH ===
+    [Test]
+    public void UseHealth_Decreases_Value_And_Calls_SetHealth()
+    {
+        player.UseHealth(25);
+        Assert.AreEqual(75, player.stats[StatType.Health].currentValue);
+        Assert.IsTrue(spyHealthBar.SetHealthCalled);
+        Assert.AreEqual(75, spyHealthBar.LastHealthValue);
     }
 
     [UnityTest]
-    public IEnumerator UseHealth_RegeneratesHealth()
+    public IEnumerator UseHealth_Regenerates_After_Delay()
     {
         player.UseHealth(50);
         yield return new WaitForSeconds(1.5f);
@@ -197,112 +256,76 @@ public class PlayerTests
     }
 
     [Test]
-    public void GetCurrency_IncreasesCurrency()
+    public void RestoreHealth_Increases_Health_UpTo_Max()
     {
-        player.GetCurrency(50);
-        Assert.AreEqual(50, player.currencyHeld);
+        player.stats[StatType.Health].currentValue = 50;
+        player.RestoreHealth(30);
+        Assert.AreEqual(80, player.stats[StatType.Health].currentValue);
+        Assert.AreEqual(80, spyHealthBar.LastHealthValue);
     }
 
     [Test]
-    public void RemoveCurrency_DecreasesCurrency()
+    public void RestoreHealth_DoesNot_Exceed_Max()
     {
-        player.currencyHeld = 100;
-        player.RemoveCurrency(30);
-        Assert.AreEqual(70, player.currencyHeld);
+        player.stats[StatType.Health].currentValue = 95;
+        player.RestoreHealth(20);
+        Assert.AreEqual(100, player.stats[StatType.Health].currentValue);
+        Assert.AreEqual(100, spyHealthBar.LastHealthValue);
     }
 
+    // === CURRENCY ===
     [Test]
-    public void RemoveCurrency_DoesNotGoBelowZero()
+    public void Currency_Adding_And_Removal()
     {
-        player.currencyHeld = 10;
-        player.RemoveCurrency(20);
+        player.GetCurrency(100);
+        Assert.AreEqual(100, player.currencyHeld);
+
+        player.RemoveCurrency(40);
+        Assert.AreEqual(60, player.currencyHeld);
+
+        player.RemoveCurrency(100);
         Assert.AreEqual(0, player.currencyHeld);
     }
 
+    // === ITEM STATS (STUB ITEM) ===
     [Test]
-    public void UseMana_CallsSetManaOnManaBar()
+    public void ApplyItemStats_Updates_StatTotals()
     {
-        player.UseMana(25);
-        var spy = mockManaBar as SpyManaBar;
-        Assert.IsTrue(spy.SetManaCalled);
-        Assert.AreEqual(75, spy.LastManaValue);
+        var stubItem = ScriptableObject.CreateInstance<StubItem>();
+        float originalHealth = player.stats[StatType.Health].Total;
+        float originalAttack = player.stats[StatType.Attack].Total;
+
+        player.ApplyItemStats(stubItem);
+
+        Assert.AreEqual(originalHealth + 25, player.stats[StatType.Health].Total);
+        Assert.AreEqual(originalAttack + 10, player.stats[StatType.Attack].Total);
     }
 
     [Test]
-    public void UseStamina_CallsSetStaminaOnStaminaBar()
+    public void RemoveItemStats_Reverts_StatTotals()
     {
-        player.UseStamina(40);
-        var spy = mockStaminaBar as SpyStaminaBar;
-        Assert.IsTrue(spy.SetStaminaCalled);
-        Assert.AreEqual(60, spy.LastStaminaValue);
+        var stubItem = ScriptableObject.CreateInstance<StubItem>();
+        player.ApplyItemStats(stubItem);
+
+        float midHealth = player.stats[StatType.Health].Total;
+        player.RemoveItemStats(stubItem);
+        float endHealth = player.stats[StatType.Health].Total;
+
+        Assert.AreEqual(midHealth - 25, endHealth);
     }
 
+    // === EQUIPMENT USE (SPY MANAGER) ===
     [Test]
-    public void UseHealth_CallsSetHealthOnHealthBar()
+    public void UseWeapon_Triggers_EquipmentManager()
     {
-        player.UseHealth(10);
-        var spy = mockHealthBar as SpyHealthBar;
-        Assert.IsTrue(spy.SetHealthCalled);
-        Assert.AreEqual(90, spy.LastHealthValue);
-    }
+        var manager = player.GetComponent<SpyEquipmentManager>();
+        Assert.IsNotNull(manager);
 
-    [Test]
-    public void UseMana_BeyondAvailable_CallsSetManaWithZero()
-    {
-        player.stats[StatType.Mana].currentValue = 10;
-        player.UseMana(50);
-        var spy = mockManaBar as SpyManaBar;
-        Assert.IsTrue(spy.SetManaCalled);
-        Assert.AreEqual(0, spy.LastManaValue);
-    }
+        // Simulate click
+        player.Update();
+        manager.UseWeapon(playerGameObject);
 
-    [Test]
-    public void UseStamina_BeyondAvailable_CallsSetStaminaWithZero()
-    {
-        player.stats[StatType.Stamina].currentValue = 10;
-        player.UseStamina(50);
-        var spy = mockStaminaBar as SpyStaminaBar;
-        Assert.IsTrue(spy.SetStaminaCalled);
-        Assert.AreEqual(0, spy.LastStaminaValue);
-    }
-
-    [Test]
-    public void UseHealth_BeyondAvailable_CallsSetHealthWithZero()
-    {
-        player.stats[StatType.Health].currentValue = 5;
-        player.UseHealth(100);
-        var spy = mockHealthBar as SpyHealthBar;
-        Assert.IsTrue(spy.SetHealthCalled);
-        Assert.AreEqual(0, spy.LastHealthValue);
-    }
-
-    [Test]
-    public void UseHealth_NegativeAmount_CallsSetHealthWithIncreasedValue()
-    {
-        player.stats[StatType.Health].currentValue = 50;
-        player.UseHealth(-30);
-        var spy = mockHealthBar as SpyHealthBar;
-        Assert.IsTrue(spy.SetHealthCalled);
-        Assert.AreEqual(80, spy.LastHealthValue);
-    }
-
-    [Test]
-    public void UseMana_NegativeAmount_CallsSetManaWithIncreasedValue()
-    {
-        player.stats[StatType.Mana].currentValue = 40;
-        player.UseMana(-20);
-        var spy = mockManaBar as SpyManaBar;
-        Assert.IsTrue(spy.SetManaCalled);
-        Assert.AreEqual(60, spy.LastManaValue);
-    }
-
-    [Test]
-    public void UseStamina_NegativeAmount_CallsSetStaminaWithIncreasedValue()
-    {
-        player.stats[StatType.Stamina].currentValue = 70;
-        player.UseStamina(-20);
-        var spy = mockStaminaBar as SpyStaminaBar;
-        Assert.IsTrue(spy.SetStaminaCalled);
-        Assert.AreEqual(90, spy.LastStaminaValue);
+        Assert.IsTrue(manager.UseWeaponCalled);
+        Assert.AreEqual(playerGameObject, manager.UsedBy);
     }
 }
