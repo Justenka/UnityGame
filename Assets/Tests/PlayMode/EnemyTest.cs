@@ -1,16 +1,28 @@
 using System.Collections;
+using System.Diagnostics;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
 using UnityEngine.UI;
 
+public class PlayerStub : Player
+{
+    public float damageTaken;
+    public override void Start()
+    {
+        // Skip base.Start to avoid unnecessary setup
+    }
 
+    public override void TakeDamage(float amount)
+    {
+        damageTaken += amount;
+    }
+}
 public class EnemyTests
 {
     private GameObject enemyObject;
     private Enemy enemy;
-    private GameObject damageControllerObj;
-   
+
     [SetUp]
     public void SetUp()
     {
@@ -78,6 +90,20 @@ public class EnemyTests
 
         
         Assert.AreNotEqual(Vector2.zero, enemy.rb.linearVelocity);
+    }
+    [UnityTest]
+    public IEnumerator Enemy_AttacksPlayerInTrigger()
+    {
+        var playerGO = new GameObject("PlayerStub");
+        var player = playerGO.AddComponent<PlayerStub>();
+        enemy.playerInTrigger = player;
+        enemy.lastAttackTime = Time.time - enemy.attackCooldown;
+        yield return null;
+        enemy.Update();
+
+        Assert.AreEqual(enemy.damageToPlayer, player.damageTaken);
+        Object.DestroyImmediate(playerGO);
+        enemy.playerInTrigger = null;
     }
 }
 
