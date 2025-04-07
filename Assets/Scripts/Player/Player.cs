@@ -33,7 +33,7 @@ public class Player : MonoBehaviour
         //weaponRotation = GetComponentInChildren<WeaponRotation>();
     }
 
-    public void Start()
+    public virtual void Start()
     {
         if (PlayerPrefs.HasKey("PlayerUsername"))
         {
@@ -87,7 +87,7 @@ public class Player : MonoBehaviour
         staminaBar.SetStamina(maxStamina);
     }
 
-    public void TakeDamage(float amount)
+    public virtual void TakeDamage(float amount)
     {
         if (isInvincible) return;
 
