@@ -17608,6 +17608,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdda2c0c775637c498283b700a9d393b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 0}
+  delay: 0.3
   xOffset: 0.01
   yOffset: 0.15
 --- !u!1001 &1785043273
@@ -20315,7 +20317,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventoryUIGroup: {fileID: 1092405637}
-  inventoryButton: {fileID: 0}
+  inventoryButton: {fileID: 1515752640}
   tooltipUI: {fileID: 1822919990}
 --- !u!4 &2095549018
 Transform:
