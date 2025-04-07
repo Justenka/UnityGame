@@ -9,7 +9,7 @@ public class ShopUI : MonoBehaviour
     public GameObject inventoryItemPrefab;
     public InventoryManager inventoryManager;
 
-    private void OnEnable()
+    protected virtual void OnEnable()
     {
         PopulateShop();
 
@@ -38,7 +38,7 @@ public class ShopUI : MonoBehaviour
         }
     }
 
-    public void TryBuyItem(Item item)
+    public virtual void TryBuyItem(Item item)
     {
         if (player.currencyHeld >= item.price)
         {

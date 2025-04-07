@@ -9,7 +9,7 @@ public class EnemyTests
 {
     private GameObject enemyObject;
     private Enemy enemy;
-    private GameObject damageControllerObj;
+    
    
     [SetUp]
     public void SetUp()
