@@ -1,4 +1,4 @@
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,11 +6,11 @@ using UnityEngine.UI;
 public class HotbarSlotTests
 {
     private GameObject player;
-    private GameObject hotbarSlotObject;
     private HotbarSlot hotbarSlot;
-    private StubConsumableItem stubConsumableItem;
     private InventoryItem inventoryItem;
+    private StubConsumableItem stubConsumableItem;
 
+    //STUB: Simulates a consumable item and tracks usage
     private class StubConsumableItem : ConsumableItem
     {
         public bool useCalled = false;
@@ -21,76 +21,86 @@ public class HotbarSlotTests
         }
     }
 
-    // Mocked Input for testing
-    private class MockInput
+    //STUB: Simulates a generic non-consumable item
+    private class NonConsumableItem : Item
     {
-        public static bool GetKeyDown(KeyCode key)
-        {
-            return key == KeyCode.Alpha1; // Simulate Alpha1 keypress for testing
-        }
+    }
+
+    //Test Helper: Create InventoryItem With Mocked UI
+    private InventoryItem CreateMockInventoryItem(Item item, int count)
+    {
+        var go = new GameObject("InventoryItem");
+
+        var image = go.AddComponent<Image>();
+
+        var countTextGO = new GameObject("CountText");
+        countTextGO.transform.SetParent(go.transform);
+        var countText = countTextGO.AddComponent<Text>();
+
+        var ii = go.AddComponent<InventoryItem>();
+        ii.countText = countText;
+        ii.count = count;
+
+        ii.InitialiseItem(item);
+        return ii;
+    }
+
+    //Test Helper: Create HotbarSlot and attach item
+    private HotbarSlot CreateMockHotbarSlot(InventoryItem item)
+    {
+        var go = new GameObject("HotbarSlot");
+        var slot = go.AddComponent<HotbarSlot>();
+        item.transform.SetParent(go.transform);
+        slot.hotbarItem = item;
+        return slot;
     }
 
     [SetUp]
     public void SetUp()
     {
-        // Sukuriam mock objekta zaidejui
-        player = new GameObject();
+        player = new GameObject("Player");
         player.AddComponent<Player>();
 
-        // Sukuriam hotbar'o objekta
-        hotbarSlotObject = new GameObject();
-        hotbarSlot = hotbarSlotObject.AddComponent<HotbarSlot>();
-
-        // Sukuriam stub'a naudojamui daiktui
         stubConsumableItem = ScriptableObject.CreateInstance<StubConsumableItem>();
         stubConsumableItem.cooldown = 2.0f;
         stubConsumableItem.restoreAmount = 10;
 
-        // Sukuriam inventoriu
-        inventoryItem = new GameObject().AddComponent<InventoryItem>();
-        inventoryItem.InitialiseItem(stubConsumableItem);
-        inventoryItem.count = 5;
-        inventoryItem.transform.SetParent(hotbarSlotObject.transform);
-
-        hotbarSlot.hotbarItem = inventoryItem;
+        inventoryItem = CreateMockInventoryItem(stubConsumableItem, 5);
+        hotbarSlot = CreateMockHotbarSlot(inventoryItem);
     }
-
 
     [Test]
     public void UseHotbarItem_CallsUseMethod_WhenItemIsUsed()
     {
-        // Daiktu kiekis inventoriuje
-        int initialCount = hotbarSlot.hotbarItem.count;
+        int initialCount = inventoryItem.count;
 
-        // Override Input.GetKeyDown to simulate Alpha1 key press ??????
-        var originalGetKeyDown = typeof(Input).GetMethod("GetKeyDown", System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public);
-        typeof(Input).GetMethod("GetKeyDown").Invoke(null, new object[] { KeyCode.Alpha1 });
+        hotbarSlot.UseHotbarItem();
 
-        // Atnaujinam inventoriu
-        hotbarSlot.Update();
-
-        // Tikrinam
-        Assert.IsTrue(stubConsumableItem.useCalled, "Turi buti iskviestas Use() metodas ir sunaudojamas vienas daiktas.");
-        Assert.AreEqual(initialCount - 1, hotbarSlot.hotbarItem.count, "Kiekis turi pamazeti per viena panaudojus.");
+        Assert.IsTrue(stubConsumableItem.useCalled, "Use() should have been called.");
+        Assert.AreEqual(initialCount - 1, inventoryItem.count, "Item count should decrease by 1.");
     }
 
     [Test]
     public void UseHotbarItem_OnlyUsesConsumableItems()
     {
-        // Testas daiktam kurie nera 'consumbles'. Jie neturi susinaudoti 
-
-        Item nonConsumableItem = ScriptableObject.CreateInstance<Item>();
-        hotbarSlot.hotbarItem.InitialiseItem(nonConsumableItem);
+        Item nonConsumableItem = ScriptableObject.CreateInstance<NonConsumableItem>();
+        inventoryItem.InitialiseItem(nonConsumableItem);
 
         hotbarSlot.UseHotbarItem();
 
-        Assert.AreEqual(5, hotbarSlot.hotbarItem.count, "Non-consumable daiktai neturi susinaudoti.");
+        Assert.AreEqual(5, inventoryItem.count, "Non-consumable item count should not decrease.");
     }
 
     [TearDown]
     public void TearDown()
     {
-        Object.Destroy(player);
-        Object.Destroy(hotbarSlotObject);
+        if (player != null)
+            Object.DestroyImmediate(player);
+
+        if (hotbarSlot != null && hotbarSlot.gameObject != null)
+            Object.DestroyImmediate(hotbarSlot.gameObject);
+
+        if (inventoryItem != null && !ReferenceEquals(inventoryItem, null) && inventoryItem.gameObject != null)
+            Object.DestroyImmediate(inventoryItem.gameObject);
     }
 }
