@@ -17,7 +17,7 @@ public abstract class Item : ScriptableObject
     public bool stackable;
     public ItemType type;
 
-    public virtual List<StatModifier> statModifiers { get; } = new();
+    public List<StatModifier> statModifiers = new();
 
     public virtual void Use(GameObject user) { }
 }

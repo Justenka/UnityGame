@@ -62,7 +62,7 @@ public class SpyEquipmentManager : EquipmentManager
 [CreateAssetMenu(fileName = "StubItem", menuName = "Items/StubItem")]
 public class StubItem : Item
 {
-    public override List<StatModifier> statModifiers => new()
+    public List<StatModifier> stats = new()
     {
         new StatModifier { statType = StatType.Health, value = 25 },
         new StatModifier { statType = StatType.Attack, value = 10 }
