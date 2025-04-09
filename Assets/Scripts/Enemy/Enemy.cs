@@ -28,6 +28,8 @@ public class Enemy : MonoBehaviour
     public bool isDead = false;
     private EnemyDropItem dropItem;
 
+    public HealthBar healthBar;
+
     public void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -40,6 +42,11 @@ public class Enemy : MonoBehaviour
         else
         {
             currentHealth = minHealth;
+        }
+        healthBar = GetComponentInChildren<HealthBar>();
+        if (healthBar != null)
+        {
+            healthBar.SetMaxHealth(currentHealth);
         }
     }
 
@@ -78,22 +85,28 @@ public class Enemy : MonoBehaviour
         if (isInvincible) return;
 
         currentHealth -= damage;
+
+        if (healthBar != null)
+        {
+            healthBar.SetHealth(currentHealth);
+        }
+
         if (currentHealth <= 0)
         {
             Die();
         }
+
         else if (KnockBack)
         {
             animator.SetBool("isHit", true);
             ApplyKnockback(attackerPosition, knockbackForce);
             StartInvincibility();
         }
+
         if (DamageNumberController.instance != null)
         {
             DamageNumberController.instance.SpawnDamage(damage, transform.position, false);
         }
-
-        
     }
     void ApplyKnockback(Vector2 attackerPosition, float knockbackForce)
     {
@@ -129,8 +142,6 @@ public class Enemy : MonoBehaviour
         {
             rb.linearVelocity = Vector2.zero;
             isKnockedBack = false;
-
-
         }
     }
     public void StartInvincibility()
