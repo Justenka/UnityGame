@@ -25,6 +25,14 @@ public class ConsumableItem : Item
             case ConsumableType.Mana:
                 player.RestoreMana(restoreAmount);
                 break;
+            case ConsumableType.Unknown:
+                restoreAmount = Random.Range(-100, 100);
+                player.RestoreHealth(restoreAmount);
+                restoreAmount = Random.Range(-100, 100);
+                player.RestoreStamina(restoreAmount);
+                restoreAmount = Random.Range(-100, 100);
+                player.RestoreMana(restoreAmount);
+                break;
         }
     }
 }
