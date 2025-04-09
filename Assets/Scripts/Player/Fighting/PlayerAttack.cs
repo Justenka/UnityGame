@@ -1,19 +1,30 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
     private GameObject attackArea;
     private SpriteRenderer attackSprite;
+    private Animator animator;
     private bool attacking = false;
     private float timeToAttack = 0.25f;
     private float timer = 0f;
     private float angle = 0f;
+    private AttackArea attackAreaScript;
+    private WeaponRotation weaponRotation;
 
     void Start()
     {
         attackArea = transform.GetChild(0).gameObject;
         attackSprite = attackArea.GetComponent<SpriteRenderer>();
         attackSprite.color = new Color(1, 0, 0, 0.2f);
+
+        attackAreaScript = attackArea.GetComponent<AttackArea>();
+        animator = GetComponentInChildren<Animator>();
+        Transform weaponParent = transform.Find("WeaponParent");
+        if (weaponParent != null)
+        {
+            weaponRotation = weaponParent.GetComponent<WeaponRotation>();
+        }
     }
 
     void Update()
@@ -23,10 +34,11 @@ public class PlayerAttack : MonoBehaviour
             timer += Time.deltaTime;
             if (timer >= timeToAttack)
             {
-                timer = 0;
+                timer = 0f;
                 attacking = false;
-                attackArea.SetActive(attacking);
+                attackArea.SetActive(false);
                 attackSprite.color = new Color(1, 0, 0, 0.2f);
+                attackAreaScript.EndAttack();
             }
         }
 
@@ -36,8 +48,14 @@ public class PlayerAttack : MonoBehaviour
     public void DoAttack()
     {
         attacking = true;
-        attackArea.SetActive(attacking);
+        attackArea.SetActive(true);
         attackSprite.color = new Color(1, 0, 0, 1f);
+        attackAreaScript.StartAttack();
+
+        if (weaponRotation != null && weaponRotation.animator != null)
+        {
+            weaponRotation.animator.SetTrigger("Attack");
+        }
     }
 
     private void RotateAttackAroundPlayer()

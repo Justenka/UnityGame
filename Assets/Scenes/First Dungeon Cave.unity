@@ -4421,6 +4421,7 @@ MonoBehaviour:
   userName: {fileID: 994130063}
   respawnMenu: {fileID: 0}
   Experience: {fileID: 0}
+  debuffUIManager: {fileID: 0}
 --- !u!82 &381430706
 AudioSource:
   m_ObjectHideFlags: 0
@@ -4649,6 +4650,7 @@ MonoBehaviour:
   dashingPower: 24
   dashingTime: 0.2
   dashingCooldown: 1
+  speedMultiplier: 1
 --- !u!50 &381430714
 Rigidbody2D:
   serializedVersion: 5
@@ -77648,7 +77650,7 @@ Canvas:
   m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
+  m_SortingLayerID: 1287019421
   m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!1 &1370723508

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Unknown potion
   description: Effects are not known
-  image: {fileID: -8403564350996133833, guid: c40bc45bd1302d44bac67fa3a193ac60, type: 3}
+  image: {fileID: 8940362547575817036, guid: 5f181e740cddac442862063f00f8ecdb, type: 3}
   price: 10
   stackable: 1
   type: 3
