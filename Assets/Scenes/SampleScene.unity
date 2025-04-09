@@ -7771,10 +7771,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     - target: {fileID: 1649071345661501795, guid: 79d85d09e9f1a974fb00f220abef7310, type: 3}
       propertyPath: m_Layer
       value: 6
 =======
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
     - target: {fileID: 1884262854379103290, guid: 79d85d09e9f1a974fb00f220abef7310, type: 3}
@@ -7801,6 +7804,9 @@ PrefabInstance:
       propertyPath: debuffToApply.damagePerTick
       value: 10
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes

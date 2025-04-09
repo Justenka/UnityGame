@@ -148,8 +148,12 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     nameFileIdTable:
       SlowIcon_0: -1630426966384120657
+=======
+    nameFileIdTable: {}
+>>>>>>> Stashed changes
 =======
     nameFileIdTable: {}
 >>>>>>> Stashed changes
