@@ -22,6 +22,9 @@ public class Player : MonoBehaviour
     public string Name;
     public TMP_Text userName;
 
+    private Vector2 respawnPosition;
+    public GameObject respawnMenu;
+    public ExperienceLevelController Experience;
     //[SerializeField]
     //private InputActionReference attack;
 
@@ -44,6 +47,7 @@ public class Player : MonoBehaviour
             }
         }
         SetInitialValues();
+        respawnPosition = transform.position;
     }
     public void Update()
     {
@@ -206,9 +210,34 @@ public class Player : MonoBehaviour
 
     void Die()
     {
-        Destroy(gameObject);
+        gameObject.SetActive(false);
+        ShowRespawnMenu();
+    }
+    void ShowRespawnMenu()
+    {
+        respawnMenu.SetActive(true);
+        Time.timeScale = 0;
+    }
+    public void OnRespawnButtonClick()
+    {
+        Respawn();
+        gameObject.SetActive(true);
+        respawnMenu.SetActive(false);
+        Time.timeScale = 1; 
     }
 
+    public void OnQuitButtonClick()
+    {
+        Application.Quit();
+    }
+    void Respawn()
+    {
+        transform.position = respawnPosition;
+        Experience.currentExperience = 0;
+        currencyHeld = 0;
+        GetComponent<EquipmentManager>().UnequipAll();
+        SetInitialValues();
+    }
     public void GetCurrency(float amount)
     {
         currencyHeld += amount;
