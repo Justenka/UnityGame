@@ -12829,7 +12829,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 381430705}
         m_TargetAssemblyTypeName: Player, Scripts
         m_MethodName: OnRespawnButtonClick
         m_Mode: 1
@@ -82151,7 +82151,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 381430705}
         m_TargetAssemblyTypeName: Player, Scripts
         m_MethodName: OnQuitButtonClick
         m_Mode: 1

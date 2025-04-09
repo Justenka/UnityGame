@@ -246,6 +246,7 @@ public class Player : MonoBehaviour
         InventoryManager inventoryManager = FindFirstObjectByType<InventoryManager>();
         inventoryManager.ClearInventory();
         activeDebuffs.Clear();
+        debuffUIManager.HideAllIcons();
         SetInitialValues();
     }
     public void GetCurrency(float amount)
