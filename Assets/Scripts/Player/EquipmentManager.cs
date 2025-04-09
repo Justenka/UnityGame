@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class EquipmentManager : MonoBehaviour
@@ -6,6 +7,7 @@ public class EquipmentManager : MonoBehaviour
     public Transform firePoint;
     public GameObject weaponVisual;
 
+    private List<Item> equippedItems = new List<Item>();
     void Start()
     {
         // If weapon is equipped, show the visual; otherwise hide it
@@ -29,6 +31,8 @@ public class EquipmentManager : MonoBehaviour
             if (weaponVisual != null)
                 weaponVisual.SetActive(true);
         }
+
+        equippedItems.Add(item);
     }
     public void Unequip(Item item)
     {
@@ -45,8 +49,22 @@ public class EquipmentManager : MonoBehaviour
             if (weaponVisual != null)
                 weaponVisual.SetActive(false);
         }
+        equippedItems.Remove(item);
     }
+    public void UnequipAll()
+    {
+        // Create a copy of the list to avoid modifying the list while iterating
+        List<Item> itemsToUnequip = new List<Item>(equippedItems);
 
+        // Unequip all items in the copied list
+        foreach (Item item in itemsToUnequip)
+        {
+            Unequip(item);
+        }
+
+        // Clear the original equipped items list
+        equippedItems.Clear();
+    }
     public virtual void UseWeapon(GameObject user)
     {
         if (equippedWeapon == null) return;
