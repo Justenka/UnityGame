@@ -11,10 +11,10 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - World
   - Water
   - UI
-  - 
+  - Visible
   - 
   - 
   - 
@@ -46,6 +46,15 @@ TagManager:
     locked: 0
   - name: Map
     uniqueID: 766735033
+    locked: 0
+  - name: Enemy
+    uniqueID: 1287019421
+    locked: 0
+  - name: Drops
+    uniqueID: 3391968085
+    locked: 0
+  - name: NPC
+    uniqueID: 1991383903
     locked: 0
   - name: Character
     uniqueID: 2310489109

@@ -6,7 +6,7 @@ public class InventoryManager : MonoBehaviour
     public int maxStackedItems = 10;
     public InventorySlot[] inventorySlots;
     public GameObject inventoryItemPrefab;
-    public ConsumableType consumableType;
+    //public ConsumableType consumableType;
     public Player player;
 
     void Start() 

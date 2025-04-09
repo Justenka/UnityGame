@@ -333,8 +333,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1287019421
+  m_SortingLayer: 2
   m_SortingOrder: 2
   m_Sprite: {fileID: 8536121584949983522, guid: 57ff270bf3c9c204fab6c9877c6a6354, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -564,7 +564,7 @@ Canvas:
   m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
+  m_SortingLayerID: 1287019421
   m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!114 &1582557134955150280

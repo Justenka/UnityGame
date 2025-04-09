@@ -76,8 +76,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -902999211
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: -2318934116623252977, guid: be203c3e19d02634b84f41069ec71890, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -169,5 +169,4 @@ MonoBehaviour:
   amount: 1
   itemData: {fileID: 0}
   goldSprite: {fileID: -2318934116623252977, guid: be203c3e19d02634b84f41069ec71890, type: 3}
-  potionSprite: {fileID: -2132131600891923224, guid: 706aaffffaca5534881bcfdf3589877c, type: 3}
   defaultSprite: {fileID: -8403564350996133833, guid: c40bc45bd1302d44bac67fa3a193ac60, type: 3}
