@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0cc4f371ca642d4cb8a4762cb0ef8d6, type: 3}
   m_Name: Test_feet
   m_EditorClassIdentifier: 
-  itemName: Leahter shoes
-  description: Most basic type of protection
-  image: {fileID: -8992869743243298296, guid: a4565d29d91570d41a0d7949122214f1, type: 3}
+  itemName: Test_feet
+  description: blablalbablablalbalblablaba blalbal
+  image: {fileID: -420986414974181754, guid: bf311a4790092024ba2e474f4b78f3a1, type: 3}
   price: 0
   stackable: 0
   type: 2
@@ -22,7 +22,5 @@ MonoBehaviour:
   - statType: 0
     value: 20
   - statType: 0
-    value: 2
-  - statType: 2
-    value: 10
+    value: 5
   armorType: 4
