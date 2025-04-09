@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0cc4f371ca642d4cb8a4762cb0ef8d6, type: 3}
   m_Name: Test_chest
   m_EditorClassIdentifier: 
-  itemName: Test_chest
-  description: 
-  image: {fileID: 2646313607229294920, guid: 285386cd9b4f89b48b82b803cfa6368d, type: 3}
+  itemName: Leather chest
+  description: Most basic type of protection
+  image: {fileID: -7266981210343810000, guid: f59d7cf4a30289f4c84b6cf8d66c4999, type: 3}
   price: 0
   stackable: 0
   type: 2
@@ -22,5 +22,5 @@ MonoBehaviour:
   - statType: 0
     value: 20
   - statType: 4
-    value: 5
+    value: 1
   armorType: 2
