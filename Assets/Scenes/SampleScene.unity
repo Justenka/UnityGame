@@ -8076,6 +8076,10 @@ PrefabInstance:
       propertyPath: item
       value: 
       objectReference: {fileID: 11400000, guid: e66cd1d608619114ea06730eff445a32, type: 2}
+    - target: {fileID: 5482253159798788289, guid: d49e9ef5159d40a4fa81419ffee19923, type: 3}
+      propertyPath: count
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 6023277940696435804, guid: d49e9ef5159d40a4fa81419ffee19923, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
