@@ -52,7 +52,7 @@ public class PlayerMovement : MonoBehaviour
         if (!isDashing)
             Move();
 
-        animator.SetFloat("xVelocity", Mathf.Abs(rigidBody.linearVelocity.x));
+        animator.SetFloat("xVelocity", rigidBody.linearVelocity.magnitude);
     }
 
     void ProcessInput()
