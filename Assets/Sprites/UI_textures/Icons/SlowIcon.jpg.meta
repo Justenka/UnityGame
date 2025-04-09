@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      SlowIcon_0: -1630426966384120657
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
