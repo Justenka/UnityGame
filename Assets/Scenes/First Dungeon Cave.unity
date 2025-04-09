@@ -4831,7 +4831,7 @@ GameObject:
   - component: {fileID: 381430707}
   - component: {fileID: 381430706}
   - component: {fileID: 381430716}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -4902,7 +4902,7 @@ MonoBehaviour:
   staminaBar: {fileID: 466671699}
   isInvincible: 0
   invincibilityDuration: 0.5
-  currencyHeld: 1000
+  currencyHeld: 0
   Name: 
   userName: {fileID: 994130063}
   respawnMenu: {fileID: 1335420114}
@@ -5235,7 +5235,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -7979,7 +7979,7 @@ GameObject:
   - component: {fileID: 670285346}
   - component: {fileID: 670285345}
   - component: {fileID: 670285344}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: PlayerCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11071,7 +11071,7 @@ GameObject:
   - component: {fileID: 994130062}
   - component: {fileID: 994130064}
   - component: {fileID: 994130063}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: UserName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14925,7 +14925,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1345995765}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: firePoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92799,7 +92799,7 @@ GameObject:
   - component: {fileID: 1645058665}
   - component: {fileID: 1645058666}
   - component: {fileID: 1645058667}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96966,7 +96966,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2031937287}
   - component: {fileID: 2031937286}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: WeaponParent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -97705,7 +97705,7 @@ GameObject:
   - component: {fileID: 2084011560}
   - component: {fileID: 2084011559}
   - component: {fileID: 2084011558}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: AttackArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}

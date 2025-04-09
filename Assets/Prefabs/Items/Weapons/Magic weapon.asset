@@ -13,16 +13,20 @@ MonoBehaviour:
   m_Name: Magic weapon
   m_EditorClassIdentifier: 
   itemName: Staff
-  description: 
+  description: The most basic magic staff
   image: {fileID: -6364941832325559699, guid: c63c6652c4aa67e47bd1bdbcedad8126, type: 3}
   price: 0
   stackable: 0
   type: 1
   statModifiers:
   - statType: 3
-    value: 50
-  fireRate: 4
+    value: 20
+  - statType: 1
+    value: 15
+  - statType: 5
+    value: 2
+  fireRate: 5
   actionType: 1
   projectilePrefab: {fileID: 268461493443850436, guid: 27fbd708d61df9b4780c2a1b5a0bf436, type: 3}
-  projectileSpeed: 10
+  projectileSpeed: 8
   manaCost: 5

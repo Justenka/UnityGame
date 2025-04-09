@@ -12,17 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0cc4f371ca642d4cb8a4762cb0ef8d6, type: 3}
   m_Name: Test_legs
   m_EditorClassIdentifier: 
-  itemName: Test_legs
-  description: best legs in the game at the momomentoi
-  image: {fileID: -3054401065521547791, guid: 62814517bcc969249a4431b5f2946fd4, type: 3}
+  itemName: Leather pants
+  description: The most basic body protection
+  image: {fileID: 4789614092347832128, guid: dc3951bdc95c8a444a9a0d1853234e94, type: 3}
   price: 0
   stackable: 0
   type: 2
   statModifiers:
   - statType: 0
-    value: 20
+    value: 10
   - statType: 4
-    value: 5
+    value: 1
   - statType: 2
-    value: 20
+    value: 10
   armorType: 3

@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0cc4f371ca642d4cb8a4762cb0ef8d6, type: 3}
   m_Name: Test_head
   m_EditorClassIdentifier: 
-  itemName: Test_head
-  description: 
-  image: {fileID: -2997794184013798670, guid: 3b70b010e4c3bab4091f1a23a69a0bfb, type: 3}
+  itemName: Leather cap
+  description: The most basic body protection
+  image: {fileID: 7303559878284153606, guid: 8db01f744de20004e8c13259df98f7ed, type: 3}
   price: 0
   stackable: 0
   type: 2
@@ -22,7 +22,9 @@ MonoBehaviour:
   - statType: 0
     value: 20
   - statType: 4
-    value: 5
+    value: 1
   - statType: 2
-    value: 20
+    value: 10
+  - statType: 1
+    value: 10
   armorType: 1

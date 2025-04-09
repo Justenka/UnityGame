@@ -13,14 +13,18 @@ MonoBehaviour:
   m_Name: Melee weapon
   m_EditorClassIdentifier: 
   itemName: Sword
-  description: 
+  description: Very sharp and trusty iron sword
   image: {fileID: 7374356430820761151, guid: 03bcfc5733246404aa563748906abf19, type: 3}
   price: 0
   stackable: 0
   type: 1
   statModifiers:
   - statType: 3
-    value: 50
+    value: 30
+  - statType: 0
+    value: 15
+  - statType: 2
+    value: 10
   fireRate: 0
   actionType: 0
   projectilePrefab: {fileID: 0}

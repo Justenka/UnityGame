@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4482717406952273329}
   - component: {fileID: 3374781827490982001}
   - component: {fileID: 491865549148990538}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -86,7 +86,7 @@ GameObject:
   - component: {fileID: 4608360614124948159}
   - component: {fileID: 1715789338640046217}
   - component: {fileID: 692434698268176974}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Health bar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -189,7 +189,7 @@ GameObject:
   - component: {fileID: 4026711891079044843}
   - component: {fileID: 796118329563503124}
   - component: {fileID: 2386477780008621803}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Border
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -269,7 +269,7 @@ GameObject:
   - component: {fileID: 1534254762742278452}
   - component: {fileID: -5780201929352805491}
   - component: {fileID: -9112137079326044575}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -403,6 +403,12 @@ MonoBehaviour:
   xpMultiplier: 0.1
   isDead: 0
   healthBar: {fileID: 692434698268176974}
+  debuffToApply:
+    debuffType: 0
+    duration: 5
+    damagePerTick: 1
+    tickInterval: 1
+    slowAmount: 0.5
 --- !u!114 &6135305365425720006
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -517,7 +523,7 @@ GameObject:
   - component: {fileID: 4882626065416694123}
   - component: {fileID: 1582557134955150280}
   - component: {fileID: 1063830977785429729}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
