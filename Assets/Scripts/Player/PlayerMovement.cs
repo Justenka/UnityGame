@@ -18,6 +18,7 @@ public class PlayerMovement : MonoBehaviour
     public float dashingTime = 0.2f;
     public float dashingCooldown = 1f;
 
+    public float speedMultiplier = 1f;
     private void Start()
     {
         rigidBody = GetComponent<Rigidbody2D>();
@@ -64,7 +65,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Move()
     {
-        float speed = player.stats[StatType.Speed].Total;
+        float speed = player.stats[StatType.Speed].Total * speedMultiplier;
         float moveMultiplier = running ? 2f : 1f;
 
         rigidBody.linearVelocity = moveDirection * speed * moveMultiplier;
@@ -96,5 +97,13 @@ public class PlayerMovement : MonoBehaviour
     {
         Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         transform.right = (mouseWorldPosition.x < transform.position.x) ? Vector3.right : Vector3.left;
+    }
+    public void ModifySpeedMultiplier(float newMultiplier)
+    {
+        speedMultiplier = newMultiplier;
+    }
+    public float GetCurrentSpeedMultiplier()
+    {
+        return speedMultiplier;
     }
 }

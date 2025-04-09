@@ -25,6 +25,10 @@ public class Player : MonoBehaviour
     private Vector2 respawnPosition;
     public GameObject respawnMenu;
     public ExperienceLevelController Experience;
+    public DebuffUIManager debuffUIManager;
+    private Dictionary<System.Type, Debuff> activeDebuffs = new();
+
+
     //[SerializeField]
     //private InputActionReference attack;
 
@@ -55,6 +59,9 @@ public class Player : MonoBehaviour
         {
             GetComponent<EquipmentManager>().UseWeapon(gameObject);
         }
+
+        UpdateDebuffs();
+
     }
     void LateUpdate()
     {
@@ -236,6 +243,9 @@ public class Player : MonoBehaviour
         Experience.currentExperience = 0;
         currencyHeld = 0;
         GetComponent<EquipmentManager>().UnequipAll();
+        InventoryManager inventoryManager = FindFirstObjectByType<InventoryManager>();
+        inventoryManager.ClearInventory();
+        activeDebuffs.Clear();
         SetInitialValues();
     }
     public void GetCurrency(float amount)
@@ -281,6 +291,39 @@ public class Player : MonoBehaviour
                 stats[mod.statType].bonusValue -= mod.value;
         }
         RefreshStats();
+    }
+    public void AddDebuff(Debuff newDebuff)
+    {
+        System.Type debuffType = newDebuff.GetType();
+
+        // Remove existing one of the same type
+        if (activeDebuffs.TryGetValue(debuffType, out var existingDebuff))
+        {
+            existingDebuff.Remove(this);
+            activeDebuffs.Remove(debuffType);
+        }
+
+        // Apply and store the new debuff
+        newDebuff.Apply(this);
+        activeDebuffs[debuffType] = newDebuff;
+    }
+    public void UpdateDebuffs()
+    {
+        List<System.Type> expired = new();
+        foreach (var kvp in activeDebuffs)
+        {
+            kvp.Value.Update(this);
+            if (kvp.Value.IsExpired)
+            {
+                kvp.Value.Remove(this);
+                expired.Add(kvp.Key);
+            }
+        }
+
+        foreach (var type in expired)
+        {
+            activeDebuffs.Remove(type);
+        }
     }
 
     //private void OnEnable()

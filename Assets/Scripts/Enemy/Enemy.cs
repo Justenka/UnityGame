@@ -29,7 +29,7 @@ public class Enemy : MonoBehaviour
     private EnemyDropItem dropItem;
 
     public HealthBar healthBar;
-
+    public DebuffData debuffToApply;
     public void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -53,10 +53,11 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     public void Update()
     {
-        if (playerInTrigger != null && Time.time >= lastAttackTime + attackCooldown)
+        if (playerInTrigger != null && Time.time >= lastAttackTime + attackCooldown && !playerInTrigger.isInvincible)
         {
             playerInTrigger.TakeDamage(damageToPlayer);
             lastAttackTime = Time.time;
+            ApplyDebuffToPlayer(playerInTrigger);
         }
     }
     void OnTriggerEnter2D(Collider2D collision)
@@ -68,6 +69,7 @@ public class Enemy : MonoBehaviour
             {
                 playerInTrigger = player;
                 playerInTrigger.TakeDamage(damageToPlayer);
+                ApplyDebuffToPlayer(player);
                 lastAttackTime = Time.time;
             }
         }
@@ -188,4 +190,28 @@ public class Enemy : MonoBehaviour
             xpPickup.GetComponent<ExperiencePickup>().expValue = xpToDrop;
         }
     }
+    void ApplyDebuffToPlayer(Player player)
+    {
+        switch (debuffToApply.debuffType)
+        {
+            case DebuffType.Poison:
+                player.AddDebuff(new PoisonDebuff(
+                    debuffToApply.duration,
+                    debuffToApply.damagePerTick,
+                    debuffToApply.tickInterval));
+                break;
+            case DebuffType.Burn:
+                player.AddDebuff(new BurnDebuff(
+                    debuffToApply.duration,
+                    debuffToApply.damagePerTick,
+                    debuffToApply.tickInterval));
+                break;
+            case DebuffType.Slow:
+                player.AddDebuff(new SlowDebuff(
+                    debuffToApply.duration,
+                    debuffToApply.slowAmount));
+                break;
+        }
+    }
+
 }

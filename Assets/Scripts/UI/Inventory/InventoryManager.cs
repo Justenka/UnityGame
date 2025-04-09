@@ -63,6 +63,17 @@ public class InventoryManager : MonoBehaviour
         InventoryItem inventoryItem = newItemGo.GetComponent<InventoryItem>();
         inventoryItem.InitialiseItem(item);
     }
+    public void ClearInventory()
+    {
+        foreach (InventorySlot slot in inventorySlots)
+        {
+            InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
+            if (itemInSlot != null)
+            {
+                Destroy(itemInSlot.gameObject);
+            }
+        }
+    }
     //public void UseHealthPotion()
     //{
     //    foreach (var slot in inventorySlots)
