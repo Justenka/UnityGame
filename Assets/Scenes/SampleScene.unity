@@ -7515,6 +7515,7 @@ GameObject:
   - component: {fileID: 708523013}
   - component: {fileID: 708523015}
   - component: {fileID: 708523014}
+  - component: {fileID: 708523016}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -7902,6 +7903,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioSource: {fileID: 708523014}
   strangeEffectClip: {fileID: 8300000, guid: 466b94fc0ea231b40a761bc5bbb6f278, type: 3}
+--- !u!114 &708523016
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 708523001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 920a4e8cca617d44aba8697c15c4048d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slowFactor: 0.1
+  slowDuration: 2
+  cooldownTime: 5
+  abilityKey: 101
 --- !u!1001 &717972595
 PrefabInstance:
   m_ObjectHideFlags: 0
