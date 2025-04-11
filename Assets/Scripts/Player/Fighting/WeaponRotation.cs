@@ -17,11 +17,21 @@ public class WeaponRotation : MonoBehaviour
     private Quaternion cachedRotation;
     private Vector3 cachedScale;
 
+    private Player player;
+
+    public Transform circleOrigin;
+    public float radius;
+
     void Start()
     {
         mainCamera = Camera.main;
         weaponSpriteRenderer = GetComponentInChildren<SpriteRenderer>();
         characterSpriteRenderer = GetComponentInParent<SpriteRenderer>();
+    }
+
+    private void Awake()
+    {
+        player = GetComponentInParent<Player>();
     }
 
     void Update()
@@ -71,6 +81,25 @@ public class WeaponRotation : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D collider)
+    {
+        if (!attackBlocked) return;
+
+        Attack();
+        Enemy enemy = collider.GetComponent<Enemy>();
+        if (enemy != null)
+        {
+            WeaponItem weapon = player.GetComponent<EquipmentManager>().equippedWeapon;
+            if (weapon != null)
+            {
+                float damage = player.stats[StatType.Attack].Total;
+                float knockBack = 5f;
+                bool doesKnockBack = true;
+                enemy.TakeDamage(damage, transform.position, knockBack, doesKnockBack);
+            }
+        }
+    }
+
     public bool Attack()
     {
         if (attackBlocked)
@@ -88,10 +117,34 @@ public class WeaponRotation : MonoBehaviour
         return true;
     }
 
-
     private IEnumerator DelayAttack()
     {
         yield return new WaitForSeconds(delay);
         attackBlocked = false;
     }
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.blue;
+        Vector3 position = circleOrigin == null ? Vector3.zero : circleOrigin.position;
+        Gizmos.DrawWireSphere(position, radius);
+    }
+    public void DetectColliders()
+    {
+        foreach (Collider2D collider in Physics2D.OverlapCircleAll(circleOrigin.position, radius))
+        {
+            Enemy enemy = collider.GetComponent<Enemy>();
+            if (enemy != null)
+            {
+                WeaponItem weapon = player.GetComponent<EquipmentManager>().equippedWeapon;
+                if (weapon != null)
+                {
+                    float damage = player.stats[StatType.Attack].Total;
+                    float knockBack = 5f;
+                    bool doesKnockBack = true;
+                    enemy.TakeDamage(damage, transform.position, knockBack, doesKnockBack);
+                }
+            }
+        }
+    }
+
 }
