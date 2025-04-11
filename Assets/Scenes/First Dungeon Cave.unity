@@ -4864,8 +4864,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   equippedWeapon: {fileID: 0}
-  firePoint: {fileID: 0}
-  weaponVisual: {fileID: 0}
+  firePoint: {fileID: 1345995765}
+  weaponVisual: {fileID: 2031937285}
 --- !u!4 &381430704
 Transform:
   m_ObjectHideFlags: 0

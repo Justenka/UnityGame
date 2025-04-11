@@ -4,7 +4,7 @@ using UnityEngine.EventSystems;
 public class EquipmentSlot : InventorySlot
 {
     public EquipmentManager equipmentManager;
-    public ArmorType acceptedArmorType; // Only relevant if Armor
+    public ArmorType acceptedArmorType;
 
     public override void OnDrop(PointerEventData eventData)
     {
@@ -12,14 +12,12 @@ public class EquipmentSlot : InventorySlot
         if (draggedItem == null)
             return;
 
-        //  Validate by acceptedType (from InventorySlot)
         if (acceptedType != ItemType.All && draggedItem.item.type != acceptedType)
         {
             Debug.Log($"Rejected: {draggedItem.item.itemName} is type {draggedItem.item.type}, expected {acceptedType}");
             return;
         }
 
-        //  If armor, check the specific armor type
         if (draggedItem.item is ArmorItem armorItem && acceptedType == ItemType.Armor)
         {
             if (armorItem.armorType != acceptedArmorType)
@@ -29,7 +27,6 @@ public class EquipmentSlot : InventorySlot
             }
         }
 
-        // ✅ Passed all checks → proceed with drop
         base.OnDrop(eventData);
     }
 }

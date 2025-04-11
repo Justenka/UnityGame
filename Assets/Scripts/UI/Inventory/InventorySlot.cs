@@ -40,9 +40,33 @@ public class InventorySlot : MonoBehaviour, IDropHandler
             Transform oldContainer = draggedItem.parentAfterDrag.Find("ItemContainer");
             Transform oldTargetParent = oldContainer != null ? oldContainer : draggedItem.parentAfterDrag;
 
+            // Only validate if the old target is an EquipmentSlot
+            EquipmentSlot oldSlot = oldTargetParent.GetComponentInParent<EquipmentSlot>();
+            if (oldSlot != null)
+            {
+                // If existing item is not valid for that equipment slot, cancel swap
+                if (oldSlot.acceptedType != ItemType.All && existingItem.item.type != oldSlot.acceptedType)
+                {
+                    Debug.Log("Rejected swap: item type mismatch for old slot");
+                    return;
+                }
+
+                // Additional check for armor type if applicable
+                if (existingItem.item is ArmorItem armor && oldSlot.acceptedType == ItemType.Armor)
+                {
+                    if (armor.armorType != oldSlot.acceptedArmorType)
+                    {
+                        Debug.Log("Rejected swap: armor type mismatch for old slot");
+                        return;
+                    }
+                }
+            }
+
+            // If passed, move existing item to old slot
             existingItem.transform.SetParent(oldTargetParent);
             existingItem.transform.localPosition = Vector3.zero;
         }
+
 
         // Place dragged item into this slot
         draggedItem.parentAfterDrag = targetParent;
