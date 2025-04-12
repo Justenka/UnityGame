@@ -8,7 +8,7 @@ public class EquipmentSlot : InventorySlot
 
     public override void OnDrop(PointerEventData eventData)
     {
-        InventoryItem draggedItem = eventData.pointerDrag?.GetComponent<InventoryItem>();
+        InventoryItem draggedItem = eventData.pointerDrag.GetComponent<InventoryItem>();
         if (draggedItem == null) return;
 
         // ✅ Validate dragged item type
