@@ -28,10 +28,7 @@ public class InventoryToggle : MonoBehaviour
         inventoryButton.SetActive(isActive);
 
         if (inventoryUIGroup.activeSelf)
-        {
             UIManager.Instance.RegisterOpenMenu(inventoryUIGroup);
-            Debug.Log(UIManager.Instance.openMenus.Count);
-        }
         else
             UIManager.Instance.UnregisterMenu(inventoryUIGroup);
 
