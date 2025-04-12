@@ -51,11 +51,11 @@ public class SpyEquipmentManager : EquipmentManager
     public bool UseWeaponCalled;
     public GameObject UsedBy;
 
-    public override void UseWeapon(GameObject user)
-    {
-        UseWeaponCalled = true;
-        UsedBy = user;
-    }
+    //public override void UseWeapon(GameObject user)
+    //{
+    //    UseWeaponCalled = true;
+    //    UsedBy = user;
+    //}
 }
 
 // === STUB ITEM FOR TESTING ===

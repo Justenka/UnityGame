@@ -279,7 +279,9 @@ public class Player : MonoBehaviour
         foreach (var mod in item.statModifiers)
         {
             if (stats.ContainsKey(mod.statType))
+            {
                 stats[mod.statType].bonusValue += mod.value;
+            }
         }
         RefreshStats();
     }
@@ -289,10 +291,15 @@ public class Player : MonoBehaviour
         foreach (var mod in item.statModifiers)
         {
             if (stats.ContainsKey(mod.statType))
+            {
                 stats[mod.statType].bonusValue -= mod.value;
+                // Clamp to 0 just in case
+                stats[mod.statType].bonusValue = Mathf.Max(0, stats[mod.statType].bonusValue);
+            }
         }
         RefreshStats();
     }
+
     public void AddDebuff(Debuff newDebuff)
     {
         System.Type debuffType = newDebuff.GetType();

@@ -7,16 +7,24 @@ public class EquipmentManager : MonoBehaviour
     public Transform firePoint;
     public GameObject weaponVisual;
 
-    private List<Item> equippedItems = new List<Item>();
+    // Use a HashSet to prevent duplicates
+    private HashSet<Item> equippedItems = new HashSet<Item>();
+
     void Start()
     {
-        // If weapon is equipped, show the visual; otherwise hide it
         if (weaponVisual != null)
             weaponVisual.SetActive(equippedWeapon != null);
     }
+
     public void Equip(Item item)
     {
-        Debug.Log("Trying to equip: " + item.itemName + " (" + item.type + ")");
+        if (equippedItems.Contains(item))
+        {
+            Debug.LogWarning("Item already equipped: " + item.itemName);
+            return;
+        }
+
+        Debug.Log("Equipping: " + item.itemName);
 
         Player player = GetComponent<Player>();
         if (player != null)
@@ -25,17 +33,24 @@ public class EquipmentManager : MonoBehaviour
         if (item is WeaponItem weapon)
         {
             equippedWeapon = weapon;
-            Debug.Log($"Equipped weapon: {weapon.itemName}");
-
-            // Show weapon visual
             if (weaponVisual != null)
                 weaponVisual.SetActive(true);
+            Debug.Log("Weapon equipped: " + weapon.itemName);
         }
 
         equippedItems.Add(item);
     }
+
     public void Unequip(Item item)
     {
+        if (!equippedItems.Contains(item))
+        {
+            Debug.LogWarning("Tried to unequip item not equipped: " + item.itemName);
+            return;
+        }
+
+        Debug.Log("Unequipping: " + item.itemName);
+
         Player player = GetComponent<Player>();
         if (player != null)
             player.RemoveItemStats(item);
@@ -43,29 +58,25 @@ public class EquipmentManager : MonoBehaviour
         if (item is WeaponItem && equippedWeapon == item)
         {
             equippedWeapon = null;
-            Debug.Log("Weapon unequipped.");
-
-            // Hide weapon visual
             if (weaponVisual != null)
                 weaponVisual.SetActive(false);
+            Debug.Log("Weapon unequipped.");
         }
+
         equippedItems.Remove(item);
     }
+
     public void UnequipAll()
     {
-        // Create a copy of the list to avoid modifying the list while iterating
-        List<Item> itemsToUnequip = new List<Item>(equippedItems);
-
-        // Unequip all items in the copied list
-        foreach (Item item in itemsToUnequip)
+        foreach (Item item in new List<Item>(equippedItems))
         {
             Unequip(item);
         }
 
-        // Clear the original equipped items list
         equippedItems.Clear();
     }
-    public virtual void UseWeapon(GameObject user)
+
+    public void UseWeapon(GameObject user)
     {
         if (equippedWeapon == null) return;
 
@@ -79,5 +90,9 @@ public class EquipmentManager : MonoBehaviour
                 user.GetComponent<PlayerShooting>().DoShoot(equippedWeapon);
                 break;
         }
+    }
+    public bool IsEquipped(Item item)
+    {
+        return equippedItems.Contains(item);
     }
 }

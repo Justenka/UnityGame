@@ -52,13 +52,6 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         parentAfterDrag = transform.parent;
         transform.SetParent(transform.root);
 
-        EquipmentSlot equipmentSlot = parentAfterDrag.GetComponent<EquipmentSlot>();
-        if (equipmentSlot != null && equipmentSlot.equipmentManager != null)
-        {
-            equipmentSlot.equipmentManager.Unequip(item);
-            Debug.Log(" Unequipped: " + item.itemName);
-        }
-
         InventoryItem.tooltip.Hide();
     }
 
@@ -72,17 +65,6 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         image.raycastTarget = true;
         transform.SetParent(parentAfterDrag);
         transform.localPosition = Vector3.zero;
-
-        EquipmentSlot equipmentSlot = parentAfterDrag.GetComponent<EquipmentSlot>();
-        if (equipmentSlot != null && equipmentSlot.equipmentManager != null)
-        {
-            Debug.Log(" Equipping item via OnEndDrag: " + item.itemName);
-            equipmentSlot.equipmentManager.Equip(item);
-        }
-        else
-        {
-            Debug.Log("OnEndDrag: Not dropped on an EquipmentSlot");
-        }
     }
 
     // Tooltip triggers
