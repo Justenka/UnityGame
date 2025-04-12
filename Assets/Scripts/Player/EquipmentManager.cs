@@ -78,7 +78,7 @@ public class EquipmentManager : MonoBehaviour
 
     public void UseWeapon(GameObject user)
     {
-        if (equippedWeapon == null) return;
+        if (equippedWeapon == null || UIManager.Instance.openMenus.Count > 0) return;
 
         switch (equippedWeapon.actionType)
         {

@@ -14,7 +14,8 @@ public class PlayerShooting : MonoBehaviour
             WeaponItem weapon = player.GetComponent<EquipmentManager>()?.equippedWeapon;
             if (weapon != null && weapon.actionType == ActionType.Ranged)
             {
-                DoShoot(weapon);
+                GetComponent<EquipmentManager>().UseWeapon(gameObject);
+                //DoShoot(weapon);
             }
         }
     }

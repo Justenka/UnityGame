@@ -24,24 +24,33 @@ public class InventoryToggle : MonoBehaviour
     public void ToggleInventory()
     {
         bool isActive = inventoryUIGroup.activeSelf;
-
         inventoryUIGroup.SetActive(!isActive);
         inventoryButton.SetActive(isActive);
 
+        if (inventoryUIGroup.activeSelf)
+        {
+            UIManager.Instance.RegisterOpenMenu(inventoryUIGroup);
+            Debug.Log(UIManager.Instance.openMenus.Count);
+        }
+        else
+            UIManager.Instance.UnregisterMenu(inventoryUIGroup);
+
         if (!inventoryUIGroup.activeSelf)
-            tooltipUI.Hide(); // hide if closing
+            tooltipUI.Hide();
     }
 
     public void OpenInventory()
     {
+        
         inventoryUIGroup.SetActive(true);
         inventoryButton.SetActive(false);
     }
 
     public void CloseInventory()
     {
-        tooltipUI.Hide(); // <-- Now this works because tooltip is assigned
+        tooltipUI.Hide();
         inventoryUIGroup.SetActive(false);
         inventoryButton.SetActive(true);
+        UIManager.Instance.UnregisterMenu(inventoryUIGroup);
     }
 }

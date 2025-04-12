@@ -7,10 +7,16 @@ public class UIManager : MonoBehaviour
 
     public GameObject pauseMenu;
     public List<GameObject> openMenus = new List<GameObject>();
+    public bool IsAnyMenuOpen => openMenus.Count > 0;
 
     private void Awake()
     {
-        if (Instance == null) Instance = this;
+        if (Instance == null)
+        { 
+            Instance = this;
+            Debug.Log("UIManager initialized.");
+        }
+
         else Destroy(gameObject);
     }
 
@@ -31,6 +37,8 @@ public class UIManager : MonoBehaviour
             GameObject last = openMenus[openMenus.Count - 1];
             last.SetActive(false);
             openMenus.RemoveAt(openMenus.Count - 1);
+            if (openMenus.Count == 0)
+                Time.timeScale = 1;
         }
         else
         {
