@@ -21,7 +21,6 @@ public class PlayerShooting : MonoBehaviour
 
     public void DoShoot(WeaponItem weapon)
     {
-        // Block if still on cooldown
         if (shootCooldown > 0f)
             return;
 
@@ -34,7 +33,13 @@ public class PlayerShooting : MonoBehaviour
         Vector2 shootDirection = (mousePosition - transform.position).normalized;
         Vector3 adjustedFirePoint = transform.position + new Vector3(0.5f, 1f, 0);
 
-        GameObject projectile = Instantiate(weapon.projectilePrefab, adjustedFirePoint, Quaternion.identity);
+        // Calculate angle in degrees
+        float angle = Mathf.Atan2(shootDirection.y, shootDirection.x) * Mathf.Rad2Deg + 90f;
+
+        // Apply rotation using Quaternion.Euler
+        Quaternion rotation = Quaternion.Euler(0f, 0f, angle);
+
+        GameObject projectile = Instantiate(weapon.projectilePrefab, adjustedFirePoint, rotation);
         Rigidbody2D rigidbody = projectile.GetComponent<Rigidbody2D>();
         Projectile projScript = projectile.GetComponent<Projectile>();
 
@@ -49,9 +54,8 @@ public class PlayerShooting : MonoBehaviour
         }
 
         player.UseMana(weapon.manaCost);
-
-        // Set cooldown based on fire rate (shots per second)
-        shootCooldown = 1f / weapon.fireRate; //So if fireRate = 2, you'll be able to shoot once every 0.5 seconds.
+        shootCooldown = 1f / weapon.fireRate;
     }
+
 
 }

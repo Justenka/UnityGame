@@ -10,23 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 718240cdfb2675e41805198cf26310f8, type: 3}
-  m_Name: Magic weapon
+  m_Name: Melee weapon
   m_EditorClassIdentifier: 
-  itemName: Staff
-  description: The most basic magic staff
-  image: {fileID: -6364941832325559699, guid: c63c6652c4aa67e47bd1bdbcedad8126, type: 3}
+  itemName: Sword
+  description: Very sharp and trusty iron sword
+  image: {fileID: -7414996137590337089, guid: 24e955d97e5e2e144893fcf48e8bf8b9, type: 3}
   price: 0
   stackable: 0
   type: 1
   statModifiers:
   - statType: 3
-    value: 20
-  - statType: 1
+    value: 30
+  - statType: 0
     value: 15
-  - statType: 5
-    value: 2
-  fireRate: 5
-  actionType: 1
-  projectilePrefab: {fileID: 268461493443850436, guid: 27fbd708d61df9b4780c2a1b5a0bf436, type: 3}
-  projectileSpeed: 8
-  manaCost: 5
+  - statType: 2
+    value: 10
+  fireRate: 0
+  actionType: 0
+  projectilePrefab: {fileID: 0}
+  projectileSpeed: 0
+  manaCost: 0
