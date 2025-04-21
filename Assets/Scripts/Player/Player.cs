@@ -217,8 +217,15 @@ public class Player : MonoBehaviour
 
     void Die()
     {
-        gameObject.SetActive(false);
-        ShowRespawnMenu();
+        if (!GameSettings.isPermadeathEnabled)
+        {
+            gameObject.SetActive(false);
+            ShowRespawnMenu();
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
     void ShowRespawnMenu()
     {
@@ -248,6 +255,12 @@ public class Player : MonoBehaviour
         activeDebuffs.Clear();
         debuffUIManager.HideAllIcons();
         SetInitialValues();
+
+        PlayerMovement playerMovement = GetComponent<PlayerMovement>();
+        if (playerMovement != null)
+        {
+            playerMovement.ModifySpeedMultiplier(1f);
+        }
     }
     public void GetCurrency(float amount)
     {

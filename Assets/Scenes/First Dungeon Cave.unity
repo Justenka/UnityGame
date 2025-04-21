@@ -9356,7 +9356,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &716689477
 RectTransform:
   m_ObjectHideFlags: 0
@@ -95774,11 +95774,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77f05d986e500d8459a9dd58643e0c43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fogImage: {fileID: 0}
-  resolution: 512
-  filterMode: 0
-  fogTexture: {fileID: 0}
-  fogPixels: []
 --- !u!4 &1712887263
 Transform:
   m_ObjectHideFlags: 0
