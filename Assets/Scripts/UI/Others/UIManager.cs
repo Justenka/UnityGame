@@ -6,8 +6,17 @@ public class UIManager : MonoBehaviour
     public static UIManager Instance;
 
     public GameObject pauseMenu;
+
+    public GameObject coreInventory;
+    public GameObject storageInventory;
+    public TooltipUI tooltipUI;
+
     public List<GameObject> openMenus = new List<GameObject>();
     public bool IsAnyMenuOpen => openMenus.Count > 0;
+    void Start()
+    {
+        InventoryItem.tooltip = tooltipUI;
+    }
 
     private void Awake()
     {
@@ -27,25 +36,26 @@ public class UIManager : MonoBehaviour
             Time.timeScale = 0;
             HandleEscape();
         }
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            ToggleInventory();
+        }
     }
 
     public void HandleEscape()
     {
         if (openMenus.Count > 0)
         {
-            // Close top-most menu
-            GameObject last = openMenus[openMenus.Count - 1];
-            last.SetActive(false);
-            openMenus.RemoveAt(openMenus.Count - 1);
-            if (openMenus.Count == 0)
-                Time.timeScale = 1;
+            CloseAllMenus();
+            Time.timeScale = 1;
         }
         else
         {
             // Toggle pause menu
             bool isOpen = pauseMenu.activeSelf;
             pauseMenu.SetActive(!isOpen);
-            if (!isOpen) openMenus.Add(pauseMenu);
+            if (!isOpen) RegisterOpenMenu(pauseMenu);
+            else UnregisterMenu(pauseMenu);
         }
     }
 
@@ -59,12 +69,45 @@ public class UIManager : MonoBehaviour
     {
         openMenus.Remove(menu);
     }
-
     public void CloseAllMenus()
     {
         foreach (var menu in openMenus)
-            menu.SetActive(false);
+        {
+            if (menu != null)
+                menu.SetActive(false);
+        }
 
         openMenus.Clear();
+
+        // Make sure these get closed too if not already registered
+        if (coreInventory.activeSelf)
+            coreInventory.SetActive(false);
+
+        if (storageInventory.activeSelf)
+            storageInventory.SetActive(false);
+
+        tooltipUI.Hide();
+    }
+
+    public void ToggleInventory()
+    {
+        if (!coreInventory.activeSelf && IsAnyMenuOpen)
+            return;
+
+        if (!coreInventory.activeSelf)
+        {
+            coreInventory.SetActive(true);
+            storageInventory.SetActive(true);
+            RegisterOpenMenu(coreInventory);
+            RegisterOpenMenu(storageInventory);
+        }
+        else
+        {
+            coreInventory.SetActive(false);
+            storageInventory.SetActive(false);
+            UnregisterMenu(coreInventory);
+            UnregisterMenu(storageInventory);
+            tooltipUI.Hide();
+        }
     }
 }

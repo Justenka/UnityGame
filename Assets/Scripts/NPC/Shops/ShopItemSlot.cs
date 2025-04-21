@@ -23,6 +23,10 @@ public class ShopItemSlot : MonoBehaviour
 
         buyButton.onClick.RemoveAllListeners();
         buyButton.onClick.AddListener(BuyItem);
+
+        var tooltipTrigger = icon.GetComponent<TooltipTrigger>();
+        if (tooltipTrigger != null)
+            tooltipTrigger.SetItem(item);
     }
 
     private void BuyItem()

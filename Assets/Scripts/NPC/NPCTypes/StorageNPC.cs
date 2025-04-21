@@ -1,13 +1,12 @@
 using UnityEngine;
 
-public class MerchantNPC : NPCBase
+public class StorageNPC : NPCBase
 {
     public GameObject storageInventory;
     public override void Interact()
     {
         OpenUI();
-        if (!storageInventory.activeSelf)
-        {
+        if (!storageInventory.activeSelf) {
             storageInventory.SetActive(true);
             UIManager.Instance.RegisterOpenMenu(storageInventory);
         }

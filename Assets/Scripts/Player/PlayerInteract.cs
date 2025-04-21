@@ -22,12 +22,6 @@ public class PlayerInteract : MonoBehaviour
                 if (collider.TryGetComponent(out NPCBase npc))
                 {
                     npc.Interact();
-                    UIController uiController = Object.FindFirstObjectByType<UIController>();
-                    if (uiController != null)
-                    {
-                        uiController.SetActiveNPC(npc);
-                        break; // Only interact with one NPC at a time
-                    }
                 }
             }
         }
@@ -47,15 +41,5 @@ public class PlayerInteract : MonoBehaviour
         }
 
         return null;
-    }
-
-    private void OnDrawGizmosSelected()
-    {
-        if (playerCollider == null) playerCollider = GetComponent<Collider2D>();
-        if (playerCollider == null) return;
-
-        Vector2 center = playerCollider.bounds.center;
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(center, interactRange);
     }
 }

@@ -12,6 +12,7 @@ public abstract class NPCBase : MonoBehaviour
         {
             npcUI.SetActive(true);
             Time.timeScale = 0f;
+            UIManager.Instance.RegisterOpenMenu(npcUI);
         }
     }
 
@@ -21,6 +22,7 @@ public abstract class NPCBase : MonoBehaviour
         {
             npcUI.SetActive(false);
             Time.timeScale = 1f;
+            UIManager.Instance.UnregisterMenu(npcUI);
         }
     }
 }

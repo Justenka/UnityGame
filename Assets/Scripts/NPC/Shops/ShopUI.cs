@@ -3,18 +3,16 @@ using UnityEngine;
 public class ShopUI : MonoBehaviour
 {
     public Player player;
-    public InventoryToggle inventoryUI;
     public ShopItemSlot[] shopSlots;
     public Item[] itemsForSale;
     public GameObject inventoryItemPrefab;
     public InventoryManager inventoryManager;
 
+
+
     protected virtual void OnEnable()
     {
         PopulateShop();
-
-        if (inventoryUI != null)
-            inventoryUI.OpenInventory();
     }
 
     private void PopulateShop()
