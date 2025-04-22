@@ -6,36 +6,35 @@ public class BurnDebuff : Debuff
     private float tickTimer;
     private float damagePerTick = 5f;
 
-    public BurnDebuff(float duration, float damagePerTick, float tickInterval) : base(duration, DebuffType.Poison)
+    public BurnDebuff(float duration, float damagePerTick, float tickInterval) : base(duration, DebuffType.Burn)
     {
         this.damagePerTick = damagePerTick;
         this.tickInterval = tickInterval;
     }
 
-    public override void Apply(Player player)
+    public override void Apply(Character target)
     {
-        Debug.Log("Burn started");
-        player.debuffUIManager.ShowDebuffIcon(DebuffType.Burn);
-        // Optional: set fire effect, color tint, etc.
+        base.Apply(target);
+        Debug.Log($"Burn started on {target.gameObject.name}");
         tickTimer = 0f;
+        target.ApplyUIForDebuff(debuffType);
     }
 
-    public override void Update(Player player)
+    public override void Update(Character target)
     {
-        base.Update(player);
-        player.debuffUIManager.UpdateDebuffTime(DebuffType.Burn, duration);
+        base.Update(target);
         tickTimer -= Time.deltaTime;
         if (tickTimer <= 0f)
         {
-            player.TakeDamage(damagePerTick);
+            target.TakeDamage(damagePerTick);
             tickTimer = tickInterval;
         }
     }
 
-    public override void Remove(Player player)
+    public override void Remove(Character target)
     {
-        player.debuffUIManager.HideDebuffIcon(DebuffType.Burn);
-        Debug.Log("Burn ended");
+        base.Remove(target);
+        Debug.Log($"Burn ended on {target.gameObject.name}");
+        target.RemoveUIForDebuff(debuffType);
     }
 }
-

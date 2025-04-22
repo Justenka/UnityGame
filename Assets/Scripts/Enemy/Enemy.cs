@@ -1,7 +1,8 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class Enemy : Character
 {
     public float maxHealthModifier;
     public float currentHealth;
@@ -30,6 +31,7 @@ public class Enemy : MonoBehaviour
 
     public HealthBar healthBar;
     public DebuffData debuffToApply;
+    private Dictionary<System.Type, Debuff> activeDebuffs = new();
     public void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -59,6 +61,7 @@ public class Enemy : MonoBehaviour
             lastAttackTime = Time.time;
             ApplyDebuffToPlayer(playerInTrigger);
         }
+        UpdateDebuffs();
     }
     void OnTriggerEnter2D(Collider2D collision)
     {
@@ -109,6 +112,28 @@ public class Enemy : MonoBehaviour
         {
             DamageNumberController.instance.SpawnDamage(damage, transform.position, false);
         }
+    }
+    public override void TakeDamage(float damage)
+    {
+        if (isInvincible) return;
+
+        currentHealth -= damage;
+
+        if (healthBar != null)
+        {
+            healthBar.SetHealth(currentHealth);
+        }
+
+        if (currentHealth <= 0)
+        {
+            Die();
+        }
+
+        if (DamageNumberController.instance != null)
+        {
+            DamageNumberController.instance.SpawnDamage(damage, transform.position, false);
+        }
+        // Knockback logic remains in the TakeDamage function in Enemy
     }
     void ApplyKnockback(Vector2 attackerPosition, float knockbackForce)
     {
@@ -215,4 +240,49 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    public override void AddDebuff(Debuff newDebuff)
+    {
+        System.Type debuffType = newDebuff.GetType();
+
+        if (activeDebuffs.TryGetValue(debuffType, out var existingDebuff))
+        {
+            existingDebuff.Remove(this);
+            activeDebuffs.Remove(debuffType);
+        }
+
+        newDebuff.Apply(this);
+        activeDebuffs[debuffType] = newDebuff;
+    }
+
+    public override void RemoveDebuff(System.Type debuffType)
+    {
+        if (activeDebuffs.TryGetValue(debuffType, out var debuffToRemove))
+        {
+            debuffToRemove.Remove(this);
+            activeDebuffs.Remove(debuffType);
+        }
+    }
+
+    public override void UpdateDebuffs()
+    {
+        List<System.Type> expired = new();
+        foreach (var kvp in activeDebuffs)
+        {
+            kvp.Value.Update(this);
+            if (kvp.Value.IsExpired)
+            {
+                expired.Add(kvp.Key);
+            }
+        }
+
+        foreach (var type in expired)
+        {
+            activeDebuffs.Remove(type);
+        }
+    }
+
+    public override Dictionary<System.Type, Debuff> GetActiveDebuffs()
+    {
+        return activeDebuffs;
+    }
 }

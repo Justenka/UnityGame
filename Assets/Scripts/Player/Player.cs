@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -5,7 +6,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-public class Player : MonoBehaviour
+public class Player : Character
 {
     public HealthBar healthBar;
     public ManaBar manaBar;
@@ -98,7 +99,7 @@ public class Player : MonoBehaviour
         staminaBar.SetStamina(maxStamina);
     }
 
-    public virtual void TakeDamage(float amount)
+    public override void TakeDamage(float amount)
     {
         if (isInvincible) return;
 
@@ -322,22 +323,20 @@ public class Player : MonoBehaviour
         RefreshStats();
     }
 
-    public void AddDebuff(Debuff newDebuff)
+    public override void AddDebuff(Debuff newDebuff)
     {
         System.Type debuffType = newDebuff.GetType();
 
-        // Remove existing one of the same type
         if (activeDebuffs.TryGetValue(debuffType, out var existingDebuff))
         {
             existingDebuff.Remove(this);
             activeDebuffs.Remove(debuffType);
         }
 
-        // Apply and store the new debuff
         newDebuff.Apply(this);
         activeDebuffs[debuffType] = newDebuff;
     }
-    public void UpdateDebuffs()
+    public override void UpdateDebuffs()
     {
         List<System.Type> expired = new();
         foreach (var kvp in activeDebuffs)
@@ -345,7 +344,6 @@ public class Player : MonoBehaviour
             kvp.Value.Update(this);
             if (kvp.Value.IsExpired)
             {
-                kvp.Value.Remove(this);
                 expired.Add(kvp.Key);
             }
         }
@@ -354,6 +352,30 @@ public class Player : MonoBehaviour
         {
             activeDebuffs.Remove(type);
         }
+    }
+    public override void UpdateUIForDebuff(DebuffType type, float currentDuration, float originalDuration)
+    {
+        debuffUIManager.UpdateDebuffTime(type, currentDuration);
+    }
+    public override void ApplyUIForDebuff(DebuffType type)
+    {
+        debuffUIManager.ShowDebuffIcon(type);
+    }
+    public override void RemoveUIForDebuff(DebuffType type)
+    {
+        debuffUIManager.HideDebuffIcon(type);
+    }
+    public override void RemoveDebuff(System.Type debuffType)
+    {
+        if (activeDebuffs.TryGetValue(debuffType, out var debuffToRemove))
+        {
+            debuffToRemove.Remove(this);
+            activeDebuffs.Remove(debuffType);
+        }
+    }
+    public override Dictionary<System.Type, Debuff> GetActiveDebuffs()
+    {
+        return activeDebuffs;
     }
 
     //private void OnEnable()

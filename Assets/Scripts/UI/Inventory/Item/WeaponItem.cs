@@ -12,6 +12,8 @@ public class WeaponItem : Item
     public Sprite weaponSprite;
     public float xOffset = 0.01f;
     public float yOffset = 0.15f;
+
+    public DebuffData debuffData;
     public override bool Use(GameObject user)
     {
         // Do attack logic

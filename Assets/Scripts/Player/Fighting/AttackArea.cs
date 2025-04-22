@@ -34,7 +34,33 @@ public class AttackArea : MonoBehaviour
                 float knockBack = 5f;
                 bool doesKnockBack = true;
                 enemy.TakeDamage(damage, transform.position, knockBack, doesKnockBack);
+                ApplyDebuffToEnemy(enemy, weapon);
+
             }
+        }
+    }
+    void ApplyDebuffToEnemy(Enemy enemy, WeaponItem weapon)
+    {
+        if (enemy == null) return;
+        switch (weapon.debuffData.debuffType)
+        {
+            case DebuffType.Poison:
+                enemy.AddDebuff(new PoisonDebuff(
+                    weapon.debuffData.duration,
+                    weapon.debuffData.damagePerTick,
+                    weapon.debuffData.tickInterval));
+                break;
+            case DebuffType.Burn:
+                enemy.AddDebuff(new BurnDebuff(
+                    weapon.debuffData.duration,
+                    weapon.debuffData.damagePerTick,
+                    weapon.debuffData.tickInterval));
+                break;
+            case DebuffType.Slow:
+                enemy.AddDebuff(new SlowDebuff(
+                    weapon.debuffData.duration,
+                    weapon.debuffData.slowAmount));
+                break;
         }
     }
 }

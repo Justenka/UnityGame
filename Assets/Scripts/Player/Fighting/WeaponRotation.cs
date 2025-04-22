@@ -118,6 +118,7 @@ public class WeaponRotation : MonoBehaviour
                 float knockBack = 5f;
                 bool doesKnockBack = true;
                 enemy.TakeDamage(damage, transform.position, knockBack, doesKnockBack);
+                ApplyDebuffToEnemy(enemy, weapon);
             }
         }
     }
@@ -151,7 +152,29 @@ public class WeaponRotation : MonoBehaviour
         Vector3 position = circleOrigin == null ? Vector3.zero : circleOrigin.position;
         Gizmos.DrawWireSphere(position, radius);
     }
-
+    void ApplyDebuffToEnemy(Enemy enemy, WeaponItem weapon)
+    {
+        switch (weapon.debuffData.debuffType)
+        {
+            case DebuffType.Poison:
+                enemy.AddDebuff(new PoisonDebuff(
+                    weapon.debuffData.duration,
+                    weapon.debuffData.damagePerTick,
+                    weapon.debuffData.tickInterval));
+                break;
+            case DebuffType.Burn:
+                enemy.AddDebuff(new BurnDebuff(
+                    weapon.debuffData.duration,
+                    weapon.debuffData.damagePerTick,
+                    weapon.debuffData.tickInterval));
+                break;
+            case DebuffType.Slow:
+                enemy.AddDebuff(new SlowDebuff(
+                    weapon.debuffData.duration,
+                    weapon.debuffData.slowAmount));
+                break;
+        }
+    }
     public void DetectColliders()
     {
         foreach (Collider2D collider in Physics2D.OverlapCircleAll(circleOrigin.position, radius))
@@ -166,6 +189,7 @@ public class WeaponRotation : MonoBehaviour
                     float knockBack = 5f;
                     bool doesKnockBack = true;
                     enemy.TakeDamage(damage, transform.position, knockBack, doesKnockBack);
+                    ApplyDebuffToEnemy(enemy, weapon);
                 }
             }
         }
