@@ -5,6 +5,6 @@ public enum ItemType
     Armor,
     Consumable,
     Offhand,
-    Jewelry,
+    Accessory,
     Currency
 }

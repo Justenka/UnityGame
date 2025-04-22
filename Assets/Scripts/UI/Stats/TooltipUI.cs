@@ -19,8 +19,12 @@ public class TooltipUI : MonoBehaviour
         float width = backgroundRect.sizeDelta.x;
         float height = backgroundRect.sizeDelta.y;
 
-        position.x = Mathf.Clamp(position.x, 0, Screen.width - width);
-        position.y = Mathf.Clamp(position.y, height, Screen.height);
+        Vector2 size = backgroundRect.rect.size;
+        Vector2 scaledSize = new Vector2(size.x * backgroundRect.lossyScale.x, size.y * backgroundRect.lossyScale.y);
+
+        // Clamp to keep entire tooltip within screen bounds
+        position.x = Mathf.Clamp(position.x, 0 + padding.x, Screen.width - scaledSize.x - padding.x);
+        position.y = Mathf.Clamp(position.y, scaledSize.y + padding.y, Screen.height - padding.y);
 
         transform.position = position;
     }

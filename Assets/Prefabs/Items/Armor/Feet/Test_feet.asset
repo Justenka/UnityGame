@@ -25,4 +25,4 @@ MonoBehaviour:
     value: 1
   - statType: 2
     value: 10
-  armorType: 4
+  equipmentType: 4

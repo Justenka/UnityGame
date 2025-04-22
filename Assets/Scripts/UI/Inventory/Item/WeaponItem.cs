@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Items/Weapon")]
-public class WeaponItem : Item
+public class WeaponItem : EquipmentItem
 {
     public float fireRate;
     public ActionType actionType;

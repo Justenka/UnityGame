@@ -10,32 +10,33 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 718240cdfb2675e41805198cf26310f8, type: 3}
-  m_Name: Melee weapon
+  m_Name: Magic weapon
   m_EditorClassIdentifier: 
-  itemName: Sword
-  description: Very sharp and trusty iron sword
-  image: {fileID: -7414996137590337089, guid: 24e955d97e5e2e144893fcf48e8bf8b9, type: 3}
+  itemName: Staff
+  description: The most basic magic staff
+  image: {fileID: -3260290704162780952, guid: 4336dc269cbdbfa418d5fa051584a058, type: 3}
   price: 0
   stackable: 0
   type: 1
   statModifiers:
   - statType: 3
-    value: 30
-  - statType: 0
+    value: 20
+  - statType: 1
     value: 15
-  - statType: 2
-    value: 10
-  fireRate: 0
-  actionType: 0
-  projectilePrefab: {fileID: 0}
-  projectileSpeed: 0
-  manaCost: 0
-  weaponSprite: {fileID: 21300000, guid: 8608e6b7965e41f41bc89e2e91757566, type: 2}
+  - statType: 5
+    value: 2
+  equipmentType: 5
+  fireRate: 5
+  actionType: 1
+  projectilePrefab: {fileID: 268461493443850436, guid: 1bbc76566a5f7df4bab6a5dded2a6b24, type: 3}
+  projectileSpeed: 8
+  manaCost: 5
+  weaponSprite: {fileID: 21300000, guid: be6a7b860c0dc124797fc4bc3ed3bf2b, type: 2}
   xOffset: 0.01
   yOffset: 0.15
   debuffData:
     debuffType: 2
-    duration: 10
+    duration: 5
     damagePerTick: 50
     tickInterval: 1
     slowAmount: 0.5

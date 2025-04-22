@@ -27,4 +27,4 @@ MonoBehaviour:
     value: 2
   - statType: 2
     value: 5
-  armorType: 2
+  equipmentType: 2

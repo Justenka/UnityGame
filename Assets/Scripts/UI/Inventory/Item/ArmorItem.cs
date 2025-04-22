@@ -1,13 +1,10 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Items/Armor")]
-public class ArmorItem : Item
+public class ArmorItem : EquipmentItem
 {
-    public ArmorType armorType;
-
     public override bool Use(GameObject user)
     {
-        return true;
+        return true; // Could apply a buff, trigger animation, etc.
     }
 }
