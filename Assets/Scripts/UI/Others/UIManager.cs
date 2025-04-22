@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
+    [SerializeField] private GameObject uiDimmer;
+
     public static UIManager Instance;
 
     public GameObject pauseMenu;
@@ -63,12 +65,19 @@ public class UIManager : MonoBehaviour
     {
         if (!openMenus.Contains(menu))
             openMenus.Add(menu);
+
+        if (uiDimmer != null)
+            uiDimmer.SetActive(true);
     }
 
     public void UnregisterMenu(GameObject menu)
     {
         openMenus.Remove(menu);
+
+        if (openMenus.Count == 0 && uiDimmer != null)
+            uiDimmer.SetActive(false);
     }
+
     public void CloseAllMenus()
     {
         foreach (var menu in openMenus)
@@ -79,12 +88,14 @@ public class UIManager : MonoBehaviour
 
         openMenus.Clear();
 
-        // Make sure these get closed too if not already registered
         if (coreInventory.activeSelf)
             coreInventory.SetActive(false);
 
         if (storageInventory.activeSelf)
             storageInventory.SetActive(false);
+
+        if (uiDimmer != null)
+            uiDimmer.SetActive(false);
 
         tooltipUI.Hide();
     }

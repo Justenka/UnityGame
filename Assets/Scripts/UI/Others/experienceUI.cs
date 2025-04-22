@@ -24,6 +24,6 @@ public class ExperienceUI : MonoBehaviour
 
     private void UpdateUI(int newLevel)
     {
-        levelText.text = "Level: " + newLevel;
+        levelText.text = newLevel.ToString();
     }
 }

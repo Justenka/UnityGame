@@ -192,6 +192,7 @@ public class Enemy : MonoBehaviour
     }
     void ApplyDebuffToPlayer(Player player)
     {
+        if (player == null) return;
         switch (debuffToApply.debuffType)
         {
             case DebuffType.Poison:
