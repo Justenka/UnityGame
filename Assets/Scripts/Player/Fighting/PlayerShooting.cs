@@ -51,6 +51,7 @@ public class PlayerShooting : MonoBehaviour
         if (projScript != null)
         {
             projScript.damage = player.stats[StatType.Attack].Total;
+            projScript.debuffData = weapon.debuffData;
         }
 
         player.UseMana(weapon.manaCost);

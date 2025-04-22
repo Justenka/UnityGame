@@ -33,9 +33,8 @@ public class AttackArea : MonoBehaviour
                 float damage = player.stats[StatType.Attack].Total;
                 float knockBack = 5f;
                 bool doesKnockBack = true;
-                enemy.TakeDamage(damage, transform.position, knockBack, doesKnockBack);
                 ApplyDebuffToEnemy(enemy, weapon);
-
+                enemy.TakeDamage(damage, transform.position, knockBack, doesKnockBack);
             }
         }
     }
