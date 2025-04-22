@@ -11,8 +11,9 @@ public class WeaponRotation : MonoBehaviour
     public float delay = 0.12f;
     private bool attackBlocked;
 
-    public float xOffset = 0.01f;
-    public float yOffset = 0.15f;
+    // These will be dynamically set when the weapon is equipped
+    private float xOffset = 0.01f;
+    private float yOffset = 0.15f;
 
     private Quaternion cachedRotation;
     private Vector3 cachedScale;
@@ -22,11 +23,32 @@ public class WeaponRotation : MonoBehaviour
     public Transform circleOrigin;
     public float radius;
 
+    private Transform weaponTransform;
+
     void Start()
     {
         mainCamera = Camera.main;
-        weaponSpriteRenderer = GetComponentInChildren<SpriteRenderer>();
-        characterSpriteRenderer = GetComponentInParent<SpriteRenderer>();
+
+        weaponTransform = transform.Find("Weapon");
+        if (weaponTransform == null)
+        {
+            Debug.LogError("Weapon child not found! Make sure it's named exactly 'Weapon'");
+        }
+
+        // Find explicitly
+        weaponSpriteRenderer = GetComponentInParent<EquipmentManager>()?.GetWeaponSpriteRenderer();
+        if (weaponSpriteRenderer == null)
+            Debug.LogError("Weapon SpriteRenderer not found through EquipmentManager!");
+
+        Transform parent = transform;
+        while (parent != null && characterSpriteRenderer == null)
+        {
+            characterSpriteRenderer = parent.GetComponent<SpriteRenderer>();
+            parent = parent.parent;
+        }
+
+        if (characterSpriteRenderer == null)
+            Debug.LogError("Character SpriteRenderer not found!");
     }
 
     private void Awake()
@@ -122,12 +144,14 @@ public class WeaponRotation : MonoBehaviour
         yield return new WaitForSeconds(delay);
         attackBlocked = false;
     }
+
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.blue;
         Vector3 position = circleOrigin == null ? Vector3.zero : circleOrigin.position;
         Gizmos.DrawWireSphere(position, radius);
     }
+
     public void DetectColliders()
     {
         foreach (Collider2D collider in Physics2D.OverlapCircleAll(circleOrigin.position, radius))
@@ -146,5 +170,4 @@ public class WeaponRotation : MonoBehaviour
             }
         }
     }
-
 }

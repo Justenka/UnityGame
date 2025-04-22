@@ -9,11 +9,31 @@ public class EquipmentManager : MonoBehaviour
 
     // Use a HashSet to prevent duplicates
     private HashSet<Item> equippedItems = new HashSet<Item>();
+    private SpriteRenderer weaponSpriteRenderer;
+    private Transform weaponSpriteTransform;
+    //public Animator playerAnimator;
+    public RuntimeAnimatorController swordAnimatorController;
+    public RuntimeAnimatorController staffAnimatorController;
+
+
 
     void Start()
     {
         if (weaponVisual != null)
+        {
             weaponVisual.SetActive(equippedWeapon != null);
+            weaponSpriteRenderer = weaponVisual.GetComponent<SpriteRenderer>();
+            weaponSpriteTransform = weaponVisual.transform.Find("Weapon");
+
+            if (weaponSpriteRenderer == null)
+            {
+                Debug.LogError("SpriteRenderer not found on weaponVisual GameObject!");
+            }
+        }
+        else
+        {
+            Debug.LogError("weaponVisual not assigned in EquipmentManager!");
+        }
     }
 
     public void Equip(Item item)
@@ -33,8 +53,55 @@ public class EquipmentManager : MonoBehaviour
         if (item is WeaponItem weapon)
         {
             equippedWeapon = weapon;
+
             if (weaponVisual != null)
+            {
                 weaponVisual.SetActive(true);
+
+                if (weaponSpriteRenderer == null)
+                    weaponSpriteRenderer = weaponVisual.GetComponent<SpriteRenderer>();
+
+                if (weaponSpriteRenderer != null)
+                {
+                    if (weapon.weaponSprite != null)
+                    {
+                        Debug.Log("Setting sprite to: " + weapon.weaponSprite.name);
+                        weaponSpriteRenderer.sprite = weapon.weaponSprite;
+                    }
+                    else
+                    {
+                        Debug.LogWarning("No sprite assigned to weapon: " + weapon.itemName);
+                    }
+                }
+                else
+                {
+                    Debug.LogError("weaponSpriteRenderer is NULL. Check Weapon GameObject.");
+                }
+
+                Animator weaponAnimator = weaponVisual.GetComponent<Animator>();
+                if (weaponAnimator != null)
+                {
+                    if (weapon.itemName == "Sword" && swordAnimatorController != null)
+                    {
+                        weaponAnimator.runtimeAnimatorController = swordAnimatorController;
+                        Debug.Log("Animator set to Sword");
+                    }
+                    else if (weapon.itemName == "Staff" && staffAnimatorController != null)
+                    {
+                        weaponAnimator.runtimeAnimatorController = staffAnimatorController;
+                        Debug.Log("Animator set to Staff");
+                    }
+                    else
+                    {
+                        Debug.LogWarning($"No animator controller found for {weapon.itemName}");
+                    }
+                }
+                else
+                {
+                    Debug.LogError("Animator not found on weaponVisual.");
+                }
+            }
+
             Debug.Log("Weapon equipped: " + weapon.itemName);
         }
 
@@ -58,8 +125,15 @@ public class EquipmentManager : MonoBehaviour
         if (item is WeaponItem && equippedWeapon == item)
         {
             equippedWeapon = null;
+
             if (weaponVisual != null)
+            {
                 weaponVisual.SetActive(false);
+
+                if (weaponSpriteRenderer != null)
+                    weaponSpriteRenderer.sprite = null;
+            }
+
             Debug.Log("Weapon unequipped.");
         }
 
@@ -91,8 +165,24 @@ public class EquipmentManager : MonoBehaviour
                 break;
         }
     }
+
     public bool IsEquipped(Item item)
     {
         return equippedItems.Contains(item);
+    }
+
+    public SpriteRenderer GetWeaponSpriteRenderer()
+    {
+        if (weaponSpriteRenderer == null && weaponVisual != null)
+        {
+            weaponSpriteRenderer = weaponVisual.GetComponent<SpriteRenderer>();
+        }
+
+        if (weaponSpriteRenderer == null)
+        {
+            Debug.LogError("Failed to get weapon SpriteRenderer.");
+        }
+
+        return weaponSpriteRenderer;
     }
 }

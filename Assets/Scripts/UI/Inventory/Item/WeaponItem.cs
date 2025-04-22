@@ -9,6 +9,9 @@ public class WeaponItem : Item
     public float projectileSpeed = 10f; // Optional
     public float manaCost = 10f;        // Optional
 
+    public Sprite weaponSprite;
+    public float xOffset = 0.01f;
+    public float yOffset = 0.15f;
     public override bool Use(GameObject user)
     {
         // Do attack logic

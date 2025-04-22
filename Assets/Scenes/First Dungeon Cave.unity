@@ -6981,7 +6981,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   equippedWeapon: {fileID: 0}
   firePoint: {fileID: 1345995765}
-  weaponVisual: {fileID: 2031937285}
+  weaponVisual: {fileID: 1645058664}
+  swordAnimatorController: {fileID: 9100000, guid: 3cbdf6f315e641847ac912242f418023, type: 2}
+  staffAnimatorController: {fileID: 9100000, guid: b95746e4aad4f7e48973f9ee5dc33dc1, type: 2}
 --- !u!4 &381430704
 Transform:
   m_ObjectHideFlags: 0
@@ -102451,7 +102453,7 @@ SpriteRenderer:
   m_SortingLayerID: -1984478187
   m_SortingLayer: 6
   m_SortingOrder: 0
-  m_Sprite: {fileID: 6689991527540104072, guid: 10e7a8f8d7191184cbf621d5d387f590, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8608e6b7965e41f41bc89e2e91757566, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -109600,8 +109602,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 1645058667}
   delay: 0.3
-  xOffset: 0.01
-  yOffset: 0.15
   circleOrigin: {fileID: 773710851}
   radius: 0.7
 --- !u!4 &2031937287
