@@ -3,7 +3,7 @@ using UnityEngine;
 public class PlayerPickupHandler : MonoBehaviour
 {
     public Player player;
-    // public PlayerInventory inventory; // For items later
+    public InventoryManager inventory;
 
     public void HandlePickup(PickupItem pickup)
     {
@@ -14,13 +14,18 @@ public class PlayerPickupHandler : MonoBehaviour
                 break;
 
             case PickupType.Item:
-                Debug.Log("Picked up item: " + pickup.itemData.name);
-                // inventory.AddItem((ItemSO)pickup.itemData);
-                break;
-
-            case PickupType.Potion:
-                Debug.Log("Picked up potion: +" + pickup.amount);
-                // Add health, mana, etc.
+                if (pickup.itemData is Item item)
+                {
+                    for (int i = 0; i < pickup.amount; i++)
+                    {
+                        inventory.AddItem(item);
+                    }
+                    Debug.Log($"Picked up {pickup.amount}x {item.name}");
+                }
+                else
+                {
+                    Debug.LogWarning("Invalid itemData assigned to PickupItem.");
+                }
                 break;
 
             default:

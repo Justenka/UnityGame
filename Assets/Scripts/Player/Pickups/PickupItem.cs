@@ -11,26 +11,28 @@ public class PickupItem : MonoBehaviour
     public Sprite defaultSprite;
 
     private void Start()
-{
-    SpriteRenderer sr = GetComponent<SpriteRenderer>();
-    if (sr == null) return;
-
-    switch (type)
     {
-        case PickupType.Currency:
-            sr.sprite = goldSprite;
-            break;
-        //case PickupType.Item:
-        //    if (itemData is ItemSO item)
-        //        sr.sprite = item.icon;
-        //    else
-        //        sr.sprite = defaultSprite;
-        //    break;
-        default:
-            sr.sprite = defaultSprite;
-            break;
+        SpriteRenderer sr = GetComponent<SpriteRenderer>();
+        if (sr == null) return;
+
+        switch (type)
+        {
+            case PickupType.Currency:
+                sr.sprite = goldSprite;
+                break;
+
+            case PickupType.Item:
+                if (itemData is Item item)
+                    sr.sprite = item.image;
+                else
+                    sr.sprite = defaultSprite;
+                break;
+
+            default:
+                sr.sprite = defaultSprite;
+                break;
+        }
     }
-}
 
     private void OnTriggerEnter2D(Collider2D other)
     {

@@ -7,27 +7,27 @@ public class ConsumableItem : Item
     public int restoreAmount;
     public float cooldown;
 
-    public override void Use(GameObject user)
+    public override bool Use(GameObject user)
     {
         Player player = user.GetComponent<Player>();
-        if (player == null) return;
+        if (player == null) return false;
 
         switch (consumableType)
         {
             case ConsumableType.Health:
-                player.RestoreHealth(restoreAmount); 
-                break;
+                return player.RestoreHealth(restoreAmount);
 
             case ConsumableType.Stamina:
-                player.RestoreStamina(restoreAmount);
-                break;
+                return player.RestoreStamina(restoreAmount);
 
             case ConsumableType.Mana:
-                player.RestoreMana(restoreAmount);
-                break;
+                return player.RestoreMana(restoreAmount);
+
             case ConsumableType.Unknown:
                 UnknownConsumableEffects.ApplyRandomEffect(player);
-                break;
+                return true; // assume something always happens
         }
+
+        return false;
     }
 }

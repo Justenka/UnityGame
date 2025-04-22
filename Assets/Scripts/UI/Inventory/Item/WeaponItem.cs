@@ -9,8 +9,9 @@ public class WeaponItem : Item
     public float projectileSpeed = 10f; // Optional
     public float manaCost = 10f;        // Optional
 
-    public override void Use(GameObject user)
+    public override bool Use(GameObject user)
     {
         // Do attack logic
+        return true;
     }
 }

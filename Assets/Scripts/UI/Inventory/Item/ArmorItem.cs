@@ -6,8 +6,8 @@ public class ArmorItem : Item
 {
     public ArmorType armorType;
 
-    public override void Use(GameObject user)
+    public override bool Use(GameObject user)
     {
-
+        return true;
     }
 }

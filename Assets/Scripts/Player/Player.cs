@@ -127,11 +127,14 @@ public class Player : MonoBehaviour
         if (rechargeMana != null) StopCoroutine(rechargeMana);
         rechargeMana = StartCoroutine(RegenerateMana());
     }
-    public void RestoreMana(int amount)
+    public bool RestoreMana(int amount)
     {
         StatValue mana = stats[StatType.Mana];
+        if (mana.currentValue >= mana.Total) return false;
+
         mana.currentValue = Mathf.Min(mana.currentValue + amount, mana.Total);
         manaBar.SetMana(mana.currentValue);
+        return true;
     }
 
     private IEnumerator RegenerateMana()
@@ -156,11 +159,14 @@ public class Player : MonoBehaviour
         if (rechargeStam != null) StopCoroutine(rechargeStam);
         rechargeStam = StartCoroutine(RechargeStamina());
     }
-    public void RestoreStamina(int amount)
+    public bool RestoreStamina(int amount)
     {
         StatValue stam = stats[StatType.Stamina];
+        if (stam.currentValue >= stam.Total) return false;
+
         stam.currentValue = Mathf.Min(stam.currentValue + amount, stam.Total);
         staminaBar.SetStamina(stam.currentValue);
+        return true;
     }
 
     private IEnumerator RechargeStamina()
@@ -182,14 +188,17 @@ public class Player : MonoBehaviour
         if (hp.currentValue < 0) hp.currentValue = 0;
         healthBar.SetHealth(hp.currentValue);
 
-        if (rechargeHealth != null) StopCoroutine(rechargeHealth);
-        rechargeHealth = StartCoroutine(RechargeHealth());
+        //if (rechargeHealth != null) StopCoroutine(rechargeHealth);
+        //rechargeHealth = StartCoroutine(RechargeHealth());
     }
-    public void RestoreHealth(int amount)
+    public bool RestoreHealth(int amount)
     {
         StatValue hp = stats[StatType.Health];
+        if (hp.currentValue >= hp.Total) return false;
+
         hp.currentValue = Mathf.Min(hp.currentValue + amount, hp.Total);
         healthBar.SetHealth(hp.currentValue);
+        return true;
     }
 
     private IEnumerator RechargeHealth()

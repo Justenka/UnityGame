@@ -5,75 +5,61 @@ using UnityEngine.UI;
 public class HotbarSlot : InventorySlot
 {
     public KeyCode useKey = KeyCode.Alpha1;
-    public InventoryItem hotbarItem;
-
     public Image cooldownOverlay;
+
+    private InventoryItem hotbarItem;
 
     private float currentCooldown = 0f;
     private float maxCooldown = 0f;
     private bool isOnCooldown = false;
 
-    void Start()
+    private void Start()
     {
         if (cooldownOverlay != null)
             cooldownOverlay.gameObject.SetActive(false);
     }
-    public void Update()
+
+    private void Update()
     {
         hotbarItem = GetComponentInChildren<InventoryItem>();
 
-        if (hotbarItem != null && hotbarItem.item is ConsumableItem)
+        if (hotbarItem != null && hotbarItem.item is ConsumableItem && !isOnCooldown)
         {
-            if (!isOnCooldown && Input.GetKeyDown(useKey))
+            if (Input.GetKeyDown(useKey))
             {
-                UseHotbarItem();
+                TryUseHotbarItem();
             }
         }
 
-        if (isOnCooldown)
-        {
-            currentCooldown -= Time.deltaTime;
-
-            if (cooldownOverlay != null)
-            {
-                cooldownOverlay.gameObject.SetActive(true);
-                cooldownOverlay.fillAmount = currentCooldown / maxCooldown;
-            }
-
-            if (currentCooldown <= 0f)
-            {
-                isOnCooldown = false;
-                if (cooldownOverlay != null)
-                    cooldownOverlay.gameObject.SetActive(false);
-            }
-        }
+        HandleCooldownVisuals();
     }
 
-    public void UseHotbarItem()
+    void TryUseHotbarItem()
     {
-        if (hotbarItem == null || hotbarItem.item == null)
+        if (hotbarItem == null || !(hotbarItem.item is ConsumableItem consumable))
             return;
 
-        if (!(hotbarItem.item is ConsumableItem consumable))
-        {
-            Debug.LogWarning("Only consumable items can be used from the hotbar.");
-            return;
-        }
+        bool used = consumable.Use(GameObject.FindGameObjectWithTag("Player"));
+        if (!used) return;
 
-        consumable.Use(GameObject.FindGameObjectWithTag("Player"));
-
+        // ✅ Reduce the count directly
         hotbarItem.count--;
-        hotbarItem.RefreshCount();
-
         if (hotbarItem.count <= 0)
         {
             Destroy(hotbarItem.gameObject);
             hotbarItem = null;
-            return;
+        }
+        else
+        {
+            hotbarItem.RefreshCount();
         }
 
-        // Start cooldown here in HotbarSlot, not on InventoryItem
-        maxCooldown = currentCooldown = consumable.cooldown;
+        StartCooldown(consumable.cooldown);
+    }
+
+    void StartCooldown(float cooldown)
+    {
+        maxCooldown = currentCooldown = cooldown;
         isOnCooldown = true;
 
         if (cooldownOverlay != null)
@@ -83,9 +69,45 @@ public class HotbarSlot : InventorySlot
         }
     }
 
+    void HandleCooldownVisuals()
+    {
+        if (!isOnCooldown) return;
+
+        currentCooldown -= Time.deltaTime;
+
+        if (cooldownOverlay != null)
+        {
+            cooldownOverlay.fillAmount = currentCooldown / maxCooldown;
+        }
+
+        if (currentCooldown <= 0f)
+        {
+            isOnCooldown = false;
+            if (cooldownOverlay != null)
+                cooldownOverlay.gameObject.SetActive(false);
+        }
+    }
+
     public override void OnDrop(PointerEventData eventData)
     {
         base.OnDrop(eventData);
-        hotbarItem = GetComponentInChildren<InventoryItem>();
+
+        InventoryItem droppedItem = eventData.pointerDrag?.GetComponent<InventoryItem>();
+        if (droppedItem != null)
+        {
+            // Remove existing item in the hotbar slot
+            InventoryItem existingItem = GetComponentInChildren<InventoryItem>();
+            if (existingItem != null && existingItem != droppedItem)
+            {
+                Destroy(existingItem.gameObject);
+            }
+
+            // ✅ Move item into this slot
+            droppedItem.transform.SetParent(transform);
+            droppedItem.transform.localPosition = Vector3.zero;
+            droppedItem.transform.localScale = Vector3.one;
+
+            hotbarItem = droppedItem;
+        }
     }
 }

@@ -19,5 +19,5 @@ public abstract class Item : ScriptableObject
 
     public List<StatModifier> statModifiers = new();
 
-    public virtual void Use(GameObject user) { }
+    public virtual bool Use(GameObject user) => false;
 }

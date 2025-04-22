@@ -6,8 +6,8 @@ public class DropData
     public PickupType type;
     public int minAmount = 1;
     public int maxAmount = 1;
-    public ScriptableObject itemData; // Used if it's an item
-    public float dropChance = 1f;     // 0.0 to 1.0
+    public ScriptableObject itemData;
+    public float dropChance = 1f;
 }
 
 public class EnemyDropItem : MonoBehaviour

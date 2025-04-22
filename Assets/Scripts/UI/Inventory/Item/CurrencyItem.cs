@@ -5,8 +5,9 @@ public class CurrencyItem : Item
 {
     public int amount;
 
-    public override void Use(GameObject user)
+    public override bool Use(GameObject user)
     {
         // Add to player wallet
+        return true;
     }
 }
