@@ -12,6 +12,10 @@ public class PlayerAudioManager : MonoBehaviour
     public AudioClip swoosh;
     public AudioClip pop;
     public AudioClip gearing;
+    public AudioClip drink;
+    public AudioClip money;
+    public AudioClip interact;
+
 
 
     void Awake()
