@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a0cc4f371ca642d4cb8a4762cb0ef8d6, type: 3}
-  m_Name: Test_legs
+  m_Name: Legs_04
   m_EditorClassIdentifier: 
-  itemName: Leather pants
-  description: The most basic body protection
-  image: {fileID: 4789614092347832128, guid: dc3951bdc95c8a444a9a0d1853234e94, type: 3}
+  itemName: Steel pants
+  description: Great leg protection
+  image: {fileID: -6723694012421208326, guid: b5278e12352a6fc40817dd3bbc6af3fd, type: 3}
   price: 0
   stackable: 0
   type: 2

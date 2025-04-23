@@ -125,7 +125,7 @@ ScriptedImporter:
   animatedSpriteImportData:
   - name: Chest_01
     originalName: 
-    pivot: {x: 0.4827586, y: -0.08}
+    pivot: {x: 0.4814815, y: -0.033333335}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -133,8 +133,8 @@ ScriptedImporter:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 29
-      height: 25
+      width: 27
+      height: 30
     spriteID: 9839e4d930b0e61479716ca22124184e
     spriteBone: []
     spriteOutline: []
@@ -162,10 +162,10 @@ ScriptedImporter:
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
-        x: 2
-        y: 2
-        width: 29
-        height: 25
+        x: 3
+        y: 1
+        width: 27
+        height: 30
       spriteId: 9839e4d930b0e61479716ca22124184e
     linkedCells: []
     parentIndex: -1

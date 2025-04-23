@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a0cc4f371ca642d4cb8a4762cb0ef8d6, type: 3}
-  m_Name: Test_feet
+  m_Name: Chest_01
   m_EditorClassIdentifier: 
-  itemName: Leather boots
+  itemName: Leather tunic
   description: The most basic body protection
-  image: {fileID: -8992869743243298296, guid: a4565d29d91570d41a0d7949122214f1, type: 3}
+  image: {fileID: -7266981210343810000, guid: f59d7cf4a30289f4c84b6cf8d66c4999, type: 3}
   price: 0
   stackable: 0
   type: 2
@@ -22,7 +22,9 @@ MonoBehaviour:
   - statType: 0
     value: 20
   - statType: 4
-    value: 1
+    value: 2
+  - statType: 3
+    value: 2
   - statType: 2
-    value: 10
-  equipmentType: 4
+    value: 5
+  equipmentType: 2

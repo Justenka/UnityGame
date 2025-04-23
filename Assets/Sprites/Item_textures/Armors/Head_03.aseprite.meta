@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 62814517bcc969249a4431b5f2946fd4
+guid: e54b2729838204c449a0fd9390a5e735
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -123,9 +123,9 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: Legs_01
+  - name: Head_03
     originalName: 
-    pivot: {x: 0.5625, y: -0.06896552}
+    pivot: {x: 0.52380955, y: -0.11538462}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -133,9 +133,9 @@ ScriptedImporter:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 16
-      height: 29
-    spriteID: cf53f1a1a4f605846a2ef5d4acaf7193
+      width: 42
+      height: 52
+    spriteID: 7facec8678108a34d8ac70d2a0478954
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -148,25 +148,25 @@ ScriptedImporter:
   asepriteLayers:
   - layerIndex: 0
     uuid:
-      value0: 2356957807
+      value0: 1664574852
       value1: 0
       value2: 0
       value3: 0
-    guid: -1938009489
-    name: Legs_01
+    guid: 0
+    name: Head_03
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: Legs_01
+    - name: Head_03
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
-        x: 7
-        y: 2
-        width: 16
-        height: 29
-      spriteId: cf53f1a1a4f605846a2ef5d4acaf7193
+        x: 10
+        y: 6
+        width: 42
+        height: 52
+      spriteId: 7facec8678108a34d8ac70d2a0478954
     linkedCells: []
     parentIndex: -1
   platformSettings:
@@ -185,5 +185,5 @@ ScriptedImporter:
   generatePhysicsShape: 0
   secondarySpriteTextures: []
   spritePackingTag: 
-  canvasSize: {x: 32, y: 32}
-  previousTextureSize: {x: 32, y: 64}
+  canvasSize: {x: 64, y: 64}
+  previousTextureSize: {x: 64, y: 64}
