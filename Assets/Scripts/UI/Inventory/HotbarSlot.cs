@@ -12,9 +12,10 @@ public class HotbarSlot : InventorySlot
     private float currentCooldown = 0f;
     private float maxCooldown = 0f;
     private bool isOnCooldown = false;
-
+    PlayerAudioManager audioManager;
     private void Start()
     {
+        audioManager = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAudioManager>();
         if (cooldownOverlay != null)
             cooldownOverlay.gameObject.SetActive(false);
     }
@@ -61,7 +62,7 @@ public class HotbarSlot : InventorySlot
         {
             hotbarItem.RefreshCount();
         }
-
+        audioManager.PlaySound(audioManager.drink);
         StartCooldown(consumable.cooldown);
     }
     void TryUseSpellItem()

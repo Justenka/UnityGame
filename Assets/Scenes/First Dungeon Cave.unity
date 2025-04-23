@@ -8450,6 +8450,9 @@ MonoBehaviour:
   swoosh: {fileID: 8300000, guid: d413d40eba1368a499cf91084325c51c, type: 3}
   pop: {fileID: 8300000, guid: f55334db399576443b24817832659f9c, type: 3}
   gearing: {fileID: 8300000, guid: 35870cf33295eed42a1969e8e43315cc, type: 3}
+  drink: {fileID: 8300000, guid: 14e026e6a3738f74186688c1a930fbfb, type: 3}
+  money: {fileID: 8300000, guid: f64319d73a56d3641a6fc32be35c9626, type: 3}
+  interact: {fileID: 8300000, guid: 77da74b93c2c50e43b103941ba7b2470, type: 3}
 --- !u!114 &381430708
 MonoBehaviour:
   m_ObjectHideFlags: 0

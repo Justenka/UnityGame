@@ -7,8 +7,11 @@ public class ShopUI : MonoBehaviour
     public Item[] itemsForSale;
     public GameObject inventoryItemPrefab;
     public InventoryManager inventoryManager;
-
-
+    PlayerAudioManager audioManager;
+    private void Start()
+    {
+        audioManager = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAudioManager>();
+    }
 
     protected virtual void OnEnable()
     {
@@ -43,6 +46,7 @@ public class ShopUI : MonoBehaviour
             player.RemoveCurrency(item.price);
             AddItemToInventory(item);
             Debug.Log($"Bought {item.itemName} for {item.price}g.");
+            audioManager.PlaySound(audioManager.money);
         }
         else
         {
