@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0cc4f371ca642d4cb8a4762cb0ef8d6, type: 3}
   m_Name: Chest_04
   m_EditorClassIdentifier: 
-  itemName: Bronze chest
-  description: Decent body protection
-  image: {fileID: -412506902697510828, guid: 2d6def023f377564d9f9d5907c82cef0, type: 3}
+  itemName: Steel chest
+  description: Great body protection
+  image: {fileID: 6852895318061477839, guid: 466e726771cd6b6458d637fcf9145f7a, type: 3}
   price: 0
   stackable: 0
   type: 2
