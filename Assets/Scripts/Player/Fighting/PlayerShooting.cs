@@ -4,6 +4,16 @@ public class PlayerShooting : MonoBehaviour
 {
     public Player player;
     private float shootCooldown = 0f;
+    private Animator animator;
+
+    void Start()
+    {
+        EquipmentManager equipment = GetComponent<EquipmentManager>();
+        if (equipment != null && equipment.weaponVisual != null)
+        {
+            animator = equipment.weaponVisual.GetComponent<Animator>();
+        }
+    }
 
     void Update()
     {
@@ -26,6 +36,16 @@ public class PlayerShooting : MonoBehaviour
 
         if (weapon.projectilePrefab == null || player.stats[StatType.Mana].currentValue < weapon.manaCost)
             return;
+
+        if (animator != null)
+        {
+            Debug.Log("Attempting to trigger Attack on Animator: " + animator.name);
+            animator.SetTrigger("Attack");
+        }
+        else
+        {
+            Debug.LogError("Animator is NULL in PlayerShooting!");
+        }
 
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePosition.z = 0f;

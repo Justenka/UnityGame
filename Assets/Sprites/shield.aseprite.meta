@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 0a76e345abceb7448b23a604a165f5bf
+guid: f1598b91744ccc042bb8eb560ec744c1
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -123,7 +123,7 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: staff_attack1
+  - name: shield
     originalName: 
     pivot: {x: 0.11, y: 0}
     alignment: 9
@@ -133,9 +133,9 @@ ScriptedImporter:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 11
-      height: 35
-    spriteID: 2dbf6be5d17a849478dcbed50076851e
+      width: 13
+      height: 17
+    spriteID: a6653c8e8a5f4984989ee34f33874ad2
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -148,25 +148,25 @@ ScriptedImporter:
   asepriteLayers:
   - layerIndex: 0
     uuid:
-      value0: 48362116
+      value0: 4055166799
       value1: 0
       value2: 0
       value3: 0
     guid: 0
-    name: staff_attack1
+    name: shield
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: staff_attack1
+    - name: shield
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
-        x: 0
+        x: 1
         y: 0
-        width: 11
-        height: 35
-      spriteId: 2dbf6be5d17a849478dcbed50076851e
+        width: 13
+        height: 17
+      spriteId: a6653c8e8a5f4984989ee34f33874ad2
     linkedCells: []
     parentIndex: -1
   platformSettings:
@@ -185,5 +185,5 @@ ScriptedImporter:
   generatePhysicsShape: 0
   secondarySpriteTextures: []
   spritePackingTag: 
-  canvasSize: {x: 16, y: 40}
-  previousTextureSize: {x: 32, y: 64}
+  canvasSize: {x: 16, y: 17}
+  previousTextureSize: {x: 32, y: 32}

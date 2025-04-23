@@ -7,6 +7,10 @@ public class EquipmentManager : MonoBehaviour
     public Transform firePoint;
     public GameObject weaponVisual;
 
+    public OffhandItem equippedShield;
+    public GameObject shieldVisual;
+    private SpriteRenderer shieldSpriteRenderer;
+
     // Use a HashSet to prevent duplicates
     private HashSet<Item> equippedItems = new HashSet<Item>();
     private SpriteRenderer weaponSpriteRenderer;
@@ -104,6 +108,20 @@ public class EquipmentManager : MonoBehaviour
             Debug.Log("Weapon equipped: " + weapon.itemName);
         }
 
+        else if (item is OffhandItem shield)
+        {
+            equippedShield = shield;
+            if (shieldVisual != null)
+            {
+                shieldVisual.SetActive(true);
+                shieldSpriteRenderer = shieldVisual.GetComponent<SpriteRenderer>();
+                if (shieldSpriteRenderer != null && shield.shieldSprite != null)
+                {
+                    shieldSpriteRenderer.sprite = shield.shieldSprite;
+                }
+            }
+        }
+
         equippedItems.Add(item);
     }
 
@@ -134,6 +152,12 @@ public class EquipmentManager : MonoBehaviour
             }
             audioManager.PlaySound(audioManager.gearing);
             Debug.Log("Weapon unequipped.");
+        }
+        else if (item is OffhandItem && equippedShield == item)
+        {
+            equippedShield = null;
+            if (shieldVisual != null)
+                shieldVisual.SetActive(false);
         }
 
         equippedItems.Remove(item);

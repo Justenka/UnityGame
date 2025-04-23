@@ -377,19 +377,4 @@ public class Player : Character
     {
         return activeDebuffs;
     }
-
-    //private void OnEnable()
-    //{
-    //    attack.action.performed += PerformAttack;
-    //}
-
-    //private void OnDisable()
-    //{
-    //    attack.action.performed -= PerformAttack;
-    //}
-
-    //private void PerformAttack(InputAction.CallbackContext obj)
-    //{
-    //    weaponRotation.Attack();
-    //}
 }
