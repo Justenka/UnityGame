@@ -25,7 +25,6 @@ public class UIManager : MonoBehaviour
         if (Instance == null)
         { 
             Instance = this;
-            Debug.Log("UIManager initialized.");
         }
 
         else Destroy(gameObject);

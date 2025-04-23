@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class SimpleEnemyAI : MonoBehaviour
 {
-    private GameObject player;
+    public Player player;
     public float speedModifier;
     private float distance;
     public float speed;
@@ -11,7 +11,13 @@ public class SimpleEnemyAI : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
+        GameObject playerGameObject = GameObject.FindGameObjectWithTag("Player");
+        player = playerGameObject.GetComponent<Player>();
+        if (player == null)
+        {
+            Debug.LogError("Player script not found on the GameObject with tag 'Player' in " + gameObject.name);
+            enabled = false; // Disable this script to prevent further errors
+        }
         if (speedModifier != 0)
         {
             speed = Random.Range(0.5f, 4.5f) * speedModifier;

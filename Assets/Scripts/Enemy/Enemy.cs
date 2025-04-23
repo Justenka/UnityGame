@@ -32,6 +32,39 @@ public class Enemy : Character
     public HealthBar healthBar;
     public DebuffData debuffToApply;
     private Dictionary<System.Type, Debuff> activeDebuffs = new();
+
+    // Virtual method for attacking
+    public virtual void Attack()
+    {
+        // Melee attack logic (default behavior)
+        if (playerInTrigger != null && Time.time >= lastAttackTime + attackCooldown && !playerInTrigger.isInvincible)
+        {
+            playerInTrigger.TakeDamage(damageToPlayer);
+            lastAttackTime = Time.time;
+            ApplyDebuffToPlayer(playerInTrigger);
+        }
+        // Can be overridden by ranged enemies
+    }
+
+    // Virtual method to handle being in attack range
+    public virtual void OnPlayerEnterAttackRange(Player player)
+    {
+        playerInTrigger = player;
+        Attack(); // Initiate attack upon entering range
+    }
+
+    // Virtual method to handle leaving attack range
+    public virtual void OnPlayerExitAttackRange(Player player)
+    {
+        playerInTrigger = null;
+    }
+
+    public virtual float GetAttackRange()
+    {
+        // Default melee range (can be overridden by ranged enemies)
+        return GetComponent<Collider2D>().bounds.extents.magnitude + 1f; // Slightly beyond collider
+    }
+
     public void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -55,14 +88,10 @@ public class Enemy : Character
     // Update is called once per frame
     public void Update()
     {
-        if (playerInTrigger != null && Time.time >= lastAttackTime + attackCooldown && !playerInTrigger.isInvincible)
-        {
-            playerInTrigger.TakeDamage(damageToPlayer);
-            lastAttackTime = Time.time;
-            ApplyDebuffToPlayer(playerInTrigger);
-        }
+        Attack(); // Call the attack logic every frame (will only execute if conditions are met)
         UpdateDebuffs();
     }
+
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
@@ -70,10 +99,7 @@ public class Enemy : Character
             Player player = collision.GetComponent<Player>();
             if (player != null)
             {
-                playerInTrigger = player;
-                playerInTrigger.TakeDamage(damageToPlayer);
-                ApplyDebuffToPlayer(player);
-                lastAttackTime = Time.time;
+                OnPlayerEnterAttackRange(player);
             }
         }
     }
@@ -82,9 +108,14 @@ public class Enemy : Character
     {
         if (collision.CompareTag("Player"))
         {
-            playerInTrigger = null;
+            Player player = collision.GetComponent<Player>();
+            if (player != null)
+            {
+                OnPlayerExitAttackRange(player);
+            }
         }
     }
+
     public void TakeDamage(float damage, Vector2 attackerPosition, float knockbackForce, bool KnockBack)
     {
         if (isInvincible) return;
@@ -100,7 +131,6 @@ public class Enemy : Character
         {
             Die();
         }
-
         else if (KnockBack)
         {
             animator.SetBool("isHit", true);
@@ -113,6 +143,7 @@ public class Enemy : Character
             DamageNumberController.instance.SpawnDamage(damage, transform.position, false);
         }
     }
+
     public override void TakeDamage(float damage)
     {
         if (isInvincible) return;
@@ -133,20 +164,17 @@ public class Enemy : Character
         {
             DamageNumberController.instance.SpawnDamage(damage, transform.position, false);
         }
-        // Knockback logic remains in the TakeDamage function in Enemy
     }
+
     void ApplyKnockback(Vector2 attackerPosition, float knockbackForce)
     {
-        if (rb != null && !isKnockedBack)
+        if (rb != null && !isKnockedBack && GetComponent<SimpleEnemyAI>() != null)
         {
             isKnockedBack = true;
-
             GetComponent<SimpleEnemyAI>().enabled = false;
-
             Vector2 knockbackDirection = (transform.position - (Vector3)attackerPosition).normalized;
             rb.linearVelocity = Vector2.zero;
             rb.linearVelocity = knockbackDirection * knockbackForce;
-
             StartCoroutine(HitFreezeDelayed(0.3f, 0.20f));
             Invoke("ResetKnockback", 0.3f);
         }
@@ -156,11 +184,12 @@ public class Enemy : Character
     {
         yield return new WaitForSeconds(delayBeforeFreeze);
         rb.simulated = false;
-
         yield return new WaitForSeconds(freezeDuration);
         rb.simulated = true;
-
-        GetComponent<SimpleEnemyAI>().enabled = true;
+        if (GetComponent<SimpleEnemyAI>() != null)
+        {
+            GetComponent<SimpleEnemyAI>().enabled = true;
+        }
     }
 
     void ResetKnockback()
@@ -171,28 +200,30 @@ public class Enemy : Character
             isKnockedBack = false;
         }
     }
+
     public void StartInvincibility()
     {
         isInvincible = true;
         Invoke("EndInvincibility", invincibilityDuration);
     }
+
     void EndInvincibility()
     {
         isInvincible = false;
         animator.SetBool("isHit", false);
     }
+
     void Die()
     {
         if (isDead) return;
         isDead = true;
-
         DropXP();
-
         animator.SetTrigger("Die");
-
-        GetComponent<SimpleEnemyAI>().enabled = false;
+        if (GetComponent<SimpleEnemyAI>() != null)
+        {
+            GetComponent<SimpleEnemyAI>().enabled = false;
+        }
         GetComponent<Collider2D>().enabled = false;
-
         StartCoroutine(DestroyAfterDeath());
     }
 
@@ -215,27 +246,20 @@ public class Enemy : Character
             xpPickup.GetComponent<ExperiencePickup>().expValue = xpToDrop;
         }
     }
+
     void ApplyDebuffToPlayer(Player player)
     {
-        if (player == null) return;
+        if (player == null || debuffToApply == null) return;
         switch (debuffToApply.debuffType)
         {
             case DebuffType.Poison:
-                player.AddDebuff(new PoisonDebuff(
-                    debuffToApply.duration,
-                    debuffToApply.damagePerTick,
-                    debuffToApply.tickInterval));
+                player.AddDebuff(new PoisonDebuff(debuffToApply.duration, debuffToApply.damagePerTick, debuffToApply.tickInterval));
                 break;
             case DebuffType.Burn:
-                player.AddDebuff(new BurnDebuff(
-                    debuffToApply.duration,
-                    debuffToApply.damagePerTick,
-                    debuffToApply.tickInterval));
+                player.AddDebuff(new BurnDebuff(debuffToApply.duration, debuffToApply.damagePerTick, debuffToApply.tickInterval));
                 break;
             case DebuffType.Slow:
-                player.AddDebuff(new SlowDebuff(
-                    debuffToApply.duration,
-                    debuffToApply.slowAmount));
+                player.AddDebuff(new SlowDebuff(debuffToApply.duration, debuffToApply.slowAmount));
                 break;
         }
     }
@@ -243,13 +267,11 @@ public class Enemy : Character
     public override void AddDebuff(Debuff newDebuff)
     {
         System.Type debuffType = newDebuff.GetType();
-
         if (activeDebuffs.TryGetValue(debuffType, out var existingDebuff))
         {
             existingDebuff.Remove(this);
             activeDebuffs.Remove(debuffType);
         }
-
         newDebuff.Apply(this);
         activeDebuffs[debuffType] = newDebuff;
     }
@@ -274,7 +296,6 @@ public class Enemy : Character
                 expired.Add(kvp.Key);
             }
         }
-
         foreach (var type in expired)
         {
             activeDebuffs.Remove(type);
