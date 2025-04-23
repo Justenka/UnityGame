@@ -678,7 +678,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   acceptedType: 5
   equipmentManager: {fileID: 708523013}
-  acceptedArmorType: 0
+  acceptedEquipmentType: 0
 --- !u!114 &33986342
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6571,6 +6571,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   npcUI: {fileID: 1145202034}
+  storageInventory: {fileID: 0}
 --- !u!1 &641291781
 GameObject:
   m_ObjectHideFlags: 0
@@ -7309,7 +7310,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b95af1eb5497774db27fe2e1f2c054d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoryToggle: {fileID: 2095549017}
 --- !u!4 &701345599
 Transform:
   m_ObjectHideFlags: 0
@@ -7515,6 +7515,10 @@ GameObject:
   - component: {fileID: 708523013}
   - component: {fileID: 708523015}
   - component: {fileID: 708523014}
+  - component: {fileID: 708523018}
+  - component: {fileID: 708523017}
+  - component: {fileID: 708523019}
+  - component: {fileID: 708523020}
   - component: {fileID: 708523016}
   m_Layer: 0
   m_Name: Player
@@ -7777,6 +7781,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 708523006}
+  inventory: {fileID: 0}
 --- !u!114 &708523013
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7792,6 +7797,8 @@ MonoBehaviour:
   equippedWeapon: {fileID: 0}
   firePoint: {fileID: 1954666909}
   weaponVisual: {fileID: 1769183537}
+  swordAnimatorController: {fileID: 0}
+  staffAnimatorController: {fileID: 0}
 --- !u!82 &708523014
 AudioSource:
   m_ObjectHideFlags: 0
@@ -7919,6 +7926,72 @@ MonoBehaviour:
   slowDuration: 2
   cooldownTime: 5
   abilityKey: 101
+--- !u!114 &708523017
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 708523001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf25c8d5c89a68a45bc18a649fc6157f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radius: 5
+  damage: 100
+  abilityKey: 113
+  cooldown: 3
+--- !u!114 &708523018
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 708523001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89ecd92672e30df48b567cd0f6f50cf1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectilePrefab: {fileID: 268461493443850436, guid: 1bbc76566a5f7df4bab6a5dded2a6b24, type: 3}
+  projectileCount: 18
+  duration: 0.4
+  fireInterval: 0.1
+  invincibleTime: 1.6
+  projectileSpeed: 10
+  abilityKey: 114
+--- !u!114 &708523019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 708523001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e72039e6a4138544d9b54f40967cf66b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  companionPrefab: {fileID: 7241906206111505089, guid: 93484c64e9658034dafb8c13044a805a, type: 3}
+  summonDuration: 60
+  limitToOne: 1
+  abilityKey: 99
+--- !u!114 &708523020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 708523001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a27aaad9eeae4f47ae23c58eb2c42ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageAmount: 2000
+  killPlayer: 1
+  abilityKey: 102
 --- !u!1001 &717972595
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8311,7 +8384,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   acceptedType: 2
   equipmentManager: {fileID: 708523013}
-  acceptedArmorType: 4
+  acceptedEquipmentType: 0
 --- !u!114 &760591780
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9415,7 +9488,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   acceptedType: 2
   equipmentManager: {fileID: 708523013}
-  acceptedArmorType: 1
+  acceptedEquipmentType: 0
 --- !u!114 &842445047
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9611,7 +9684,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   acceptedType: 4
   equipmentManager: {fileID: 708523013}
-  acceptedArmorType: 0
+  acceptedEquipmentType: 0
 --- !u!114 &852423601
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11167,7 +11240,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   acceptedType: 5
   equipmentManager: {fileID: 708523013}
-  acceptedArmorType: 0
+  acceptedEquipmentType: 0
 --- !u!114 &996692236
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12715,7 +12788,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 708523006}
-  inventoryUI: {fileID: 2095549017}
   shopSlots:
   - {fileID: 1175174312}
   - {fileID: 2050334632}
@@ -15316,7 +15388,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   acceptedType: 2
   equipmentManager: {fileID: 708523013}
-  acceptedArmorType: 3
+  acceptedEquipmentType: 0
 --- !u!114 &1414289694
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16930,7 +17002,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   acceptedType: 1
   equipmentManager: {fileID: 708523013}
-  acceptedArmorType: 0
+  acceptedEquipmentType: 0
 --- !u!114 &1629057529
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17667,7 +17739,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   acceptedType: 2
   equipmentManager: {fileID: 708523013}
-  acceptedArmorType: 2
+  acceptedEquipmentType: 0
 --- !u!114 &1648714561
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19413,8 +19485,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 456234468}
   delay: 0.3
-  xOffset: 0.01
-  yOffset: 0.15
   circleOrigin: {fileID: 229492139}
   radius: 0.7
 --- !u!1001 &1785043273
@@ -20623,7 +20693,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   acceptedType: 5
   equipmentManager: {fileID: 708523013}
-  acceptedArmorType: 0
+  acceptedEquipmentType: 0
 --- !u!114 &1883512049
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22015,9 +22085,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 444fab566be226c48ad37e1318cf08c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoryUIGroup: {fileID: 1092405637}
-  inventoryButton: {fileID: 1515752640}
-  tooltipUI: {fileID: 1822919990}
 --- !u!4 &2095549018
 Transform:
   m_ObjectHideFlags: 0
