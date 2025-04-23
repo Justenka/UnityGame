@@ -13,7 +13,6 @@ public class SpellItem : Item
         TimeSlow,
         Armageddon
     }
-
     public override bool Use(GameObject user)
     {
         Player player = user.GetComponent<Player>();

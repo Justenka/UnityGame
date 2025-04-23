@@ -13,10 +13,11 @@ public class RadialAttack : MonoBehaviour
 
     private bool isShooting = false;
     private Player player;
-
+    PlayerAudioManager audioManager;
     void Start()
     {
         player = GetComponent<Player>();
+        audioManager = player.GetComponent<PlayerAudioManager>();
     }
 
     void Update()
@@ -46,6 +47,7 @@ public class RadialAttack : MonoBehaviour
             FireProjectilesInCircle();
             yield return new WaitForSeconds(fireInterval);
             elapsed += fireInterval;
+            audioManager.PlaySound(audioManager.manymagics);
         }
     }
 

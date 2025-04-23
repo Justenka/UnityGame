@@ -6,10 +6,11 @@ public class Armagedon : MonoBehaviour
     public float damageAmount = 2000f;
     public bool killPlayer = false;
     public KeyCode abilityKey = KeyCode.F;
+    PlayerAudioManager audioManager;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        audioManager = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAudioManager>();
     }
 
     // Update is called once per frame
@@ -22,6 +23,7 @@ public class Armagedon : MonoBehaviour
     }
     public void Activate()
     {
+        audioManager.PlayExplosion(audioManager.explosion);
         // Damage all enemies
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
         foreach (GameObject enemy in enemies)

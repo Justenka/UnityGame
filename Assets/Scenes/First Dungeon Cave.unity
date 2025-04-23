@@ -8444,6 +8444,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioSource: {fileID: 381430706}
   combatSource: {fileID: 381430724}
+  ArmagedonSource: {fileID: 1928505455}
   strangeEffectClip: {fileID: 8300000, guid: 466b94fc0ea231b40a761bc5bbb6f278, type: 3}
   walkingAudioSource: {fileID: 8300000, guid: 4d8f5f89398528f41b1407857599a709, type: 3}
   runningAudioSource: {fileID: 8300000, guid: 96ca9b0bec587a54dbc70547a52be963, type: 3}
@@ -8453,6 +8454,11 @@ MonoBehaviour:
   drink: {fileID: 8300000, guid: 14e026e6a3738f74186688c1a930fbfb, type: 3}
   money: {fileID: 8300000, guid: f64319d73a56d3641a6fc32be35c9626, type: 3}
   interact: {fileID: 8300000, guid: 77da74b93c2c50e43b103941ba7b2470, type: 3}
+  summon: {fileID: 8300000, guid: 8e9f0399dbd61324f914d8a1f5657945, type: 3}
+  explosion: {fileID: 8300000, guid: 57b10e40b825d2943aae02b0296fb946, type: 3}
+  slowtime: {fileID: 8300000, guid: 34ab7481acc9f274a873bb6d0a43fd85, type: 3}
+  AoE: {fileID: 8300000, guid: 23edaf723c45f8447a24544dd3fc92b4, type: 3}
+  manymagics: {fileID: 8300000, guid: 6b4bb2336dd1dca499479614fdac8dd9, type: 3}
 --- !u!114 &381430708
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -114690,7 +114696,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1928505453}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 1acfea9b9dbccfe45ab7310ac8962401, type: 3}

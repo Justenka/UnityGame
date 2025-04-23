@@ -14,15 +14,18 @@ public class TimeSlowAbility : MonoBehaviour
 
     private PlayerMovement playerMovement;
     private float originalSpeedMultiplier;
+    PlayerAudioManager audioManager;
 
     void Start()
     {
         playerMovement = GetComponent<PlayerMovement>();
+        audioManager = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAudioManager>();
     }
     void Update()
     {
         if (Input.GetKeyDown(abilityKey) && Time.time >= nextUseTime && !isSlowingTime)
         {
+            audioManager.PlaySound(audioManager.slowtime);
             nextUseTime = Time.time + cooldownTime;
             StartCoroutine(SlowTime());
         }
@@ -52,6 +55,7 @@ public class TimeSlowAbility : MonoBehaviour
     {
         if (!isSlowingTime)
         {
+            audioManager.PlaySound(audioManager.slowtime);
             StartCoroutine(SlowTime());
         }
     }

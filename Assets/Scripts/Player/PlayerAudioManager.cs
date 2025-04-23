@@ -4,6 +4,7 @@ public class PlayerAudioManager : MonoBehaviour
 {
     public AudioSource audioSource;
     public AudioSource combatSource;
+    public AudioSource ArmagedonSource;
 
     [Header("Effect Clips")]
     public AudioClip strangeEffectClip;
@@ -15,7 +16,11 @@ public class PlayerAudioManager : MonoBehaviour
     public AudioClip drink;
     public AudioClip money;
     public AudioClip interact;
-
+    public AudioClip summon;
+    public AudioClip explosion;
+    public AudioClip slowtime;
+    public AudioClip AoE;
+    public AudioClip manymagics;
 
 
     void Awake()
@@ -52,4 +57,11 @@ public class PlayerAudioManager : MonoBehaviour
     }
 
     public void PlayStrangeEffect() => PlaySound(strangeEffectClip);
+    public void PlayExplosion(AudioClip clip)
+    {
+        if (ArmagedonSource != null && clip != null)
+        {
+            ArmagedonSource.PlayOneShot(clip);
+        }
+    }
 }

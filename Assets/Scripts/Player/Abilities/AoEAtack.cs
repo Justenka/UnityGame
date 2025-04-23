@@ -9,7 +9,11 @@ public class AOEAbility : MonoBehaviour
     public float cooldown = 3f;
 
     private float nextUseTime = 0f;
-
+    PlayerAudioManager audioManager;
+    private void Start()
+    {
+        audioManager = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAudioManager>();
+    }
     void Update()
     {
         if (Input.GetKeyDown(abilityKey) && Time.time >= nextUseTime)
@@ -35,6 +39,7 @@ public class AOEAbility : MonoBehaviour
                 enemy.TakeDamage(damage);
             }
         }
+        audioManager.PlaySound(audioManager.AoE);
     }
 
     // Used to visualize range in scene editor. Click on player to see.
@@ -54,5 +59,6 @@ public class AOEAbility : MonoBehaviour
                 enemy.GetComponent<Enemy>().TakeDamage(damage);
             }
         }
+        audioManager.PlaySound(audioManager.AoE);
     }
 }

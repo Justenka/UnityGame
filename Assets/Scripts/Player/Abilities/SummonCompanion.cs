@@ -10,9 +10,11 @@ public class SummonCompanion : MonoBehaviour
 
     private Transform summonPoint;
     private GameObject activeCompanion;
+    PlayerAudioManager audioManager;
     void Start()
     {
         Vector2 summonPoint = transform.position;
+        audioManager = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAudioManager>();
     }
     void Update()
     {
@@ -37,6 +39,7 @@ public class SummonCompanion : MonoBehaviour
         ai.player = transform;
 
         activeCompanion = companion;
+        audioManager.PlaySound(audioManager.summon);
 
         StartCoroutine(DestroyAfterDelay(companion, summonDuration));
     }
@@ -59,6 +62,7 @@ public class SummonCompanion : MonoBehaviour
         CompanionAI ai = companion.GetComponent<CompanionAI>();
         ai.player = transform;
         activeCompanion = companion;
+        audioManager.PlaySound(audioManager.summon);
         Destroy(companion, summonDuration);
     }
 }
