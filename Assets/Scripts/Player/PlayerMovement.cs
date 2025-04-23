@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -37,6 +38,8 @@ public class PlayerMovement : MonoBehaviour
         else running = false;
 
         ProcessInput();
+        HandleMovementSounds();
+
         if (player.stats[StatType.Stamina].currentValue >= dashCost)
         {
             if (Input.GetKeyDown(KeyCode.Space) && canDash)
@@ -105,5 +108,32 @@ public class PlayerMovement : MonoBehaviour
     public float GetCurrentSpeedMultiplier()
     {
         return speedMultiplier;
+    }
+
+
+
+    void HandleMovementSounds()
+    {
+        bool isMoving = moveDirection.magnitude > 0f && !isDashing;
+
+        PlayerAudioManager audioManager = player.GetComponent<PlayerAudioManager>();
+        if (audioManager != null)
+        {
+            if (isMoving)
+            {
+                if (running)
+                {
+                    audioManager.PlayLoop(audioManager.runningAudioSource);
+                }
+                else
+                {
+                    audioManager.PlayLoop(audioManager.walkingAudioSource);
+                }
+            }
+            else
+            {
+                audioManager.StopLoop();
+            }
+        }
     }
 }

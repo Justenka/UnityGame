@@ -13,6 +13,10 @@ public class CompanionAI : MonoBehaviour
     private Transform currentTarget;
     private float cooldownTimer = 0f;
 
+    private void Start()
+    {
+        player = GameObject.FindGameObjectWithTag("Player").transform;
+    }
     void Update()
     {
         cooldownTimer -= Time.deltaTime;
