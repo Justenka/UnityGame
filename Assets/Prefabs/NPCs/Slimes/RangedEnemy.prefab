@@ -392,7 +392,7 @@ MonoBehaviour:
   rb: {fileID: 0}
   knockbackForce: 1
   isKnockedBack: 0
-  attackCooldown: 1.5
+  attackCooldown: 0
   lastAttackTime: 0
   playerInTrigger: {fileID: 0}
   isInvincible: 0
@@ -409,7 +409,7 @@ MonoBehaviour:
     damagePerTick: 1
     tickInterval: 1
     slowAmount: 0.5
-  attackRange: 100
+  attackRange: 10
   projectilePrefab: {fileID: 268461493443850436, guid: d1d977055d8bda54b86e3cd9c73df5eb, type: 3}
   firePoint: {fileID: 2032951606925251400}
   projectileSpeed: 5
@@ -425,6 +425,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8abc3d8784a402d40a554e24f3c9f4ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
   speedModifier: 0
   speed: 0
   despawnDistance: 80

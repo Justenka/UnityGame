@@ -40,6 +40,11 @@ public class Projectile : MonoBehaviour
                     debuffData.damagePerTick,
                     debuffData.tickInterval));
                 break;
+            case DebuffType.Stun:
+                enemy.AddDebuff(new StunDebuff(
+                    debuffData.duration
+                    ));
+                break;
             case DebuffType.Slow:
                 enemy.AddDebuff(new SlowDebuff(
                     debuffData.duration,

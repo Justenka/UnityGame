@@ -168,11 +168,17 @@ public class WeaponRotation : MonoBehaviour
                     weapon.debuffData.damagePerTick,
                     weapon.debuffData.tickInterval));
                 break;
+            case DebuffType.Stun:
+                enemy.AddDebuff(new StunDebuff(
+                    weapon.debuffData.duration
+                    ));
+                break;
             case DebuffType.Slow:
                 enemy.AddDebuff(new SlowDebuff(
                     weapon.debuffData.duration,
                     weapon.debuffData.slowAmount));
                 break;
+
         }
     }
     public void DetectColliders()

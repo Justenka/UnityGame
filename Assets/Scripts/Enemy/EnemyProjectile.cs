@@ -1,4 +1,5 @@
 using UnityEngine;
+using static Codice.Client.Common.Connection.AskCredentialsToUser;
 
 public class EnemyProjectile : MonoBehaviour
 {
@@ -74,6 +75,11 @@ public class EnemyProjectile : MonoBehaviour
                 break;
             case DebuffType.Burn:
                 player.AddDebuff(new BurnDebuff(debuffToApply.duration, debuffToApply.damagePerTick, debuffToApply.tickInterval));
+                break;
+            case DebuffType.Stun:
+                player.AddDebuff(new StunDebuff(
+                    debuffToApply.duration
+                    ));
                 break;
             case DebuffType.Slow:
                 player.AddDebuff(new SlowDebuff(debuffToApply.duration, debuffToApply.slowAmount));

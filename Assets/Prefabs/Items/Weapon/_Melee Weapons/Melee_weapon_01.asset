@@ -35,7 +35,7 @@ MonoBehaviour:
   xOffset: 0.01
   yOffset: 0.15
   debuffData:
-    debuffType: 3
+    debuffType: 4
     duration: 10
     damagePerTick: 50
     tickInterval: 1
