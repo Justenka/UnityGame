@@ -40,4 +40,19 @@ public class Armagedon : MonoBehaviour
             player.TakeDamage(damageAmount);
         }
     }
+    //public void TriggerArmageddon(GameObject user)
+    //{
+    //    // Damage all entities in the scene
+    //    GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+    //    foreach (var enemy in enemies)
+    //    {
+    //        enemy.GetComponent<Enemy>().TakeDamage(2000); // Armageddon damage
+    //    }
+
+    //    Player player = user.GetComponent<Player>();
+    //    if (player != null)
+    //    {
+    //        player.TakeDamage(2000); // Armageddon also damages the player
+    //    }
+    //}
 }

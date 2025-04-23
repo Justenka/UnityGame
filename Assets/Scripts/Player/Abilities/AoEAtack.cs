@@ -43,4 +43,16 @@ public class AOEAbility : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, radius);
     }
+    public void TriggerAoE(GameObject user)
+    {
+        Collider2D[] enemies = Physics2D.OverlapCircleAll(user.transform.position, radius);
+
+        foreach (Collider2D enemy in enemies)
+        {
+            if (enemy.CompareTag("Enemy"))
+            {
+                enemy.GetComponent<Enemy>().TakeDamage(damage);
+            }
+        }
+    }
 }

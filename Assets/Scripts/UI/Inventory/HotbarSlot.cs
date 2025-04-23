@@ -31,6 +31,14 @@ public class HotbarSlot : InventorySlot
             }
         }
 
+        if (hotbarItem != null && hotbarItem.item is SpellItem && !isOnCooldown)
+        {
+            if (Input.GetKeyDown(useKey))
+            {
+                TryUseSpellItem();
+            }
+        }
+
         HandleCooldownVisuals();
     }
 
@@ -55,6 +63,16 @@ public class HotbarSlot : InventorySlot
         }
 
         StartCooldown(consumable.cooldown);
+    }
+    void TryUseSpellItem()
+    {
+        if (hotbarItem == null || !(hotbarItem.item is SpellItem spell))
+            return;
+
+        bool used = spell.Use(GameObject.FindGameObjectWithTag("Player"));
+        if (!used) return;
+
+        StartCooldown(spell.cooldown);
     }
 
     void StartCooldown(float cooldown)

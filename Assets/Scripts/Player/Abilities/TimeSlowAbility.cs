@@ -28,7 +28,7 @@ public class TimeSlowAbility : MonoBehaviour
         }
     }
 
-    IEnumerator SlowTime()
+    public IEnumerator SlowTime()
     {
         isSlowingTime = true;
 
@@ -47,5 +47,12 @@ public class TimeSlowAbility : MonoBehaviour
         playerMovement.ModifySpeedMultiplier(originalSpeedMultiplier);
 
         isSlowingTime = false;
+    }
+    public void TimeSlow(GameObject user)
+    {
+        if (!isSlowingTime)
+        {
+            StartCoroutine(SlowTime());
+        }
     }
 }

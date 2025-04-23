@@ -31,7 +31,6 @@ public class RadialAttack : MonoBehaviour
     {
         isShooting = true;
 
-        // Invincible!
         player.isInvincible = true;
         yield return StartCoroutine(SpinAndFire());
 
@@ -58,6 +57,13 @@ public class RadialAttack : MonoBehaviour
             Vector2 direction = new Vector2(Mathf.Cos(angle * Mathf.Deg2Rad), Mathf.Sin(angle * Mathf.Deg2Rad));
             GameObject proj = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
             proj.GetComponent<Rigidbody2D>().linearVelocity = direction * projectileSpeed;
+        }
+    }
+    public void TriggerAttack(GameObject user)
+    {
+        if (!isShooting)
+        {
+            StartCoroutine(ActivateAbility());
         }
     }
 }

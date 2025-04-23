@@ -6,5 +6,6 @@ public enum ItemType
     Consumable,
     Offhand,
     Accessory,
-    Currency
+    Currency,
+    Spell
 }

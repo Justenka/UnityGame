@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64a366c55cd7c874baa9d38dde6621b0, type: 3}
+  m_Name: MagicBurst
+  m_EditorClassIdentifier: 
+  itemName: Magic Burst
+  description: Shoots magic in all directions
+  image: {fileID: 5521816502729529754, guid: a46ce53917d2836489fecf5e4ed69016, type: 3}
+  price: 10000000
+  stackable: 0
+  type: 7
+  statModifiers: []
+  cooldown: 1
+  abilityType: 1

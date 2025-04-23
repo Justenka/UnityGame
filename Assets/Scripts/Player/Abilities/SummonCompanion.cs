@@ -52,4 +52,13 @@ public class SummonCompanion : MonoBehaviour
                 activeCompanion = null;
         }
     }
+    public void Summon(GameObject user)
+    {
+        GameObject companion = Instantiate(companionPrefab, user.transform.position, Quaternion.identity);
+        companion.GetComponent<CompanionAI>().player = user.transform;
+        CompanionAI ai = companion.GetComponent<CompanionAI>();
+        ai.player = transform;
+        activeCompanion = companion;
+        Destroy(companion, summonDuration);
+    }
 }
