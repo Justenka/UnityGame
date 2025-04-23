@@ -5,7 +5,11 @@ public class EquipmentSlot : InventorySlot
 {
     public EquipmentManager equipmentManager;
     public EquipmentType acceptedEquipmentType;
-
+    PlayerAudioManager audioManager;
+    private void Start()
+    {
+        audioManager = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAudioManager>();
+    }
     public override void OnDrop(PointerEventData eventData)
     {
         InventoryItem draggedItem = eventData.pointerDrag?.GetComponent<InventoryItem>();
@@ -52,6 +56,7 @@ public class EquipmentSlot : InventorySlot
         draggedItem.transform.localPosition = Vector3.zero;
 
         equipmentManager.Equip(draggedItem.item);
+        audioManager.PlaySound(audioManager.gearing);
         Debug.Log($"Equipped: {draggedItem.item.itemName}");
     }
 }

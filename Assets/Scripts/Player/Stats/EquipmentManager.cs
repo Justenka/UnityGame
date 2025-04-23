@@ -14,11 +14,10 @@ public class EquipmentManager : MonoBehaviour
     //public Animator playerAnimator;
     public RuntimeAnimatorController swordAnimatorController;
     public RuntimeAnimatorController staffAnimatorController;
-
-
-
+    PlayerAudioManager audioManager;
     void Start()
     {
+        audioManager = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAudioManager>();
         if (weaponVisual != null)
         {
             weaponVisual.SetActive(equippedWeapon != null);
@@ -101,7 +100,7 @@ public class EquipmentManager : MonoBehaviour
                     Debug.LogError("Animator not found on weaponVisual.");
                 }
             }
-
+            audioManager.PlaySound(audioManager.gearing);
             Debug.Log("Weapon equipped: " + weapon.itemName);
         }
 
@@ -115,7 +114,7 @@ public class EquipmentManager : MonoBehaviour
             Debug.LogWarning("Tried to unequip item not equipped: " + item.itemName);
             return;
         }
-
+        audioManager.PlaySound(audioManager.gearing);
         Debug.Log("Unequipping: " + item.itemName);
 
         Player player = GetComponent<Player>();
@@ -133,7 +132,7 @@ public class EquipmentManager : MonoBehaviour
                 if (weaponSpriteRenderer != null)
                     weaponSpriteRenderer.sprite = null;
             }
-
+            audioManager.PlaySound(audioManager.gearing);
             Debug.Log("Weapon unequipped.");
         }
 
@@ -146,22 +145,23 @@ public class EquipmentManager : MonoBehaviour
         {
             Unequip(item);
         }
-
+        audioManager.PlaySound(audioManager.gearing);
         equippedItems.Clear();
     }
 
     public void UseWeapon(GameObject user)
     {
         if (equippedWeapon == null || UIManager.Instance.openMenus.Count > 0) return;
-
         switch (equippedWeapon.actionType)
         {
             case ActionType.Melee:
                 user.GetComponent<PlayerAttack>().DoAttack();
+                audioManager.PlaySound(audioManager.swoosh);
                 break;
 
             case ActionType.Ranged:
                 user.GetComponent<PlayerShooting>().DoShoot(equippedWeapon);
+                audioManager.PlaySound(audioManager.pop);
                 break;
         }
     }

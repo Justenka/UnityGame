@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Magic Burst
   description: Shoots magic in all directions
-  image: {fileID: 5521816502729529754, guid: a46ce53917d2836489fecf5e4ed69016, type: 3}
+  image: {fileID: 7283028051886655607, guid: 42c72c7317c047c4784075c10f94c717, type: 3}
   price: 10000000
   stackable: 0
   type: 7

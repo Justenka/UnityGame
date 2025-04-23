@@ -3,11 +3,16 @@ using UnityEngine;
 public class PlayerAudioManager : MonoBehaviour
 {
     public AudioSource audioSource;
+    public AudioSource combatSource;
 
     [Header("Effect Clips")]
     public AudioClip strangeEffectClip;
     public AudioClip walkingAudioSource;
     public AudioClip runningAudioSource;
+    public AudioClip swoosh;
+    public AudioClip pop;
+    public AudioClip gearing;
+
 
     void Awake()
     {
@@ -20,15 +25,9 @@ public class PlayerAudioManager : MonoBehaviour
     //Plays an audio clip once.
     public void PlaySound(AudioClip clip)
     {
-        if (audioSource != null && clip != null)
+        if (combatSource != null && clip != null)
         {
-            if(clip == strangeEffectClip)
-            {
-                audioSource.volume = 1f;
-                audioSource.PlayOneShot(clip);
-                audioSource.volume = 0.3f;
-            }
-            audioSource.PlayOneShot(clip);
+            combatSource.PlayOneShot(clip);
         }
     }
     public void PlayLoop(AudioClip clip)
@@ -49,6 +48,4 @@ public class PlayerAudioManager : MonoBehaviour
     }
 
     public void PlayStrangeEffect() => PlaySound(strangeEffectClip);
-    public void PlayWalkingAudio() => PlaySound(walkingAudioSource);
-    public void PlayRunningAudio() => PlaySound(runningAudioSource);
 }
