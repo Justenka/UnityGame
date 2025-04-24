@@ -6,7 +6,7 @@ public class RangedEnemy : Enemy
     public GameObject projectilePrefab;
     public Transform firePoint;
     public float projectileSpeed = 5f;
-    private SimpleEnemyAI enemyAi;
+    private RangedEnemyAI enemyAi;
 
     public new void Start()
     {
@@ -16,7 +16,7 @@ public class RangedEnemy : Enemy
             Debug.LogError("Fire Point not assigned for ranged enemy: " + gameObject.name);
             enabled = false;
         }
-        enemyAi = gameObject.GetComponent<SimpleEnemyAI>();
+        enemyAi = gameObject.GetComponent<RangedEnemyAI>();
     }
     public new void Update()
     {

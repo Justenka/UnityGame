@@ -3717,13 +3717,45 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -5780201929352805491, guid: a1d6bc39e31b13f4a97ea4dcdaf70b65, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 5461fe3ba9b9365428ed5654124d8015, type: 2}
+    - target: {fileID: -4779164690617899678, guid: a1d6bc39e31b13f4a97ea4dcdaf70b65, type: 3}
+      propertyPath: attackCooldown
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1534254762742278452, guid: a1d6bc39e31b13f4a97ea4dcdaf70b65, type: 3}
+      propertyPath: m_SpriteTilingProperty.pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1534254762742278452, guid: a1d6bc39e31b13f4a97ea4dcdaf70b65, type: 3}
+      propertyPath: m_SpriteTilingProperty.pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1534254762742278452, guid: a1d6bc39e31b13f4a97ea4dcdaf70b65, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 2.572758
+      objectReference: {fileID: 0}
+    - target: {fileID: 1534254762742278452, guid: a1d6bc39e31b13f4a97ea4dcdaf70b65, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 3.23
+      objectReference: {fileID: 0}
+    - target: {fileID: 2032951606925251400, guid: a1d6bc39e31b13f4a97ea4dcdaf70b65, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.7008
+      objectReference: {fileID: 0}
+    - target: {fileID: 2032951606925251400, guid: a1d6bc39e31b13f4a97ea4dcdaf70b65, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.8736
+      objectReference: {fileID: 0}
     - target: {fileID: 2032951606925251400, guid: a1d6bc39e31b13f4a97ea4dcdaf70b65, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -298.09692
+      value: -304.83
       objectReference: {fileID: 0}
     - target: {fileID: 2032951606925251400, guid: a1d6bc39e31b13f4a97ea4dcdaf70b65, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -82.81813
+      value: -112.87
       objectReference: {fileID: 0}
     - target: {fileID: 2032951606925251400, guid: a1d6bc39e31b13f4a97ea4dcdaf70b65, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3765,14 +3797,22 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7410935620246459399, guid: a1d6bc39e31b13f4a97ea4dcdaf70b65, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 8749302817991680212, guid: 246c0bb98803f7e48b26506e2d8995e2, type: 3}
     - target: {fileID: 7531382611090056820, guid: a1d6bc39e31b13f4a97ea4dcdaf70b65, type: 3}
       propertyPath: m_Name
       value: RangedEnemy
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6135305365425720006, guid: a1d6bc39e31b13f4a97ea4dcdaf70b65, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7531382611090056820, guid: a1d6bc39e31b13f4a97ea4dcdaf70b65, type: 3}
+      insertIndex: 4
+      addedObject: {fileID: 1555573170}
   m_SourcePrefab: {fileID: 100100000, guid: a1d6bc39e31b13f4a97ea4dcdaf70b65, type: 3}
 --- !u!224 &159233942 stripped
 RectTransform:
@@ -106317,6 +106357,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5889d9d43e9fb9047bde914a01796732, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1555573166 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7531382611090056820, guid: a1d6bc39e31b13f4a97ea4dcdaf70b65, type: 3}
+  m_PrefabInstance: {fileID: 153192748}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1555573170
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1555573166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82d8d377146325048b1ee86cbd60405c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  speed: 3
+  retreatDistance: 5
+  stopDistance: 8
+  chaseDistance: 12
+  despawnDistance: 80
 --- !u!224 &1557190871 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2735929311025355462, guid: 2f4dd611a0777bc4797c69b19c92ecd3, type: 3}
