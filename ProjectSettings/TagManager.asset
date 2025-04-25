@@ -65,5 +65,8 @@ TagManager:
   - name: UpperWall_Layer
     uniqueID: 2539491643
     locked: 0
+  - name: UpperWall_Layer_2
+    uniqueID: 4245189251
+    locked: 0
   m_RenderingLayers:
   - Default
