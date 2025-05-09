@@ -22,7 +22,6 @@ public class TooltipUI : MonoBehaviour
         Vector2 size = backgroundRect.rect.size;
         Vector2 scaledSize = new Vector2(size.x * backgroundRect.lossyScale.x, size.y * backgroundRect.lossyScale.y);
 
-        // Clamp to keep entire tooltip within screen bounds
         position.x = Mathf.Clamp(position.x, 0 + padding.x, Screen.width - scaledSize.x - padding.x);
         position.y = Mathf.Clamp(position.y, scaledSize.y + padding.y, Screen.height - padding.y);
 
@@ -33,18 +32,31 @@ public class TooltipUI : MonoBehaviour
     {
         if (item == null) return;
 
-        itemName.text = item.itemName;
-        description.text = item.description;
+        if (item is EquipmentItem eqItem && eqItem.equipmentLevel > 0)
+        {
+            itemName.text = $"{eqItem.itemName} +{eqItem.equipmentLevel}";
+        }
+        else
+        {
+            itemName.text = item.itemName;
+        }
 
-        stats.text = "";
         if (item.statModifiers != null && item.statModifiers.Count > 0)
         {
+            stats.text = "";
             foreach (var mod in item.statModifiers)
             {
                 string statColor = GetColorForStat(mod.statType);
                 string sign = mod.value >= 0 ? "+" : "-";
                 stats.text += $"<color={statColor}>{sign}{Mathf.Abs(mod.value)} {mod.statType}</color>\n";
             }
+
+            description.text = item.description;
+        }
+        else
+        {
+            stats.text = item.description;
+            description.text = "";
         }
 
         gameObject.SetActive(true);

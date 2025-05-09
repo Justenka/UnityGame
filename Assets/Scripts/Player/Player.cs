@@ -74,9 +74,9 @@ public class Player : Character
         stats[StatType.Health] = new StatValue { baseValue = 100 };
         stats[StatType.Mana] = new StatValue { baseValue = 100 };
         stats[StatType.Stamina] = new StatValue { baseValue = 100 };
-        stats[StatType.Attack] = new StatValue { baseValue = 10 };
-        stats[StatType.Defense] = new StatValue { baseValue = 5 };
-        stats[StatType.Speed] = new StatValue { baseValue = 5 };
+        stats[StatType.Attack] = new StatValue { baseValue = 0 };
+        stats[StatType.Defense] = new StatValue { baseValue = 0 };
+        stats[StatType.Speed] = new StatValue { baseValue = 4 };
     }
     
     void SetInitialValues()
@@ -252,7 +252,11 @@ public class Player : Character
 
     public void OnQuitButtonClick()
     {
+        #if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+        #else
         Application.Quit();
+        #endif
     }
     void Respawn()
     {

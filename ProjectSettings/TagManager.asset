@@ -44,6 +44,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: UpperWall_Layer
+    uniqueID: 2539491643
+    locked: 0
+  - name: UpperWall_Layer_2
+    uniqueID: 4245189251
+    locked: 0
   - name: Map
     uniqueID: 766735033
     locked: 0
@@ -61,12 +67,6 @@ TagManager:
     locked: 0
   - name: Character
     uniqueID: 2310489109
-    locked: 0
-  - name: UpperWall_Layer
-    uniqueID: 2539491643
-    locked: 0
-  - name: UpperWall_Layer_2
-    uniqueID: 4245189251
     locked: 0
   m_RenderingLayers:
   - Default

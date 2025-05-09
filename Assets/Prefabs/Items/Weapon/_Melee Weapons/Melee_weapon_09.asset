@@ -26,6 +26,7 @@ MonoBehaviour:
   - statType: 2
     value: 10
   equipmentType: 5
+  equipmentLevel: 0
   fireRate: 0
   actionType: 0
   projectilePrefab: {fileID: 0}
@@ -35,7 +36,7 @@ MonoBehaviour:
   xOffset: 0.01
   yOffset: 0.15
   debuffData:
-    debuffType: 2
+    debuffType: 0
     duration: 10
     damagePerTick: 50
     tickInterval: 1

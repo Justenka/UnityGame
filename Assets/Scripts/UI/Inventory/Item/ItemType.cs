@@ -7,5 +7,6 @@ public enum ItemType
     Offhand,
     Accessory,
     Currency,
-    Spell
+    Spell,
+    Material
 }

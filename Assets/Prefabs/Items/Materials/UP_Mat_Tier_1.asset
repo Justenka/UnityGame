@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 681644d32bca7c0479ac6e6f9e5ba63d, type: 3}
+  m_Name: UP_Mat_Tier_1
+  m_EditorClassIdentifier: 
+  itemName: Tiny Gems
+  description: Small gems inside the rocks. Can be used to upgrade equipment to +5
+  image: {fileID: 6536665572841160211, guid: f8081f9ee0d833d47ad45f9fe5500953, type: 3}
+  price: 0
+  stackable: 1
+  type: 8
+  statModifiers: []
