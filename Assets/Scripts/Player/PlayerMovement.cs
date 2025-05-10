@@ -73,7 +73,7 @@ public class PlayerMovement : MonoBehaviour
 
         rigidBody.linearVelocity = moveDirection * speed * moveMultiplier;
 
-        if (running)
+        if (running & moveDirection.magnitude > 0)
         {
             float runCostPerSecond = 10f;
             player.UseStamina(runCostPerSecond * Time.deltaTime);

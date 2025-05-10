@@ -3,7 +3,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler,
-                              IPointerEnterHandler, IPointerExitHandler
+                              IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
     [Header("UI")]
     private Image image;
@@ -11,6 +11,11 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     public Item item;
     public int count;
     [HideInInspector] public Transform parentAfterDrag;
+
+    [Header("Shift+Click keys")]
+    public KeyCode LeftShift = KeyCode.LeftShift;
+    public KeyCode RightShift = KeyCode.RightShift;
+
 
     public static TooltipUI tooltip; // Assign this in InventoryManager
 
@@ -79,5 +84,17 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     public void OnPointerExit(PointerEventData eventData)
     {
         tooltip.Hide();
+    }
+    //Used for shift clicking on items
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (Input.GetKey(LeftShift) || Input.GetKey(RightShift))
+        {
+            InventoryManager manager = FindFirstObjectByType<InventoryManager>();
+            if (manager != null)
+            {
+                manager.SmartShiftMove(this);
+            }
+        }
     }
 }

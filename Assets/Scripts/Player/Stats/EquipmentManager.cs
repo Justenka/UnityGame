@@ -48,6 +48,10 @@ public class EquipmentManager : MonoBehaviour
         }
 
         Debug.Log("Equipping: " + item.itemName);
+        if (!equippedItems.Contains(item))
+        {
+            audioManager.PlaySound(audioManager.gearing);
+        }
 
         Player player = GetComponent<Player>();
         if (player != null)
