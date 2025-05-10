@@ -180,7 +180,6 @@ public class EquipmentManager : MonoBehaviour
         {
             case ActionType.Melee:
                 user.GetComponent<PlayerAttack>().DoAttack();
-                audioManager.PlaySound(audioManager.swoosh);
                 break;
 
             case ActionType.Ranged:

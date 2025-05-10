@@ -25,6 +25,8 @@ public class WeaponRotation : MonoBehaviour
 
     private Transform weaponTransform;
 
+    PlayerAudioManager audioManager;
+
     void Start()
     {
         mainCamera = Camera.main;
@@ -49,6 +51,8 @@ public class WeaponRotation : MonoBehaviour
 
         if (characterSpriteRenderer == null)
             Debug.LogError("Character SpriteRenderer not found!");
+
+        audioManager = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAudioManager>();
     }
 
     private void Awake()
@@ -135,6 +139,7 @@ public class WeaponRotation : MonoBehaviour
         cachedScale = transform.localScale;
 
         animator.SetTrigger("Attack");
+        audioManager.PlaySound(audioManager.swoosh);
         attackBlocked = true;
         StartCoroutine(DelayAttack());
         return true;

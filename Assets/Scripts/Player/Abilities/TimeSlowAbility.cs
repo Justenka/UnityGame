@@ -8,7 +8,7 @@ public class TimeSlowAbility : MonoBehaviour
     public float slowDuration = 2f;
     public float cooldownTime = 5f;
     private float nextUseTime = 0f;
-    public KeyCode abilityKey = KeyCode.E;
+    public KeyCode abilityKey = KeyCode.P;
 
     private bool isSlowingTime = false;
 

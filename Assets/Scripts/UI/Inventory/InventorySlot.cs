@@ -4,11 +4,7 @@ using UnityEngine.EventSystems;
 public class InventorySlot : MonoBehaviour, IDropHandler
 {
     public ItemType acceptedType = ItemType.All;
-    PlayerAudioManager audioManager;
-    private void Start()
-    {
-        audioManager = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAudioManager>();
-    }
+    
     public virtual void OnDrop(PointerEventData eventData)
     {
         Debug.Log("OnDrop called on " + gameObject.name);
