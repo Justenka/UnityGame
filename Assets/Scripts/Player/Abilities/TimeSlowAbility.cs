@@ -9,17 +9,20 @@ public class TimeSlowAbility : MonoBehaviour
     public float cooldownTime = 5f;
     private float nextUseTime = 0f;
     public KeyCode abilityKey = KeyCode.P;
+    public float ManaCost = 20f;
 
     private bool isSlowingTime = false;
 
     private PlayerMovement playerMovement;
     private float originalSpeedMultiplier;
     PlayerAudioManager audioManager;
+    Player player;
 
     void Start()
     {
         playerMovement = GetComponent<PlayerMovement>();
         audioManager = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAudioManager>();
+        player = GetComponent<Player>();
     }
     void Update()
     {
@@ -33,23 +36,27 @@ public class TimeSlowAbility : MonoBehaviour
 
     public IEnumerator SlowTime()
     {
-        isSlowingTime = true;
+        if (player.stats[StatType.Mana].currentValue > ManaCost)
+        {
+            player.UseMana(ManaCost);
+            isSlowingTime = true;
 
-        // Slow down time
-        Time.timeScale = slowFactor;
-        Time.fixedDeltaTime = 0.02f * Time.timeScale;
-        originalSpeedMultiplier = playerMovement.GetCurrentSpeedMultiplier();
+            // Slow down time
+            Time.timeScale = slowFactor;
+            Time.fixedDeltaTime = 0.02f * Time.timeScale;
+            originalSpeedMultiplier = playerMovement.GetCurrentSpeedMultiplier();
 
-        playerMovement.ModifySpeedMultiplier(originalSpeedMultiplier / slowFactor);
-        Debug.Log("Slow");
-        yield return new WaitForSecondsRealtime(slowDuration);
+            playerMovement.ModifySpeedMultiplier(originalSpeedMultiplier / slowFactor);
+            Debug.Log("Slow");
+            yield return new WaitForSecondsRealtime(slowDuration);
 
-        // Restore time
-        Time.timeScale = 1f;
-        Time.fixedDeltaTime = 0.02f;
-        playerMovement.ModifySpeedMultiplier(originalSpeedMultiplier);
+            // Restore time
+            Time.timeScale = 1f;
+            Time.fixedDeltaTime = 0.02f;
+            playerMovement.ModifySpeedMultiplier(originalSpeedMultiplier);
 
-        isSlowingTime = false;
+            isSlowingTime = false;
+        }
     }
     public void TimeSlow(GameObject user)
     {

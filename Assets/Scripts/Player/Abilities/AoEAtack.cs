@@ -7,12 +7,16 @@ public class AOEAbility : MonoBehaviour
     public float damage = 100f;
     public KeyCode abilityKey = KeyCode.Q;
     public float cooldown = 3f;
+    public float StaminaCost = 10f;
+    public float ManaCost = 10f;
 
     private float nextUseTime = 0f;
     PlayerAudioManager audioManager;
+    Player player;
     private void Start()
     {
         audioManager = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAudioManager>();
+        player = GetComponent<Player>();
     }
     void Update()
     {
@@ -34,8 +38,10 @@ public class AOEAbility : MonoBehaviour
         {
             Enemy enemy = col.GetComponent<Enemy>();
 
-            if (enemy != null && !enemy.isDead)
+            if (enemy != null && !enemy.isDead && player.stats[StatType.Mana].currentValue > ManaCost && player.stats[StatType.Stamina].currentValue > StaminaCost)
             {
+                player.UseMana(StaminaCost);
+                player.UseStamina(ManaCost);
                 enemy.TakeDamage(damage);
             }
         }
@@ -54,8 +60,10 @@ public class AOEAbility : MonoBehaviour
 
         foreach (Collider2D enemy in enemies)
         {
-            if (enemy.CompareTag("Enemy"))
+            if (enemy.CompareTag("Enemy") && player.stats[StatType.Mana].currentValue > ManaCost && player.stats[StatType.Stamina].currentValue > StaminaCost)
             {
+                player.UseMana(StaminaCost);
+                player.UseStamina(ManaCost);
                 enemy.GetComponent<Enemy>().TakeDamage(damage);
             }
         }

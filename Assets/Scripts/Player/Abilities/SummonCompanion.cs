@@ -7,14 +7,17 @@ public class SummonCompanion : MonoBehaviour
     public float summonDuration = 60f;
     public bool limitToOne = true;
     public KeyCode abilityKey = KeyCode.C;
+    public float ManaCost = 90f;
 
     private Transform summonPoint;
     private GameObject activeCompanion;
     PlayerAudioManager audioManager;
+    Player player;
     void Start()
     {
         Vector2 summonPoint = transform.position;
         audioManager = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAudioManager>();
+        player = GetComponent<Player>();
     }
     void Update()
     {
@@ -31,6 +34,7 @@ public class SummonCompanion : MonoBehaviour
             Debug.Log("Companion already summoned!");
             return;
         }
+        player.UseMana(ManaCost);
 
         Vector3 spawnPosition = summonPoint != null ? summonPoint.position : transform.position;
 
@@ -62,6 +66,7 @@ public class SummonCompanion : MonoBehaviour
             Debug.Log("Companion already summoned!");
             return;
         }
+        player.UseMana(ManaCost);
         GameObject companion = Instantiate(companionPrefab, user.transform.position, Quaternion.identity);
         companion.GetComponent<CompanionAI>().player = user.transform;
         CompanionAI ai = companion.GetComponent<CompanionAI>();

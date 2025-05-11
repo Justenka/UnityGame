@@ -41,6 +41,11 @@ public class Armagedon : MonoBehaviour
         {
             player.TakeDamage(damageAmount);
         }
+        player.UseMana(1000);
+
+        player.UseStamina(1000);
+
+        player.UseHealth(player.stats[StatType.Health].currentValue-1);
     }
     //public void TriggerArmageddon(GameObject user)
     //{

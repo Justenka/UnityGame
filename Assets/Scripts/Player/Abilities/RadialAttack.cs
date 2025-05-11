@@ -10,6 +10,7 @@ public class RadialAttack : MonoBehaviour
     public float invincibleTime = 1.6f;
     public float projectileSpeed = 10f;
     public KeyCode abilityKey = KeyCode.R;
+    public float ManaCost = 20f;
 
     private bool isShooting = false;
     private Player player;
@@ -44,10 +45,19 @@ public class RadialAttack : MonoBehaviour
         float elapsed = 0f;
         while (elapsed < duration)
         {
-            FireProjectilesInCircle();
-            yield return new WaitForSeconds(fireInterval);
-            elapsed += fireInterval;
-            audioManager.PlaySound(audioManager.manymagics);
+            if (player.stats[StatType.Mana].currentValue > ManaCost)
+            {
+                player.UseMana(ManaCost);
+                FireProjectilesInCircle();
+                yield return new WaitForSeconds(fireInterval);
+                elapsed += fireInterval;
+                audioManager.PlaySound(audioManager.manymagics);
+            }
+            else
+            {
+                yield return new WaitForSeconds(fireInterval);
+                elapsed += fireInterval;
+            }
         }
     }
 
