@@ -37,7 +37,7 @@ public class Armagedon : MonoBehaviour
 
         // Damage player
         Player player = GetComponent<Player>();
-        if (player != null)
+        if (player != null && killPlayer)
         {
             player.TakeDamage(damageAmount);
         }

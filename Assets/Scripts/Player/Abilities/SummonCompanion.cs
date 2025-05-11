@@ -57,6 +57,11 @@ public class SummonCompanion : MonoBehaviour
     }
     public void Summon(GameObject user)
     {
+        if (limitToOne && activeCompanion != null)
+        {
+            Debug.Log("Companion already summoned!");
+            return;
+        }
         GameObject companion = Instantiate(companionPrefab, user.transform.position, Quaternion.identity);
         companion.GetComponent<CompanionAI>().player = user.transform;
         CompanionAI ai = companion.GetComponent<CompanionAI>();

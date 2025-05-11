@@ -5,7 +5,8 @@ public class PlayerShooting : MonoBehaviour
     public Player player;
     private float shootCooldown = 0f;
     private Animator animator;
-
+    private PlayerAudioManager audioManager;
+ 
     void Start()
     {
         EquipmentManager equipment = GetComponent<EquipmentManager>();
@@ -13,6 +14,7 @@ public class PlayerShooting : MonoBehaviour
         {
             animator = equipment.weaponVisual.GetComponent<Animator>();
         }
+        audioManager = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAudioManager>();
     }
 
     void Update()
@@ -76,6 +78,7 @@ public class PlayerShooting : MonoBehaviour
 
         player.UseMana(weapon.manaCost);
         shootCooldown = 1f / weapon.fireRate;
+        audioManager.PlaySound(audioManager.pop);
     }
 
 

@@ -1,16 +1,20 @@
+using System.Linq;
 using UnityEngine;
 
 public class InventoryManager : MonoBehaviour
 {
     public int maxStackedItems = 10;
     public InventorySlot[] inventorySlots;
+    public InventorySlot[] chestSlots;
     public HotbarSlot[] hotbarSlots;
     public EquipmentSlot[] equipmentSlots;
     public GameObject inventoryItemPrefab;
     public Player player;
+    private UIManager uiManager;
 
     void Start()
     {
+        uiManager = GameObject.FindFirstObjectByType<UIManager>();
         if (inventorySlots == null || inventorySlots.Length == 0)
         {
             inventorySlots = GetComponentsInChildren<InventorySlot>();
@@ -109,6 +113,47 @@ public class InventoryManager : MonoBehaviour
     public void SmartShiftMove(InventoryItem item)
     {
         Transform parent = item.transform.parent;
+
+        InventorySlot chestSlot = parent.GetComponentInParent<InventorySlot>();
+        if (!inventorySlots.Contains(chestSlot))
+        {
+            // Force place in first free inventory slot
+            foreach (InventorySlot slot in inventorySlots)
+            {
+                if (slot.GetComponentInChildren<InventoryItem>() == null)
+                {
+                    item.transform.SetParent(slot.transform);
+                    item.transform.localPosition = Vector3.zero;
+                    item.parentAfterDrag = slot.transform;
+
+                    Debug.Log($"Shift-click moved external item {item.item.itemName} to inventory.");
+                    return;
+                }
+            }
+
+            Debug.LogWarning("No free inventory slot for external item.");
+            return;
+        }
+
+        // Case 0,5: Item is from player inventory, but CoreInventory is disabled
+        if (uiManager.coreInventory != null && !uiManager.coreInventory.activeInHierarchy)
+        {
+            foreach (InventorySlot slot in chestSlots)
+            {
+                if (slot.GetComponentInChildren<InventoryItem>() == null)
+                {
+                    item.transform.SetParent(slot.transform);
+                    item.transform.localPosition = Vector3.zero;
+                    item.parentAfterDrag = slot.transform;
+
+                    Debug.Log($"Shift-click moved item {item.item.itemName} to external inventory.");
+                    return;
+                }
+            }
+
+            Debug.LogWarning("No free external inventory slot found.");
+            return;
+        }
 
         // Case 1: Item is in EquipmentSlot
         EquipmentSlot equipmentSlot = parent.GetComponentInParent<EquipmentSlot>();

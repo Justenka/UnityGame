@@ -38,7 +38,7 @@ public class CompanionAI : MonoBehaviour
             float distance = Vector2.Distance(transform.position, currentTarget.position);
             if (distance > attackRange)
             {
-                MoveToward(currentTarget.position);
+                MoveToward(currentTarget.position - Vector3.right - Vector3.left);
             }
             else if (cooldownTimer <= 0f)
             {
@@ -59,7 +59,7 @@ public class CompanionAI : MonoBehaviour
 
     void FollowPlayer()
     {
-        if (Vector2.Distance(transform.position, player.position) > 1f)
+        if (Vector2.Distance(transform.position, player.position) > 3f)
             MoveToward(player.position);
     }
 
