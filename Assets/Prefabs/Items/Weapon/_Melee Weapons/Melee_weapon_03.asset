@@ -20,11 +20,14 @@ MonoBehaviour:
   type: 1
   statModifiers:
   - statType: 3
+    baseValue: 30
     value: 30
   - statType: 0
-    value: 15
+    baseValue: 30
+    value: 30
   - statType: 2
-    value: 10
+    baseValue: 30
+    value: 30
   equipmentType: 5
   equipmentLevel: 0
   fireRate: 0

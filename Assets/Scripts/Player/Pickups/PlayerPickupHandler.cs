@@ -18,7 +18,7 @@ public class PlayerPickupHandler : MonoBehaviour
                 {
                     for (int i = 0; i < pickup.amount; i++)
                     {
-                        inventory.AddItem(item);
+                        inventory.AddItem(item, 1);
                     }
                     Debug.Log($"Picked up {pickup.amount}x {item.name}");
                 }

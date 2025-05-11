@@ -70,6 +70,11 @@ public class InventorySlot : MonoBehaviour, IDropHandler
         draggedItem.transform.SetParent(targetParent);
         draggedItem.transform.localPosition = Vector3.zero;
 
+        Object.FindFirstObjectByType<UpgradeUI>()?.UpdateCostDisplay();
         Debug.Log($"Item {draggedItem.item.itemName} dropped into {gameObject.name}");
+    }
+    public Item GetCurrentItem()
+    {
+        return GetComponentInChildren<InventoryItem>()?.item;
     }
 }

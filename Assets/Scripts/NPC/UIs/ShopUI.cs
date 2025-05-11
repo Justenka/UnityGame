@@ -55,13 +55,7 @@ public class ShopUI : MonoBehaviour
     }
     private void AddItemToInventory(Item item)
     {
-        if (inventoryManager == null)
-        {
-            Debug.LogError("InventoryManager is not assigned!");
-            return;
-        }
-
-        if (inventoryManager.AddItem(item))
+        if (inventoryManager.AddItem(item, 1))
         {
             Debug.Log($"Item {item.itemName} added to inventory.");
         }

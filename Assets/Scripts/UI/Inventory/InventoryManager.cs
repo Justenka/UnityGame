@@ -18,42 +18,58 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    public bool AddItem(Item item)
+    public bool AddItem(Item item, int count)
     {
-        for (int i = 0; i < inventorySlots.Length; i++)
+        // Try to stack first
+        for (int i = 0; i < inventorySlots.Length && count > 0; i++)
         {
             InventorySlot slot = inventorySlots[i];
             InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
 
-            if (itemInSlot != null && itemInSlot.item == item && itemInSlot.count < maxStackedItems)
+            if (itemInSlot != null && itemInSlot.item.IsSameItem(item) && itemInSlot.count < maxStackedItems)
             {
-                itemInSlot.count++;
+                int spaceLeft = maxStackedItems - itemInSlot.count;
+                int toAdd = Mathf.Min(spaceLeft, count);
+                itemInSlot.count += toAdd;
                 itemInSlot.RefreshCount();
-                return true;
+                count -= toAdd;
             }
         }
 
-        for (int i = 0; i < inventorySlots.Length; i++)
+        // Then create new stacks
+        for (int i = 0; i < inventorySlots.Length && count > 0; i++)
         {
             InventorySlot slot = inventorySlots[i];
             InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
 
             if (itemInSlot == null)
             {
-                SpawnNewItem(item, slot);
-                return true;
+                int toAdd = Mathf.Min(maxStackedItems, count);
+                Item runtimeItem = item.Clone();
+                GameObject newItemGo = Instantiate(inventoryItemPrefab, slot.transform);
+                InventoryItem inventoryItem = newItemGo.GetComponent<InventoryItem>();
+                inventoryItem.InitialiseItem(runtimeItem);
+                inventoryItem.count = toAdd;
+                inventoryItem.RefreshCount();
+                count -= toAdd;
             }
         }
 
-        Debug.LogWarning("Inventory is full, item could not be added.");
-        return false;
+        if (count > 0)
+        {
+            Debug.LogWarning("Inventory full — some items couldn't be returned.");
+            return false;
+        }
+
+        return true;
     }
 
     void SpawnNewItem(Item item, InventorySlot slot)
     {
+        Item runtimeItem = item.Clone(); // Clone to avoid modifying the original asset
         GameObject newItemGo = Instantiate(inventoryItemPrefab, slot.transform);
         InventoryItem inventoryItem = newItemGo.GetComponent<InventoryItem>();
-        inventoryItem.InitialiseItem(item);
+        inventoryItem.InitialiseItem(runtimeItem);
     }
 
     public void RemoveItem(Item item)

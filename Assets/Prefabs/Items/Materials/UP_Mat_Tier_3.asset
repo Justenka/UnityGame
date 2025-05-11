@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 681644d32bca7c0479ac6e6f9e5ba63d, type: 3}
-  m_Name: UP_Mat_Tier_1
+  m_Name: UP_Mat_Tier_3
   m_EditorClassIdentifier: 
-  itemName: Bronze chunk
-  description: Can be used to upgrade equipment to +5
-  image: {fileID: -4950747228222051223, guid: 0d1f8613e153d6d4d9248ec64078f303, type: 3}
+  itemName: Silver chunk
+  description: Can be used to upgrade equipment to +15
+  image: {fileID: -1134476742975444296, guid: 515bb83ee21f8e74985ba2608fc2061a, type: 3}
   price: 0
   stackable: 1
   type: 8
   statModifiers: []
-  tier: 1
+  tier: 3

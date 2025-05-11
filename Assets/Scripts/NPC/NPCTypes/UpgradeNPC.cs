@@ -12,4 +12,13 @@ public class UpgradeNPC : NPCBase
             UIManager.Instance.RegisterOpenMenu(storageInventory);
         }
     }
+    public override void CloseUI()
+    {
+        if (npcUI.TryGetComponent(out UpgradeUI upgradeUI))
+        {
+            upgradeUI.ReturnItemsToInventory();
+        }
+
+        base.CloseUI();
+    }
 }

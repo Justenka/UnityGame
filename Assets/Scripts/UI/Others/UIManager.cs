@@ -82,7 +82,12 @@ public class UIManager : MonoBehaviour
         foreach (var menu in openMenus)
         {
             if (menu != null)
+            {
                 menu.SetActive(false);
+                // Special handling for UpgradeUI (return items)
+                if (menu.TryGetComponent(out UpgradeUI upgradeUI))
+                    upgradeUI.ReturnItemsToInventory();
+            }
         }
 
         openMenus.Clear();
