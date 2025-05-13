@@ -56,6 +56,9 @@ TagManager:
   - name: Structures
     uniqueID: 3079682293
     locked: 0
+  - name: Structures_2
+    uniqueID: 1965218447
+    locked: 0
   - name: Enemy
     uniqueID: 1287019421
     locked: 0
