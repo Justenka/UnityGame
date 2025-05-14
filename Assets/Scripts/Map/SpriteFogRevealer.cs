@@ -31,6 +31,8 @@ public class SpriteFogRevealer : MonoBehaviour
     }
     void RevealDirectly()
     {
+        if (fogRenderer == null || fogRenderer.sprite == null) return;
+
         Vector2 localPos = fogRenderer.transform.InverseTransformPoint(transform.position);
 
         // Convert localPos (-0.5 to +0.5 range) to texture pixels

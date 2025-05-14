@@ -51,7 +51,7 @@ public class Tutorial : MonoBehaviour
     {
         PlayerMovement.OnPlayerMoved += HandlePlayerMoved;
         Enemy.OnEnemyDied += HandleEnemyDeath;
-        StorageNPC.OnChestOpened += HandleChestOpened;
+        TutorialNPC.OnChestOpened += HandleChestOpened;
         EquipmentManager.OnWeaponEquipped += HandleWeaponEquipped;
     }
 
@@ -59,7 +59,7 @@ public class Tutorial : MonoBehaviour
     {
         PlayerMovement.OnPlayerMoved -= HandlePlayerMoved;
         Enemy.OnEnemyDied -= HandleEnemyDeath;
-        StorageNPC.OnChestOpened -= HandleChestOpened;
+        TutorialNPC.OnChestOpened -= HandleChestOpened;
         EquipmentManager.OnWeaponEquipped -= HandleWeaponEquipped;
     }
 

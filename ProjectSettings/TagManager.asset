@@ -8,6 +8,12 @@ TagManager:
   - Enemy
   - Room
   - SpawnPoint
+  - StorageInventory
+  - StorageUI
+  - WizardUI
+  - UpgradeUI
+  - ShopUI
+  - TutorialUI
   layers:
   - Default
   - TransparentFX

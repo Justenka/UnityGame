@@ -4,10 +4,12 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Player : Character
 {
+    private static Player instance;
     public HealthBar healthBar;
     public ManaBar manaBar;
     public StaminaBar staminaBar;
@@ -30,6 +32,7 @@ public class Player : Character
     private Dictionary<System.Type, Debuff> activeDebuffs = new();
 
 
+
     //[SerializeField]
     //private InputActionReference attack;
 
@@ -43,11 +46,9 @@ public class Player : Character
 
     public virtual void Start()
     {
-        GameObject spawn = GameObject.FindGameObjectWithTag("SpawnPoint");
-        if (spawn != null)
-        {
-            transform.position = spawn.transform.position;
-        }
+        // These are null after scene change and need to be re-found
+        Camera mainCamera = Camera.main;
+        SpriteRenderer sr = GetComponent<SpriteRenderer>();
 
         if (PlayerPrefs.HasKey("PlayerUsername"))
         {
@@ -58,8 +59,8 @@ public class Player : Character
             }
         }
         SetInitialValues();
-        respawnPosition = transform.position;
     }
+
     public void Update()
     {
         if (Input.GetMouseButtonDown(0))
@@ -70,11 +71,32 @@ public class Player : Character
         UpdateDebuffs();
 
     }
+
     void LateUpdate()
     {
         if(userName != null)
             userName.transform.rotation = Quaternion.identity;
     }
+
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        GameObject spawn = GameObject.FindGameObjectWithTag("SpawnPoint");
+        if (spawn != null)
+        {
+            transform.position = spawn.transform.position;
+        }
+    }
+
     void InitializeStats()
     {
         stats[StatType.Health] = new StatValue { baseValue = 100 };
@@ -266,7 +288,8 @@ public class Player : Character
     }
     void Respawn()
     {
-        transform.position = respawnPosition;
+        WizardUI wizardUI = new WizardUI();
+        wizardUI.GoToHUB();
         Experience.currentExperience = 0;
         currencyHeld = 0;
         GetComponent<EquipmentManager>().UnequipAll();

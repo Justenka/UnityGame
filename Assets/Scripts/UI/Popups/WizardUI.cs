@@ -7,6 +7,7 @@ public class WizardUI : MonoBehaviour
     [Header("Dungeon Scene Names")]
     public string firstDungeonSceneName = "Scenes/FirstDungeon";
     public string TutorialScene = "Scenes/Tutorial";
+    public string HUB = "Scenes/HUB";
 
     public void GoToFirstDungeon()
     {
@@ -27,5 +28,15 @@ public class WizardUI : MonoBehaviour
         }
 
         SceneManager.LoadScene(TutorialScene);
+    }
+    public void GoToHUB()
+    {
+        if (UIManager.Instance != null)
+        {
+            UIManager.Instance.CloseAllMenus();
+            Time.timeScale = 1f;
+        }
+
+        SceneManager.LoadScene(HUB);
     }
 }
