@@ -43,6 +43,12 @@ public class Player : Character
 
     public virtual void Start()
     {
+        GameObject spawn = GameObject.FindGameObjectWithTag("SpawnPoint");
+        if (spawn != null)
+        {
+            transform.position = spawn.transform.position;
+        }
+
         if (PlayerPrefs.HasKey("PlayerUsername"))
         {
             Name = PlayerPrefs.GetString("PlayerUsername");

@@ -12,23 +12,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 718240cdfb2675e41805198cf26310f8, type: 3}
   m_Name: Melee_weapon_01
   m_EditorClassIdentifier: 
-  itemName: Sword
+  itemName: Tutorial Sword
   description: Very sharp and trusty iron sword
   image: {fileID: -7414996137590337089, guid: 24e955d97e5e2e144893fcf48e8bf8b9, type: 3}
   price: 0
   stackable: 0
   type: 1
-  rarity: 0
+  rarity: 4
   statModifiers:
   - statType: 3
-    baseValue: 30
-    value: 30
+    baseValue: 50
+    value: 50
   - statType: 0
-    baseValue: 15
-    value: 15
+    baseValue: 100
+    value: 100
   - statType: 2
-    baseValue: 10
-    value: 10
+    baseValue: 100
+    value: 100
+  - statType: 4
+    baseValue: 5
+    value: 5
   equipmentType: 5
   equipmentLevel: 0
   fireRate: 0
