@@ -5322,6 +5322,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: {fileID: 2141382164}
   description: {fileID: 622477890}
+  rarity: {fileID: 0}
   stats: {fileID: 1348568385}
   backgroundRect: {fileID: 1394366155}
   offset: {x: -250, y: 0}
@@ -10241,7 +10242,7 @@ Transform:
   m_GameObject: {fileID: 468529884}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.17, y: -0.275, z: 0}
+  m_LocalPosition: {x: -0.073, y: -1.367, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10796,7 +10797,7 @@ Transform:
   m_GameObject: {fileID: 498760052}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.2726578, y: 0.15437339, z: 0}
+  m_LocalPosition: {x: 0.246, y: -1.57, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -12406,7 +12407,7 @@ Transform:
   m_GameObject: {fileID: 607335632}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.321, y: 0.159, z: 0}
+  m_LocalPosition: {x: -0.358, y: -1.614, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
