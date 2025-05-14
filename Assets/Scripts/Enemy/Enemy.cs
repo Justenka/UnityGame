@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using static Codice.Client.Common.Connection.AskCredentialsToUser;
 
 public class Enemy : Character
@@ -33,8 +35,12 @@ public class Enemy : Character
     public HealthBar healthBar;
     public DebuffData debuffToApply;
     private Dictionary<System.Type, Debuff> activeDebuffs = new();
+    public static event Action OnEnemyDied;
 
-    // Virtual method for attacking
+    public static void EnemyDied()
+    {
+        OnEnemyDied?.Invoke();
+    }
     public virtual void Attack()
     {
         // Melee attack logic (default behavior)
@@ -73,7 +79,7 @@ public class Enemy : Character
 
         if (maxHealthModifier != 0)
         {
-            currentHealth = Random.Range(50, 300) * maxHealthModifier;
+            currentHealth = UnityEngine.Random.Range(50, 300) * maxHealthModifier;
         }
         else
         {
@@ -219,6 +225,7 @@ public class Enemy : Character
         if (isDead) return;
         isDead = true;
         DropXP();
+        EnemyDied();
         animator.SetTrigger("Die");
         if (GetComponent<SimpleEnemyAI>() != null)
         {

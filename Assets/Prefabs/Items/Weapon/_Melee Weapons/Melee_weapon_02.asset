@@ -18,6 +18,7 @@ MonoBehaviour:
   price: 0
   stackable: 0
   type: 1
+  rarity: 1
   statModifiers:
   - statType: 3
     baseValue: 30

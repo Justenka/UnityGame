@@ -6,6 +6,7 @@ public class TooltipUI : MonoBehaviour
     [Header("References")]
     public TextMeshProUGUI itemName;
     public TextMeshProUGUI description;
+    public TextMeshProUGUI rarity;
     public TextMeshProUGUI stats;
     public RectTransform backgroundRect;
 
@@ -40,7 +41,9 @@ public class TooltipUI : MonoBehaviour
         {
             itemName.text = item.itemName;
         }
-
+        string rarityColor = GetColorForRarity(item.rarity);
+       //rarity.text = item.rarity.ToString();
+        rarity.text = $"<color={rarityColor}>{item.rarity.ToString()}</color>\n";
         if (item.statModifiers != null && item.statModifiers.Count > 0)
         {
             stats.text = "";
@@ -78,6 +81,18 @@ public class TooltipUI : MonoBehaviour
             StatType.Defense => "#00ffee",
             StatType.Speed => "#ff77ff",
             StatType.CritChance => "#ff88ff",
+            _ => "#ffffff"
+        };
+    }
+    string GetColorForRarity(ItemRarity rarity)
+    {
+        return rarity switch
+        {
+            ItemRarity.Common => "#ffffff",
+            ItemRarity.Uncommon => "#1EFF00",
+            ItemRarity.Rare => "#0070FF",
+            ItemRarity.Epic => "#A335EE",
+            ItemRarity.Legendary => "#FF8000",
             _ => "#ffffff"
         };
     }

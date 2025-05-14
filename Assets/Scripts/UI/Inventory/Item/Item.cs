@@ -17,6 +17,7 @@ public abstract class Item : ScriptableObject
     public int price;
     public bool stackable;
     public ItemType type;
+    public ItemRarity rarity;
 
     public List<StatModifier> statModifiers = new();
 

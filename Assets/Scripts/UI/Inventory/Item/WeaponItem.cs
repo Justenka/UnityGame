@@ -12,11 +12,9 @@ public class WeaponItem : EquipmentItem
     public Sprite weaponSprite;
     public float xOffset = 0.01f;
     public float yOffset = 0.15f;
-
     public DebuffData debuffData;
     public override bool Use(GameObject user)
     {
-        // Do attack logic
         return true;
     }
 }

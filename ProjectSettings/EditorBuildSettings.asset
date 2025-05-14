@@ -5,15 +5,18 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Main menu.unity
     guid: 308094392ac61444a82634e3271a290c
   - enabled: 1
+    path: Assets/Scenes/Tutorial.unity
+    guid: 8fd7ada34fc122d418ad5e2338f9310d
+  - enabled: 1
+    path: Assets/Scenes/HUB.unity
+    guid: 5ced975bf99e69240b717218a7252419
+  - enabled: 1
     path: Assets/Scenes/First Dungeon Cave.unity
     guid: 28fe3e4902415794a9c6790a61d1332b
-  - enabled: 0
-    path: Assets/Scenes/SampleScene.unity
-    guid: d98d517e313112d4ab9de7faf49c01ad
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

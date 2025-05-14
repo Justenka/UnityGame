@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class EquipmentManager : MonoBehaviour
@@ -19,6 +20,8 @@ public class EquipmentManager : MonoBehaviour
     public RuntimeAnimatorController swordAnimatorController;
     public RuntimeAnimatorController staffAnimatorController;
     PlayerAudioManager audioManager;
+
+    public static event Action OnWeaponEquipped;
     void Start()
     {
         audioManager = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAudioManager>();
@@ -110,6 +113,7 @@ public class EquipmentManager : MonoBehaviour
             }
             audioManager.PlaySound(audioManager.gearing);
             Debug.Log("Weapon equipped: " + weapon.itemName);
+            OnWeaponEquipped?.Invoke();
         }
 
         else if (item is OffhandItem shield)

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -18,7 +19,7 @@ public class PlayerMovement : MonoBehaviour
     public float dashingPower = 24f;
     public float dashingTime = 0.2f;
     public float dashingCooldown = 1f;
-
+    public static event Action OnPlayerMoved;
     public float speedMultiplier = 1f;
     private void Start()
     {
@@ -70,7 +71,7 @@ public class PlayerMovement : MonoBehaviour
     {
         float speed = player.stats[StatType.Speed].Total * speedMultiplier;
         float moveMultiplier = running ? 2f : 1f;
-
+        OnPlayerMoved?.Invoke();
         rigidBody.linearVelocity = moveDirection * speed * moveMultiplier;
 
         if (running & moveDirection.magnitude > 0)
