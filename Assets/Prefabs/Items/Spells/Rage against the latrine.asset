@@ -14,10 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Rage
   description: Deals masive damage to nearby enemies
-  image: {fileID: -832920836, guid: 33a002b7e079e0d4384275c5d9c0e4bd, type: 3}
+  image: {fileID: 8929354014850078993, guid: 84e369e4fc429d6469b3b1e349a5a19b, type: 3}
   price: 10000000
   stackable: 0
   type: 7
+  rarity: 0
   statModifiers: []
   cooldown: 1
   abilityType: 0

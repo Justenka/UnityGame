@@ -5,6 +5,27 @@ public class EnemySpawn : MonoBehaviour
     public GameObject[] enemyPrefabs; // Drag & drop enemy prefabs in the Inspector
     public Transform[] spawnPoints;   // Set these to specific spots in the room
     private bool hasSpawned = false;
+    int spawnCount = 0;
+    
+    private void Start()
+    {
+        GameObject roomParent = GameObject.Find("Rooms");
+        if(roomParent == null)
+        {
+            Debug.Log("Error with find Rooms");
+            return;
+        }
+        foreach (Transform room in roomParent.transform)
+        {
+            foreach (Transform child in room)
+            {
+                if(child.name.StartsWith("SpawnPoint"))
+                    spawnCount++;
+            }
+            Debug.Log($"{room.name} has {spawnCount} spawn points");
+        }
+    }
+
 
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -15,7 +36,7 @@ public class EnemySpawn : MonoBehaviour
             hasSpawned = true;
         }
     }
-
+    
     void SpawnEnemies()
     {
         // Check if arrays are valid
@@ -47,7 +68,30 @@ public class EnemySpawn : MonoBehaviour
             }
 
             Instantiate(enemyPrefabs[randIndex], spawnPoint.position, Quaternion.identity);
+            
             Debug.Log("Spawned enemy at: " + spawnPoint.position);
+        }
+    }
+
+    private void OnEnable()
+    {
+        Enemy.OnEnemyDied += HandleEnemyDeath;
+    }
+
+    private void OnDisable()
+    {
+        Enemy.OnEnemyDied -= HandleEnemyDeath;
+    }
+
+    private void HandleEnemyDeath()
+    {
+        spawnCount--;
+        Debug.Log("Enemy died. Enemies left: " + spawnCount);
+
+        if (spawnCount <= 0)
+        {
+            Debug.Log("All enemies defeated.");
+            
         }
     }
 }
