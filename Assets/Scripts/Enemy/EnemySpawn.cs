@@ -5,6 +5,7 @@ public class EnemySpawn : MonoBehaviour
     public GameObject[] enemyPrefabs; // Drag & drop enemy prefabs in the Inspector
     public Transform[] spawnPoints;   // Set these to specific spots in the room
     private bool hasSpawned = false;
+    public bool bossDoor = false;
     int spawnCount = 0;
     
     private void Start()
@@ -29,26 +30,39 @@ public class EnemySpawn : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
+        
         if (!hasSpawned && other.CompareTag("Player"))
         {
             Debug.Log("Player entered the room! Spawning enemies...");
             SpawnEnemies();
             hasSpawned = true;
         }
+        if(other.CompareTag("Player") && spawnCount <= 0 && bossDoor)
+        {
+            GameObject player = GameObject.Find("Player");
+            GameObject temp = GameObject.Find("BossSpawnRoom");
+            player.transform.position = temp.transform.position;
+
+        }
+        else
+        {
+            Debug.Log("All enemies are not defeated yet...");
+        }
     }
+    
     
     void SpawnEnemies()
     {
         // Check if arrays are valid
         if (enemyPrefabs == null || enemyPrefabs.Length == 0)
         {
-            Debug.LogError("Enemy Prefabs array is empty or null!");
+            Debug.Log("Enemy Prefabs array is empty or null!");
             return;
         }
 
         if (spawnPoints == null || spawnPoints.Length == 0)
         {
-            Debug.LogError("Spawn Points array is empty or null!");
+            Debug.Log("Spawn Points array is empty or null!");
             return;
         }
 
