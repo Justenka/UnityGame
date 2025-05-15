@@ -17,8 +17,15 @@ public class WizardNPC : NPCBase
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        storageInventory = FindInactiveObjectWithTag("StorageInventory");
-        npcUI = FindInactiveObjectWithTag("WizardUI");
+        if (storageInventory == null)
+        {
+            storageInventory = FindInactiveObjectWithTag("StorageInventory");
+        }
+
+        if (scene.name != "FirstDungeon")
+        {
+            npcUI = FindInactiveObjectWithTag("WizardUI");
+        }
     }
 
     GameObject FindInactiveObjectWithTag(string tag)

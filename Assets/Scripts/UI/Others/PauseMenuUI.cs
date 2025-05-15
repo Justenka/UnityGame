@@ -19,10 +19,10 @@ public class PauseMenuUI : MonoBehaviour
     public void ExitGame()
     {
         Debug.Log("Exit button pressed");
-        // #if UNITY_EDITOR
-        // UnityEditor.EditorApplication.isPlaying = false;
-        // #else
-        Application.Quit();
-        // #endif
+#if UNITY_EDITOR
+         UnityEditor.EditorApplication.isPlaying = false;
+#else 
+         Application.Quit();
+#endif
     }
 }
