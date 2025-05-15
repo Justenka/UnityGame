@@ -30,6 +30,11 @@ public class RangedEnemy : Enemy
             Attack(); // Call the Attack method if in range
         }
     }
+    void FixedUpdate()
+    {
+        if (animator != null)
+            animator.SetFloat("xVelocity", Mathf.Abs(rb.linearVelocity.magnitude));
+    }
 
     public override float GetAttackRange()
     {

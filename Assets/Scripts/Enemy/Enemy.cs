@@ -76,6 +76,7 @@ public class Enemy : Character
     {
         rb = GetComponent<Rigidbody2D>();
         dropItem = GetComponent<EnemyDropItem>();
+        animator = GetComponent<Animator>();
 
         if (maxHealthModifier != 0)
         {
