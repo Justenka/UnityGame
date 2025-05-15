@@ -38,14 +38,18 @@ public class RangedEnemyAI : MonoBehaviour
 
         if (distance < retreatDistance)
         {
-            // Too close – retreat
-            rb.MovePosition(rb.position - direction * speed * Time.deltaTime);
+            // Too close – retreat (set negative velocity)
+            rb.linearVelocity = -direction * speed;
         }
         else if (distance > stopDistance && distance < chaseDistance)
         {
-            // Too far – approach
-            rb.MovePosition(rb.position + direction * speed * Time.deltaTime);
+            // Too far – approach (set positive velocity)
+            rb.linearVelocity = direction * speed;
         }
-        // Else stay in place and attack (handled in RangedEnemy.cs)
+        else
+        {
+            // Stop moving when in ideal range
+            rb.linearVelocity = Vector2.zero;
+        }
     }
 }

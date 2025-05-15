@@ -10,6 +10,15 @@ public class RangedEnemy : Enemy
 
     public new void Start()
     {
+        if (animator != null)
+        {
+            bool hasXVelocity = animator.HasParameter("xVelocity");
+            Debug.Log("Does animator have xVelocity? " + hasXVelocity);
+
+            if (!hasXVelocity)
+                Debug.LogError("Animator is missing 'xVelocity' parameter!");
+        }
+
         base.Start();
         if (firePoint == null)
         {
@@ -21,6 +30,8 @@ public class RangedEnemy : Enemy
     public new void Update()
     {
         if (enemyAi.player == null) return;
+        if (isDead)
+            animator.SetTrigger("Die");
 
         float distanceToPlayer = Vector2.Distance(transform.position, enemyAi.player.transform.position);
         // Check if the player is within the attack range
@@ -32,8 +43,30 @@ public class RangedEnemy : Enemy
     }
     void FixedUpdate()
     {
-        if (animator != null)
-            animator.SetFloat("xVelocity", Mathf.Abs(rb.linearVelocity.magnitude));
+        if (animator != null && rb != null)
+        {
+            // Get the velocity
+            Vector2 velocity = rb.linearVelocity;
+
+            // Calculate speed (absolute value for animator)
+            float xSpeed = Mathf.Abs(velocity.magnitude);
+            animator.SetFloat("xVelocity", xSpeed);
+
+            // Flip logic (only when moving significantly)
+            if (Mathf.Abs(velocity.x) > 0.1f) // Threshold to prevent flipping at tiny velocities
+            {
+                // Get the current scale
+                Vector3 scale = transform.localScale;
+
+                // Flip based on X velocity direction
+                scale.x = Mathf.Sign(velocity.x) * Mathf.Abs(scale.x);
+
+                // Apply the new scale
+                transform.localScale = scale;
+            }
+
+            Debug.Log($"Velocity: {velocity} | Speed: {xSpeed} | Facing: {(velocity.x > 0 ? "Right" : "Left")}");
+        }
     }
 
     public override float GetAttackRange()
