@@ -14,10 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Bullet Time
   description: Slows down time for your enemies
-  image: {fileID: -551354165045499336, guid: 07822a9210725554c990d1edd7783268, type: 3}
+  image: {fileID: -837339153, guid: 84e369e4fc429d6469b3b1e349a5a19b, type: 3}
   price: 10000000
   stackable: 0
   type: 7
+  rarity: 0
   statModifiers: []
   cooldown: 1
   abilityType: 3
