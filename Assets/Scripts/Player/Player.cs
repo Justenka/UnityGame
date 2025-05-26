@@ -93,6 +93,7 @@ public class Player : Character
         GameObject spawn = GameObject.FindGameObjectWithTag("SpawnPoint");
         if (spawn != null)
         {
+            SetInitialValues();
             transform.position = spawn.transform.position;
         }
     }

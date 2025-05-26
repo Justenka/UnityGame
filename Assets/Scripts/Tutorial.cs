@@ -76,7 +76,7 @@ public class Tutorial : MonoBehaviour
     }
     public void CompleteTutorial()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        SceneManager.LoadScene("Scenes/HUB");
         Time.timeScale = 1;
     }
     public void SetReadyToMove()

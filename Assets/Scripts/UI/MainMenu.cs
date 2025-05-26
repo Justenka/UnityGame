@@ -8,7 +8,7 @@ public class MainMenu : MonoBehaviour
     {
         string username = usernameInputField.text;
         PlayerPrefs.SetString("PlayerUsername", username);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        SceneManager.LoadScene("Scenes/Tutorial");
     }
     public void QuitGame()
     {
