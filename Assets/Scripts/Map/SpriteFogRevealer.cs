@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SpriteFogRevealer : MonoBehaviour
 {
@@ -9,14 +10,42 @@ public class SpriteFogRevealer : MonoBehaviour
     private Color32[] fogPixels;
     private int textureSize;
 
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        GameObject fogObject = GameObject.FindWithTag("MapFog");
+        if (fogRenderer == null)
+        {
+            fogRenderer = fogObject.GetComponent<SpriteRenderer>();
+            InitFogTexture();
+        }
+    }
+
     void Start()
     {
-        // Clone texture to make it writable
+        if (fogRenderer != null)
+        {
+            InitFogTexture();
+        }
+    }
+    private void InitFogTexture()
+    {
+        if (fogRenderer == null || fogRenderer.sprite == null)
+            return;
+
         fogTexture = Instantiate(fogRenderer.sprite.texture);
         textureSize = fogTexture.width;
         fogPixels = fogTexture.GetPixels32();
 
-        // Reassign cloned texture
         fogRenderer.sprite = Sprite.Create(
             fogTexture,
             new Rect(0, 0, fogTexture.width, fogTexture.height),

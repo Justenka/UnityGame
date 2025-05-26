@@ -15,6 +15,7 @@ TagManager:
   - ShopUI
   - TutorialUI
   - Boss
+  - MapFog
   layers:
   - Default
   - TransparentFX
