@@ -7,7 +7,7 @@ public class RangedEnemyAI : MonoBehaviour
     public float retreatDistance = 3f;     // Too close
     public float stopDistance = 6f;        // Ideal shooting range
     public float chaseDistance = 12f;      // Too far
-    public float despawnDistance = 80f;
+    //public float despawnDistance = 80f;
 
     private Rigidbody2D rb;
 
@@ -28,11 +28,11 @@ public class RangedEnemyAI : MonoBehaviour
         float distance = Vector2.Distance(transform.position, player.transform.position);
 
         // Despawn if too far
-        if (distance >= despawnDistance)
-        {
-            Destroy(gameObject);
-            return;
-        }
+        //if (distance >= despawnDistance)
+        //{
+        //    Destroy(gameObject);
+        //    return;
+        //}
 
         Vector2 direction = (player.transform.position - transform.position).normalized;
 

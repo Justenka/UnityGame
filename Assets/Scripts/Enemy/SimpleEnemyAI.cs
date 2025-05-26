@@ -7,7 +7,7 @@ public class SimpleEnemyAI : MonoBehaviour
     private float distance;
     public float speed;
     private float minSpeed = 1;
-    public float despawnDistance = 80f;
+    //public float despawnDistance = 80f;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -35,10 +35,10 @@ public class SimpleEnemyAI : MonoBehaviour
         {
             distance = Vector2.Distance(transform.position, player.transform.position);
 
-            if (distance >= despawnDistance)
-            {
-                Destroy(gameObject);
-            }
+            //if (distance >= despawnDistance)
+            //{
+            //    Destroy(gameObject);
+            //}
 
             Vector2 direction = player.transform.position - transform.position;
             transform.position = Vector2.MoveTowards(this.transform.position, player.transform.position, speed * Time.deltaTime);
