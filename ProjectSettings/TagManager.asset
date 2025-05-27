@@ -16,6 +16,7 @@ TagManager:
   - TutorialUI
   - Boss
   - MapFog
+  - EnchantUI
   layers:
   - Default
   - TransparentFX

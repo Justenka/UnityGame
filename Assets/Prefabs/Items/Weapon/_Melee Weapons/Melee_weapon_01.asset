@@ -45,7 +45,7 @@ MonoBehaviour:
   yOffset: 0.15
   debuffData:
     debuffType: 0
-    duration: 10
-    damagePerTick: 50
-    tickInterval: 1
-    slowAmount: 0.5
+    duration: 0
+    damagePerTick: 0
+    tickInterval: 0
+    slowAmount: 0
