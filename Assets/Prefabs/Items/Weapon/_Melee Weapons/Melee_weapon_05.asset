@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 718240cdfb2675e41805198cf26310f8, type: 3}
   m_Name: Melee_weapon_05
   m_EditorClassIdentifier: 
-  itemName: Sword
+  itemName: Zweihander
   description: Very sharp and trusty iron sword
   image: {fileID: -3958397199422882234, guid: 8195b7649528d0746aba048af47fed5e, type: 3}
   price: 0
@@ -36,7 +36,8 @@ MonoBehaviour:
   projectilePrefab: {fileID: 0}
   projectileSpeed: 0
   manaCost: 0
-  weaponSprite: {fileID: 21300000, guid: 8608e6b7965e41f41bc89e2e91757566, type: 2}
+  weaponSprite: {fileID: 3267764502975656017, guid: fbeb2e5ea8251b8449e683cfd9f249a2, type: 3}
+  animatorController: {fileID: 9100000, guid: 4ab4442d6378d7d48b89c90d990708be, type: 2}
   xOffset: 0.01
   yOffset: 0.15
   debuffData:

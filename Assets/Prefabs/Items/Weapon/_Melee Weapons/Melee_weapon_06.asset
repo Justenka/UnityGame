@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 718240cdfb2675e41805198cf26310f8, type: 3}
   m_Name: Melee_weapon_06
   m_EditorClassIdentifier: 
-  itemName: Sword
+  itemName: Claymore
   description: Very sharp and trusty iron sword
   image: {fileID: 1883226351602351426, guid: 9e8d29ad4fdb80e4e906c316f28a0cec, type: 3}
   price: 0
   stackable: 0
   type: 1
+  rarity: 0
   statModifiers:
   - statType: 3
     baseValue: 30
@@ -35,7 +36,8 @@ MonoBehaviour:
   projectilePrefab: {fileID: 0}
   projectileSpeed: 0
   manaCost: 0
-  weaponSprite: {fileID: 21300000, guid: 8608e6b7965e41f41bc89e2e91757566, type: 2}
+  weaponSprite: {fileID: 21300000, guid: 76c9379cf305e304aad4c1fd50efc63b, type: 2}
+  animatorController: {fileID: 9100000, guid: 98abd4b637f28da418009677211e26de, type: 2}
   xOffset: 0.01
   yOffset: 0.15
   debuffData:

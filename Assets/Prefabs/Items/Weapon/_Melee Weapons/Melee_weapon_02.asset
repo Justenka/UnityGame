@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 718240cdfb2675e41805198cf26310f8, type: 3}
   m_Name: Melee_weapon_02
   m_EditorClassIdentifier: 
-  itemName: Sword
+  itemName: Llane Sword
   description: Very sharp and trusty iron sword
   image: {fileID: 6692406337752237047, guid: 22601b82be84d814c8614048c63b896b, type: 3}
   price: 0
@@ -36,7 +36,8 @@ MonoBehaviour:
   projectilePrefab: {fileID: 0}
   projectileSpeed: 0
   manaCost: 0
-  weaponSprite: {fileID: 21300000, guid: 8608e6b7965e41f41bc89e2e91757566, type: 2}
+  weaponSprite: {fileID: 21300000, guid: 0d78e1f78d741304282648ba16b59e94, type: 2}
+  animatorController: {fileID: 9100000, guid: 191cfc71d2582634fb600675a8820618, type: 2}
   xOffset: 0.01
   yOffset: 0.15
   debuffData:

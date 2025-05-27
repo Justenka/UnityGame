@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 718240cdfb2675e41805198cf26310f8, type: 3}
   m_Name: Melee_weapon_04
   m_EditorClassIdentifier: 
-  itemName: Sword
+  itemName: Jian
   description: Very sharp and trusty iron sword
   image: {fileID: 1615276441951509422, guid: b3fcfa6a586f7ae4e81ff4b0ef11ac93, type: 3}
   price: 0
@@ -36,7 +36,8 @@ MonoBehaviour:
   projectilePrefab: {fileID: 0}
   projectileSpeed: 0
   manaCost: 0
-  weaponSprite: {fileID: 21300000, guid: 8608e6b7965e41f41bc89e2e91757566, type: 2}
+  weaponSprite: {fileID: 3996032116830500545, guid: a81fb25ba4c63584aaf060733da269a8, type: 3}
+  animatorController: {fileID: 9100000, guid: 4df19b8cd2197f4448cb562e8a79c9cf, type: 2}
   xOffset: 0.01
   yOffset: 0.15
   debuffData:

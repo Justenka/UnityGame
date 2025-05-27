@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 718240cdfb2675e41805198cf26310f8, type: 3}
   m_Name: Melee_weapon_03
   m_EditorClassIdentifier: 
-  itemName: Sword
+  itemName: Long Sword
   description: Very sharp and trusty iron sword
   image: {fileID: -3233031530930138251, guid: 67ec7fdafb4588e4cb9daedd5e823ca4, type: 3}
   price: 0
@@ -36,7 +36,8 @@ MonoBehaviour:
   projectilePrefab: {fileID: 0}
   projectileSpeed: 0
   manaCost: 0
-  weaponSprite: {fileID: 21300000, guid: 8608e6b7965e41f41bc89e2e91757566, type: 2}
+  weaponSprite: {fileID: 4814735378993203810, guid: ff1503febdfe79c428fcdf0c578e5787, type: 3}
+  animatorController: {fileID: 9100000, guid: 7f4a85cddf6e1ec4191f9530509c88f0, type: 2}
   xOffset: 0.01
   yOffset: 0.15
   debuffData:

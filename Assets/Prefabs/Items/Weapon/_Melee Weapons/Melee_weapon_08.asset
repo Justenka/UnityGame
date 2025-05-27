@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 718240cdfb2675e41805198cf26310f8, type: 3}
   m_Name: Melee_weapon_08
   m_EditorClassIdentifier: 
-  itemName: Sword
+  itemName: Hammer
   description: Very sharp and trusty iron sword
   image: {fileID: 5550953466451710259, guid: 8c2a8b3d3087b2e43b501c94c756cd3b, type: 3}
   price: 0
   stackable: 0
   type: 1
+  rarity: 0
   statModifiers:
   - statType: 3
     baseValue: 30

@@ -16,6 +16,7 @@ public class EquipmentManager : MonoBehaviour
     private HashSet<Item> equippedItems = new HashSet<Item>();
     private SpriteRenderer weaponSpriteRenderer;
     private Transform weaponSpriteTransform;
+
     //public Animator playerAnimator;
     public RuntimeAnimatorController swordAnimatorController;
     public RuntimeAnimatorController staffAnimatorController;
@@ -89,21 +90,17 @@ public class EquipmentManager : MonoBehaviour
                 }
 
                 Animator weaponAnimator = weaponVisual.GetComponent<Animator>();
+
                 if (weaponAnimator != null)
                 {
-                    if (weapon.itemName == "Sword" && swordAnimatorController != null)
+                    if (weapon.animatorController != null)
                     {
-                        weaponAnimator.runtimeAnimatorController = swordAnimatorController;
-                        Debug.Log("Animator set to Sword");
-                    }
-                    else if (weapon.itemName == "Staff" && staffAnimatorController != null)
-                    {
-                        weaponAnimator.runtimeAnimatorController = staffAnimatorController;
-                        Debug.Log("Animator set to Staff");
+                        weaponAnimator.runtimeAnimatorController = weapon.animatorController;
+                        Debug.Log($"Animator set to: {weapon.animatorController.name} for weapon {weapon.itemName}");
                     }
                     else
                     {
-                        Debug.LogWarning($"No animator controller found for {weapon.itemName}");
+                        Debug.LogWarning($"No animator controller assigned for weapon: {weapon.itemName}");
                     }
                 }
                 else
@@ -111,11 +108,11 @@ public class EquipmentManager : MonoBehaviour
                     Debug.LogError("Animator not found on weaponVisual.");
                 }
             }
+
             audioManager.PlaySound(audioManager.gearing);
             Debug.Log("Weapon equipped: " + weapon.itemName);
             OnWeaponEquipped?.Invoke();
         }
-
         else if (item is OffhandItem shield)
         {
             equippedShield = shield;
@@ -132,6 +129,7 @@ public class EquipmentManager : MonoBehaviour
 
         equippedItems.Add(item);
     }
+
 
     public void Unequip(Item item)
     {

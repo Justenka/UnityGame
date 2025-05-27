@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 718240cdfb2675e41805198cf26310f8, type: 3}
   m_Name: Melee_weapon_07
   m_EditorClassIdentifier: 
-  itemName: Sword
+  itemName: Curved Sword
   description: Very sharp and trusty iron sword
   image: {fileID: 3352286448600257344, guid: 996806a3f5549c148846d1cf4e98b6be, type: 3}
   price: 0
   stackable: 0
   type: 1
+  rarity: 0
   statModifiers:
   - statType: 3
     baseValue: 30

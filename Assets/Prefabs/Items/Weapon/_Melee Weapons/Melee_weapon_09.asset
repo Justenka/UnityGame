@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 718240cdfb2675e41805198cf26310f8, type: 3}
   m_Name: Melee_weapon_09
   m_EditorClassIdentifier: 
-  itemName: Sword
+  itemName: Spear
   description: Very sharp and trusty iron sword
   image: {fileID: 7888375113042339404, guid: 14540366284955644b063bd713c9d2ab, type: 3}
   price: 0
   stackable: 0
   type: 1
+  rarity: 0
   statModifiers:
   - statType: 3
     baseValue: 30

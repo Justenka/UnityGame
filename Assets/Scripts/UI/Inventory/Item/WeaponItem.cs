@@ -10,6 +10,7 @@ public class WeaponItem : EquipmentItem
     public float manaCost = 10f;        // Optional
 
     public Sprite weaponSprite;
+    public RuntimeAnimatorController animatorController;
     public float xOffset = 0.01f;
     public float yOffset = 0.15f;
     public DebuffData debuffData;

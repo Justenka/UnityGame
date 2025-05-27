@@ -40,6 +40,7 @@ MonoBehaviour:
   projectileSpeed: 0
   manaCost: 0
   weaponSprite: {fileID: 21300000, guid: 8608e6b7965e41f41bc89e2e91757566, type: 2}
+  animatorController: {fileID: 9100000, guid: 3cbdf6f315e641847ac912242f418023, type: 2}
   xOffset: 0.01
   yOffset: 0.15
   debuffData:
