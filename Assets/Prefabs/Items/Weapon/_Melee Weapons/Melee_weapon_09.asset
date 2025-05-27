@@ -36,7 +36,8 @@ MonoBehaviour:
   projectilePrefab: {fileID: 0}
   projectileSpeed: 0
   manaCost: 0
-  weaponSprite: {fileID: 21300000, guid: 8608e6b7965e41f41bc89e2e91757566, type: 2}
+  weaponSprite: {fileID: 7120041980734739322, guid: 9b1175dc055f4d44cb79149e03e4d71a, type: 3}
+  animatorController: {fileID: 9100000, guid: 5298557703d7e1f4b811606ed8a7013b, type: 2}
   xOffset: 0.01
   yOffset: 0.15
   debuffData:
