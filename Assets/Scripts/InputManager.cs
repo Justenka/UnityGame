@@ -1,17 +1,23 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.Linq;
 
 public class InputManager : MonoBehaviour
 {
     public static InputManager Instance { get; private set; }
 
+    public bool resetKeybindsOnLaunch = false;
+
     private Dictionary<string, KeyCode> keybinds = new Dictionary<string, KeyCode>();
 
-    private const KeyCode DEFAULT_SHOOT = KeyCode.Mouse0;
-    private const KeyCode DEFAULT_RUN = KeyCode.LeftShift;
-    private const KeyCode DEFAULT_INTERACT = KeyCode.E;
-    private const KeyCode DEFAULT_PAUSE = KeyCode.Escape;
-    private const KeyCode DEFAULT_INVENTORY = KeyCode.I;
+    private Dictionary<string, KeyCode> defaultKeybinds = new Dictionary<string, KeyCode>()
+    {
+        { "Shoot", KeyCode.Mouse0 },
+        { "Run", KeyCode.LeftShift },
+        { "Interact", KeyCode.E },
+        { "Pause", KeyCode.Escape },
+        { "Inventory", KeyCode.I }
+    };
 
     void Awake()
     {
@@ -19,7 +25,17 @@ public class InputManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
-            LoadKeybinds();
+
+            // Check the public boolean to decide whether to reset
+            if (resetKeybindsOnLaunch)
+            {
+                Debug.Log("Resetting keybinds to default due to 'resetKeybindsOnLaunch' being true.");
+                ResetToDefaults();
+            }
+            else
+            {
+                LoadKeybinds();
+            }
         }
         else
         {
@@ -27,14 +43,29 @@ public class InputManager : MonoBehaviour
         }
     }
 
+    public void ResetToDefaults()
+    {
+        Debug.Log("Resetting all keybinds to default values.");
+        keybinds.Clear();
+
+        foreach (var entry in defaultKeybinds)
+        {
+            keybinds[entry.Key] = entry.Value;
+            PlayerPrefs.SetInt(entry.Key + "Key", (int)entry.Value);
+        }
+        PlayerPrefs.Save();
+        Debug.Log("Keybinds reset and saved.");
+    }
+
     void LoadKeybinds()
     {
-        keybinds["Shoot"] = (KeyCode)PlayerPrefs.GetInt("ShootKey", (int)DEFAULT_SHOOT);
-        keybinds["Run"] = (KeyCode)PlayerPrefs.GetInt("RunKey", (int)DEFAULT_RUN);
-        keybinds["Interact"] = (KeyCode)PlayerPrefs.GetInt("InteractKey", (int)DEFAULT_INTERACT);
-        keybinds["Pause"] = (KeyCode)PlayerPrefs.GetInt("PauseKey", (int)DEFAULT_PAUSE);
-        keybinds["Inventory"] = (KeyCode)PlayerPrefs.GetInt("InventoryKey", (int)DEFAULT_INVENTORY);
+        foreach (var entry in defaultKeybinds)
+        {
+            keybinds[entry.Key] = (KeyCode)PlayerPrefs.GetInt(entry.Key + "Key", (int)entry.Value);
+        }
+        Debug.Log("Keybinds loaded from PlayerPrefs.");
     }
+
 
     public KeyCode GetKeybind(string actionName)
     {

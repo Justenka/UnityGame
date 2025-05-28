@@ -24,7 +24,7 @@ public class KeybindUIHandler : MonoBehaviour
 
     void OnRebindButtonClicked()
     {
-        currentKeyText.text = "Press a key...";
+        currentKeyText.text = " ";
         InputManager.Instance.StartRebinding(actionName, OnKeyRebound);
     }
 
