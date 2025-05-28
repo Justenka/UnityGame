@@ -269,9 +269,9 @@ GameObject:
   - component: {fileID: 1534254762742278452}
   - component: {fileID: -5780201929352805491}
   - component: {fileID: -9112137079326044575}
-  - component: {fileID: 387292162801318788}
+  - component: {fileID: -1885753604991176691}
   m_Layer: 8
-  m_Name: EnemyPoison
+  m_Name: Slime
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -335,10 +335,10 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1287019421
-  m_SortingLayer: 2
+  m_SortingLayer: 5
   m_SortingOrder: 2
   m_Sprite: {fileID: 8536121584949983522, guid: 57ff270bf3c9c204fab6c9877c6a6354, type: 3}
-  m_Color: {r: 0.7572746, g: 0.14242072, b: 0.90943396, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -405,9 +405,9 @@ MonoBehaviour:
   isDead: 0
   healthBar: {fileID: 692434698268176974}
   debuffToApply:
-    debuffType: 1
-    duration: 10
-    damagePerTick: 10
+    debuffType: 0
+    duration: 5
+    damagePerTick: 1
     tickInterval: 1
     slowAmount: 0.5
 --- !u!114 &6135305365425720006
@@ -422,9 +422,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8abc3d8784a402d40a554e24f3c9f4ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
   speedModifier: 1
   speed: 0
-  despawnDistance: 80
 --- !u!61 &1534254762742278452
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -509,10 +509,40 @@ MonoBehaviour:
   dropTable:
   - type: 0
     minAmount: 1
-    maxAmount: 5
+    maxAmount: 10
     itemData: {fileID: 0}
     dropChance: 1
---- !u!82 &387292162801318788
+  - type: 1
+    minAmount: 1
+    maxAmount: 1
+    itemData: {fileID: 11400000, guid: d9c48ec9a1f84eb42a2115f4eb9c7906, type: 2}
+    dropChance: 0.1
+  - type: 1
+    minAmount: 1
+    maxAmount: 1
+    itemData: {fileID: 11400000, guid: 1388e054e7234174a99f9abc85525fbe, type: 2}
+    dropChance: 0.1
+  - type: 1
+    minAmount: 1
+    maxAmount: 1
+    itemData: {fileID: 11400000, guid: e3fae4220219ba648aec82f3a188c8b0, type: 2}
+    dropChance: 0.1
+  - type: 1
+    minAmount: 1
+    maxAmount: 1
+    itemData: {fileID: 11400000, guid: e66cd1d608619114ea06730eff445a32, type: 2}
+    dropChance: 0.1
+  - type: 1
+    minAmount: 1
+    maxAmount: 1
+    itemData: {fileID: 11400000, guid: 89a83d27118335946a043c8281a751e2, type: 2}
+    dropChance: 0.05
+  - type: 1
+    minAmount: 1
+    maxAmount: 1
+    itemData: {fileID: 11400000, guid: 927499da968449340b0c1fcf46715067, type: 2}
+    dropChance: 0.025
+--- !u!82 &-1885753604991176691
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -524,10 +554,10 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 495e1503e6d0d9a48bc384f7e7fd5c26, type: 3}
   m_Resource: {fileID: 8300000, guid: 495e1503e6d0d9a48bc384f7e7fd5c26, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 0.2
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0

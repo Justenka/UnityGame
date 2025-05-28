@@ -146,6 +146,9 @@ public class RangedEnemy : Enemy
 
     private void SpecialAttack()
     {
+        if (gameObject.tag != "Boss")
+            return;
+
         if (enemyAi != null)
             enemyAi.enabled = false;
 

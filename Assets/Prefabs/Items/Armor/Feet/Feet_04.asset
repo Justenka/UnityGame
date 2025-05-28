@@ -30,7 +30,7 @@ MonoBehaviour:
     baseValue: 100
     value: 100
   - statType: 5
-    baseValue: 50
-    value: 50
+    baseValue: 10
+    value: 10
   equipmentType: 4
   equipmentLevel: 0
