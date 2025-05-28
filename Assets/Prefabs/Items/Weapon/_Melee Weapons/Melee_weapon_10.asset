@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Melee_weapon_10
   m_EditorClassIdentifier: 
   itemName: Hatchet
-  description: Very sharp and trusty iron sword
+  description: A hatchet that lets you fight for longer
   image: {fileID: -8798372954568800330, guid: 331bbbd479464f149bffa07803d6ff51, type: 3}
   price: 0
   stackable: 0
@@ -21,14 +21,14 @@ MonoBehaviour:
   rarity: 0
   statModifiers:
   - statType: 3
-    baseValue: 30
-    value: 30
+    baseValue: 75
+    value: 75
   - statType: 0
-    baseValue: 15
-    value: 15
+    baseValue: 50
+    value: 50
   - statType: 2
-    baseValue: 10
-    value: 10
+    baseValue: 200
+    value: 200
   equipmentType: 5
   equipmentLevel: 0
   fireRate: 0

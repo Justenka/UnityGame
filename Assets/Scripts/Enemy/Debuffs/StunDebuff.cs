@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class StunDebuff : Debuff
 {
-    private float originalSpeed = 1f; // Renamed for clarity
+    private float originalSpeed = 1f; 
 
     public StunDebuff(float duration) : base(duration, DebuffType.Stun)
     {

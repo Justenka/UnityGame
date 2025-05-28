@@ -18,14 +18,14 @@ MonoBehaviour:
   price: 0
   stackable: 0
   type: 2
-  rarity: 0
+  rarity: 4
   statModifiers:
   - statType: 0
-    baseValue: 100
-    value: 100
+    baseValue: 200
+    value: 200
   - statType: 4
-    baseValue: 100
-    value: 100
+    baseValue: 20
+    value: 20
   - statType: 2
     baseValue: 100
     value: 100

@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: Unknown potion
   m_EditorClassIdentifier: 
   itemName: Unknown potion
-  description: Effects are not known
+  description: Effects are not known. Use at your own risk
   image: {fileID: 8940362547575817036, guid: 5f181e740cddac442862063f00f8ecdb, type: 3}
   price: 10
   stackable: 1
   type: 3
+  rarity: 0
   statModifiers: []
   consumableType: 3
   restoreAmount: 0

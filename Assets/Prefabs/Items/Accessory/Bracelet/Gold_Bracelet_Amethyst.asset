@@ -18,7 +18,10 @@ MonoBehaviour:
   price: 200
   stackable: 0
   type: 5
+  rarity: 0
   statModifiers:
-  - statType: 0
-    value: 10
+  - statType: 4
+    baseValue: 5
+    value: 5
   equipmentType: 10
+  equipmentLevel: 0

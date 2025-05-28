@@ -18,5 +18,6 @@ MonoBehaviour:
   price: 0
   stackable: 1
   type: 8
+  rarity: 2
   statModifiers: []
   tier: 3

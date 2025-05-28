@@ -12,26 +12,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 718240cdfb2675e41805198cf26310f8, type: 3}
   m_Name: Magic_weapon_red
   m_EditorClassIdentifier: 
-  itemName: Staff
-  description: The most basic magic staff
+  itemName: Wizards staff
+  description: Staff that has been made by a wizard
   image: {fileID: 5067217508326611862, guid: 5dbc2d92d0d38bf4dbf280208fac6994, type: 3}
   price: 0
   stackable: 0
   type: 1
+  rarity: 3
   statModifiers:
   - statType: 3
-    value: 20
+    baseValue: 0
+    value: 100
   - statType: 1
-    value: 15
+    baseValue: 0
+    value: 150
   - statType: 5
-    value: 2
+    baseValue: 0
+    value: 12
   equipmentType: 5
+  equipmentLevel: 0
   fireRate: 5
   actionType: 1
   projectilePrefab: {fileID: 268461493443850436, guid: 580cfdc847161ca46810764f471ffb1c, type: 3}
   projectileSpeed: 8
   manaCost: 5
   weaponSprite: {fileID: 21300000, guid: be6a7b860c0dc124797fc4bc3ed3bf2b, type: 2}
+  animatorController: {fileID: 0}
   xOffset: 0.01
   yOffset: 0.15
   debuffData:

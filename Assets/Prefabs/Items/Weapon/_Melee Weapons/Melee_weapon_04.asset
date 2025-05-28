@@ -13,22 +13,23 @@ MonoBehaviour:
   m_Name: Melee_weapon_04
   m_EditorClassIdentifier: 
   itemName: Jian
-  description: Very sharp and trusty iron sword
+  description: A uncommon sword that is not that rare and lets you defend yourself
+    againts weak enemies
   image: {fileID: 1615276441951509422, guid: b3fcfa6a586f7ae4e81ff4b0ef11ac93, type: 3}
   price: 0
   stackable: 0
   type: 1
-  rarity: 3
+  rarity: 1
   statModifiers:
   - statType: 3
-    baseValue: 10
-    value: 12
+    baseValue: 75
+    value: 75
   - statType: 0
-    baseValue: 10
-    value: 12
+    baseValue: 30
+    value: 30
   - statType: 2
-    baseValue: 10
-    value: 12
+    baseValue: 30
+    value: 30
   equipmentType: 5
   equipmentLevel: 0
   fireRate: 0

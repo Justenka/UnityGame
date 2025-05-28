@@ -18,13 +18,19 @@ MonoBehaviour:
   price: 0
   stackable: 0
   type: 2
+  rarity: 0
   statModifiers:
   - statType: 0
+    baseValue: 20
     value: 20
   - statType: 4
-    value: 1
+    baseValue: 2
+    value: 2
   - statType: 2
+    baseValue: 10
     value: 10
   - statType: 1
+    baseValue: 10
     value: 10
   equipmentType: 1
+  equipmentLevel: 0
