@@ -10,6 +10,12 @@ public class TooltipUI : MonoBehaviour
     public TextMeshProUGUI stats;
     public RectTransform backgroundRect;
 
+    [Header("Enchant Info")]
+    public GameObject enchantUI;
+    public TextMeshProUGUI enchantName;
+    public TextMeshProUGUI enchantDuration;
+    public TextMeshProUGUI enchantDamage;
+
     public Vector2 offset = new Vector2(20, -20);
     public Vector2 padding = new Vector2(10, 10);
 
@@ -41,6 +47,20 @@ public class TooltipUI : MonoBehaviour
         {
             itemName.text = item.itemName;
         }
+
+        if (item is WeaponItem weapon && weapon.debuffData.debuffType != DebuffType.None)
+        {
+            enchantUI.SetActive(true);
+            string debuffColor = GetColorForDebuff(weapon.debuffData.debuffType);
+            enchantName.text = $"<color={debuffColor}>{weapon.debuffData.debuffType}</color>";
+            enchantDuration.text = $"Duration: {weapon.debuffData.duration}";
+            enchantDamage.text = $"Damage: {weapon.debuffData.damagePerTick}";
+        }
+        else
+        {
+            enchantUI.SetActive(false);
+        }
+
         string rarityColor = GetColorForRarity(item.rarity);
        //rarity.text = item.rarity.ToString();
         rarity.text = $"<color={rarityColor}>{item.rarity.ToString()}</color>\n";
@@ -68,6 +88,7 @@ public class TooltipUI : MonoBehaviour
     public void Hide()
     {
         gameObject.SetActive(false);
+        enchantUI.SetActive(false);
     }
 
     string GetColorForStat(StatType stat)
@@ -93,6 +114,17 @@ public class TooltipUI : MonoBehaviour
             ItemRarity.Rare => "#0070FF",
             ItemRarity.Epic => "#A335EE",
             ItemRarity.Legendary => "#FF8000",
+            _ => "#ffffff"
+        };
+    }
+    string GetColorForDebuff(DebuffType debuff)
+    {
+        return debuff switch
+        {
+            DebuffType.Poison => "#44ff44", // green
+            DebuffType.Burn => "#ff4444",   // red
+            DebuffType.Slow => "#44ccff",   // blue
+            DebuffType.Stun => "#ffcc00",   // yellow
             _ => "#ffffff"
         };
     }
