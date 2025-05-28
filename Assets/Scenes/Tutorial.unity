@@ -6459,7 +6459,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   settingsPanel: {fileID: 941455701}
-  pauseMenuPanel: {fileID: 173305491}
 --- !u!114 &173305494
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12335,6 +12334,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uiDimmer: {fileID: 1501960888}
   pauseMenu: {fileID: 173305491}
+  settingsPanel: {fileID: 941455701}
   coreInventory: {fileID: 1537024957}
   storageInventory: {fileID: 1567426350}
   tooltipUI: {fileID: 847950534}
