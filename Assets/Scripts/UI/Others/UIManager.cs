@@ -33,12 +33,12 @@ public class UIManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(InputManager.Instance.GetKeybind("Pause")))
         {
             Time.timeScale = 0;
             HandleEscape();
         }
-        if (Input.GetKeyDown(KeyCode.I))
+        if (Input.GetKeyDown(InputManager.Instance.GetKeybind("Inventory")))
         {
             ToggleInventory();
         }

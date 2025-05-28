@@ -11,6 +11,7 @@ public class InputManager : MonoBehaviour
     private const KeyCode DEFAULT_RUN = KeyCode.LeftShift;
     private const KeyCode DEFAULT_INTERACT = KeyCode.E;
     private const KeyCode DEFAULT_PAUSE = KeyCode.Escape;
+    private const KeyCode DEFAULT_INVENTORY = KeyCode.I;
 
     void Awake()
     {
@@ -32,6 +33,7 @@ public class InputManager : MonoBehaviour
         keybinds["Run"] = (KeyCode)PlayerPrefs.GetInt("RunKey", (int)DEFAULT_RUN);
         keybinds["Interact"] = (KeyCode)PlayerPrefs.GetInt("InteractKey", (int)DEFAULT_INTERACT);
         keybinds["Pause"] = (KeyCode)PlayerPrefs.GetInt("PauseKey", (int)DEFAULT_PAUSE);
+        keybinds["Inventory"] = (KeyCode)PlayerPrefs.GetInt("InventoryKey", (int)DEFAULT_INVENTORY);
     }
 
     public KeyCode GetKeybind(string actionName)
