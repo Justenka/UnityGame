@@ -6964,6 +6964,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RangedEnemy
       objectReference: {fileID: 0}
+    - target: {fileID: 4767760763208663031, guid: af67b4bc319955f49bd79d360f3f976d, type: 3}
+      propertyPath: projectilePrefabSpecial
+      value: 
+      objectReference: {fileID: 268461493443850436, guid: d1d977055d8bda54b86e3cd9c73df5eb, type: 3}
     - target: {fileID: 4778331393311206638, guid: af67b4bc319955f49bd79d360f3f976d, type: 3}
       propertyPath: m_LocalPosition.x
       value: -301.62085
@@ -97620,6 +97624,10 @@ PrefabInstance:
       propertyPath: projectilePrefab
       value: 
       objectReference: {fileID: 268461493443850436, guid: d43920ba397fb744786afa2ee69f666f, type: 3}
+    - target: {fileID: 1926296605192117668, guid: 979e4a9d2789a2741a4940ca3a773946, type: 3}
+      propertyPath: projectilePrefabSpecial
+      value: 
+      objectReference: {fileID: 268461493443850436, guid: e5248c106b12b1c47b2d1793a8761c3e, type: 3}
     - target: {fileID: 7283635191169131494, guid: 979e4a9d2789a2741a4940ca3a773946, type: 3}
       propertyPath: m_Size.x
       value: 1.7
