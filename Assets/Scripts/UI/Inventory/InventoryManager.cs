@@ -20,6 +20,37 @@ public class InventoryManager : MonoBehaviour
             inventorySlots = GetComponentsInChildren<InventorySlot>();
             Debug.Log("Auto-filled inventory slots: " + inventorySlots.Length);
         }
+
+        EquipmentManager playerEquipmentManager = null;
+        if (player != null)
+        {
+            playerEquipmentManager = player.GetComponent<EquipmentManager>();
+            if (playerEquipmentManager == null)
+            {
+                Debug.LogError("Player GameObject found, but no EquipmentManager component on it!");
+            }
+        }
+        else
+        {
+            Debug.LogError("Player reference is null in InventoryManager!");
+        }
+
+
+        foreach (EquipmentSlot slot in equipmentSlots)
+        {
+            if (slot != null)
+            {
+                // Assign if not already assigned
+                if (slot.equipmentManager == null)
+                {
+                    slot.equipmentManager = playerEquipmentManager;
+                }
+                if (slot.equipmentManager == null) // Double check after attempt
+                {
+                    Debug.LogError($"EquipmentManager for slot {slot.name} is still null after assignment attempt!");
+                }
+            }
+        }
     }
 
     public bool AddItem(Item item, int count)
@@ -70,7 +101,7 @@ public class InventoryManager : MonoBehaviour
 
     void SpawnNewItem(Item item, InventorySlot slot)
     {
-        Item runtimeItem = item.Clone(); // Clone to avoid modifying the original asset
+        Item runtimeItem = item.Clone();
         GameObject newItemGo = Instantiate(inventoryItemPrefab, slot.transform);
         InventoryItem inventoryItem = newItemGo.GetComponent<InventoryItem>();
         inventoryItem.InitialiseItem(runtimeItem);
@@ -114,12 +145,16 @@ public class InventoryManager : MonoBehaviour
     {
         Transform parent = item.transform.parent;
 
+        // Check if the item is in a ChestSlot (an external inventory)
         InventorySlot chestSlot = parent.GetComponentInParent<InventorySlot>();
-        if (!inventorySlots.Contains(chestSlot))
+        // It implies the item is coming from an external source like a chest.
+        if (chestSlots.Contains(chestSlot))
         {
+            Debug.Log($"Item {item.item.itemName} is in a chest slot. Attempting to move to player inventory.");
             // Force place in first free inventory slot
-            foreach (InventorySlot slot in inventorySlots)
+            for (int i = 0; i < inventorySlots.Length; i++)
             {
+                InventorySlot slot = inventorySlots[i];
                 if (slot.GetComponentInChildren<InventoryItem>() == null)
                 {
                     item.transform.SetParent(slot.transform);
@@ -131,39 +166,54 @@ public class InventoryManager : MonoBehaviour
                 }
             }
 
-            Debug.LogWarning("No free inventory slot for external item.");
+            Debug.LogWarning("No free inventory slot for external item. Item remains in chest.");
             return;
         }
 
-        // Case 0,5: Item is from player inventory, but CoreInventory is disabled
+        // Case 0,5: Item is from player inventory.
+        // This implies moving from player inventory to chest.
         if (uiManager.coreInventory != null && !uiManager.coreInventory.activeInHierarchy)
         {
-            foreach (InventorySlot slot in chestSlots)
+            Debug.Log($"Item {item.item.itemName} is in player inventory, and core inventory is disabled. Attempting to move to chest.");
+            for (int i = 0; i < chestSlots.Length; i++)
             {
+                InventorySlot slot = chestSlots[i];
                 if (slot.GetComponentInChildren<InventoryItem>() == null)
                 {
                     item.transform.SetParent(slot.transform);
                     item.transform.localPosition = Vector3.zero;
                     item.parentAfterDrag = slot.transform;
 
-                    Debug.Log($"Shift-click moved item {item.item.itemName} to external inventory.");
+                    Debug.Log($"Shift-click moved item {item.item.itemName} from inventory to external (chest) inventory.");
                     return;
                 }
             }
 
-            Debug.LogWarning("No free external inventory slot found.");
+            Debug.LogWarning("No free external inventory slot found. Item stays in player inventory.");
             return;
         }
+
 
         // Case 1: Item is in EquipmentSlot
         EquipmentSlot equipmentSlot = parent.GetComponentInParent<EquipmentSlot>();
         if (equipmentSlot != null)
         {
-            equipmentSlot.equipmentManager?.Unequip(item.item);
+            Debug.Log($"Attempting to move item {item.item.itemName} from an EquipmentSlot.");
+            if (equipmentSlot.equipmentManager == null)
+            {
+                Debug.LogError($"EquipmentManager is NULL on EquipmentSlot: {equipmentSlot.name}! Cannot unequip.");
+            }
+            else
+            {
+                Debug.Log($"Calling Unequip for {item.item.itemName} on EquipmentManager: {equipmentSlot.equipmentManager.name}");
+                equipmentSlot.equipmentManager.Unequip(item.item);
+            }
+
 
             // Try to move to first free inventory slot
-            foreach (InventorySlot slot in inventorySlots)
+            for (int i = 0; i < inventorySlots.Length; i++)
             {
+                InventorySlot slot = inventorySlots[i];
                 if (slot.GetComponentInChildren<InventoryItem>() == null)
                 {
                     item.transform.SetParent(slot.transform);
@@ -175,7 +225,7 @@ public class InventoryManager : MonoBehaviour
                 }
             }
 
-            Debug.LogWarning("No free inventory slot to move equipped item.");
+            Debug.LogWarning("No free inventory slot to move equipped item. Item remains in equipment slot.");
             return;
         }
 
@@ -183,8 +233,11 @@ public class InventoryManager : MonoBehaviour
         HotbarSlot hotbarSlot = parent.GetComponentInParent<HotbarSlot>();
         if (hotbarSlot != null)
         {
-            foreach (InventorySlot slot in inventorySlots)
+            Debug.Log($"Attempting to move item {item.item.itemName} from a HotbarSlot.");
+            // Try to move to first free inventory slot
+            for (int i = 0; i < inventorySlots.Length; i++)
             {
+                InventorySlot slot = inventorySlots[i];
                 if (slot.GetComponentInChildren<InventoryItem>() == null)
                 {
                     item.transform.SetParent(slot.transform);
@@ -196,65 +249,104 @@ public class InventoryManager : MonoBehaviour
                 }
             }
 
-            Debug.LogWarning("No free inventory slot to move hotbar item.");
+            Debug.LogWarning("No free inventory slot to move hotbar item. Item remains in hotbar.");
             return;
         }
 
         // Case 3: Item is in inventory, try to equip or put in hotbar
-        if (item.item is EquipmentItem equipment)
+        InventorySlot currentInventorySlot = parent.GetComponentInParent<InventorySlot>();
+        if (inventorySlots.Contains(currentInventorySlot)) // Confirm it's from main inventory
         {
-            foreach (var slot in equipmentSlots)
+            Debug.Log($"Attempting to move item {item.item.itemName} from inventory.");
+            if (item.item is EquipmentItem equipment)
             {
-                if (slot.acceptedEquipmentType == equipment.equipmentType)
+                Debug.Log($"Item is an EquipmentItem. Trying to equip.");
+                foreach (var slot in equipmentSlots)
                 {
-                    InventoryItem existing = slot.GetComponentInChildren<InventoryItem>();
-                    if (existing == null)
+                    if (slot.acceptedEquipmentType == equipment.equipmentType)
                     {
-                        item.transform.SetParent(slot.transform);
-                        item.transform.localPosition = Vector3.zero;
-                        item.parentAfterDrag = slot.transform;
-                        slot.equipmentManager?.Equip(item.item);
+                        InventoryItem existing = slot.GetComponentInChildren<InventoryItem>();
+                        if (existing == null)
+                        {
+                            item.transform.SetParent(slot.transform);
+                            item.transform.localPosition = Vector3.zero;
+                            item.parentAfterDrag = slot.transform;
+                            if (slot.equipmentManager == null)
+                            {
+                                Debug.LogError($"EquipmentManager is NULL on target EquipmentSlot: {slot.name}! Cannot equip.");
+                            }
+                            else
+                            {
+                                Debug.Log($"Calling Equip for {item.item.itemName} on EquipmentManager: {slot.equipmentManager.name}");
+                                slot.equipmentManager.Equip(item.item);
+                            }
 
-                        Debug.Log($"Shift-click equipped {item.item.itemName}.");
-                        return;
+                            Debug.Log($"Shift-click equipped {item.item.itemName}.");
+                            return;
+                        }
+                        else
+                        {
+                            // Swap
+                            Debug.Log($"Swapping equipped item: {existing.item.itemName} with {item.item.itemName}");
+                            if (slot.equipmentManager == null)
+                            {
+                                Debug.LogError($"EquipmentManager is NULL on target EquipmentSlot: {slot.name}! Cannot swap.");
+                            }
+                            else
+                            {
+                                Debug.Log($"Calling Unequip for {existing.item.itemName}");
+                                slot.equipmentManager.Unequip(existing.item); // Unequip the old item
+                            }
+
+                            existing.transform.SetParent(parent);
+                            existing.transform.localPosition = Vector3.zero;
+                            existing.parentAfterDrag = parent; // Ensure old item goes back to original slot
+
+                            item.transform.SetParent(slot.transform);
+                            item.transform.localPosition = Vector3.zero;
+                            item.parentAfterDrag = slot.transform;
+
+                            if (slot.equipmentManager == null)
+                            {
+
+                            }
+                            else
+                            {
+                                Debug.Log($"Calling Equip for {item.item.itemName}");
+                                slot.equipmentManager.Equip(item.item); // Equip the new item
+                            }
+
+                            Debug.Log($"Shift-click swapped {item.item.itemName} with {existing.item.itemName}.");
+                            return;
+                        }
                     }
-                    else
+                }
+                Debug.LogWarning($"No suitable equipment slot found for {item.item.itemName}.");
+            }
+            else // Not an equipment item, try hotbar
+            {
+                Debug.Log($"Item is not an EquipmentItem. Trying to move to hotbar.");
+                // Try to place in first available HotbarSlot
+                for (int i = 0; i < hotbarSlots.Length; i++) // Use for loop for early exit
+                {
+                    HotbarSlot hotbar = hotbarSlots[i];
+                    if (hotbar.GetComponentInChildren<InventoryItem>() == null)
                     {
-                        // Swap
-                        slot.equipmentManager?.Unequip(existing.item);
-                        existing.transform.SetParent(parent);
-                        existing.transform.localPosition = Vector3.zero;
-
-                        item.transform.SetParent(slot.transform);
+                        item.transform.SetParent(hotbar.transform);
                         item.transform.localPosition = Vector3.zero;
-                        item.parentAfterDrag = slot.transform;
+                        item.parentAfterDrag = hotbar.transform;
 
-                        slot.equipmentManager?.Equip(item.item);
-
-                        Debug.Log($"Shift-click swapped {item.item.itemName} with {existing.item.itemName}.");
+                        Debug.Log($"Shift-click moved {item.item.itemName} to hotbar.");
                         return;
                     }
                 }
+
+                Debug.Log("No hotbar slot available. Item stays in inventory.");
             }
         }
         else
         {
-            // Try to place in first available HotbarSlot
-            foreach (HotbarSlot hotbar in hotbarSlots)
-            {
-                if (hotbar.GetComponentInChildren<InventoryItem>() == null)
-                {
-                    item.transform.SetParent(hotbar.transform);
-                    item.transform.localPosition = Vector3.zero;
-                    item.parentAfterDrag = hotbar.transform;
-
-                    Debug.Log($"Shift-click moved {item.item.itemName} to hotbar.");
-                    return;
-                }
-            }
-
-            Debug.Log("No hotbar slot available. Item stays in inventory.");
+            Debug.LogWarning($"Shift-click: Item {item.item.itemName} is not in a recognized inventory, hotbar, or equipment slot.");
         }
     }
-
 }
