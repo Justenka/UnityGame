@@ -3,69 +3,41 @@ using UnityEngine;
 
 public class EnemySpawn : MonoBehaviour
 {
-    public GameObject[] enemyPrefabs; // Drag & drop enemy prefabs in the Inspector
-    public Transform[] spawnPoints;   // Set these to specific spots in the room
+    public GameObject[] enemyPrefabs;
+    public Transform[] spawnPoints;
     private bool hasSpawned = false;
     public bool bossDoor = false;
-    int spawnCount = 0;
     public GameObject portal;
-    
+
+    private int spawnCount = 0;
+
     private void Start()
     {
-        
-        GameObject roomParent = GameObject.Find("Rooms");
-        if(roomParent == null)
+        // Count only valid spawn points assigned
+        foreach (Transform spawnPoint in spawnPoints)
         {
-            Debug.Log("Error with find Rooms");
-            return;
+            if (spawnPoint != null)
+                spawnCount++;
         }
-        foreach (Transform room in roomParent.transform)
-        {
-            foreach (Transform child in room)
-            {
-                if(child.name.StartsWith("SpawnPoint"))
-                    spawnCount++;
-            }
-            Debug.Log($"{room.name} has {spawnCount} spawn points");
-        }
+
+        Debug.Log($"Room has {spawnCount} spawn points.");
+
+        if (portal != null)
+            portal.SetActive(false); // Hide portal until enemies are defeated
     }
-    
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        
         if (!hasSpawned && other.CompareTag("Player"))
         {
             Debug.Log("Player entered the room! Spawning enemies...");
             SpawnEnemies();
             hasSpawned = true;
         }
-        if (other.CompareTag("Player") && spawnCount < 1 && bossDoor)
-        {
-            
-            
-            if (portal != null)
-            {
-                portal.SetActive(true);
-            }
-            else
-            {
-                Debug.Log("Boss Portal not found!");
-            }
-            GameObject player = GameObject.Find("Player");
-            GameObject temp = GameObject.Find("BossSpawnRoom");
-            player.transform.position = temp.transform.position;
-        }
-        else
-        {
-            Debug.Log("All enemies are not defeated yet...");
-        }
     }
-    
-    
+
     void SpawnEnemies()
     {
-        // Check if arrays are valid
         if (enemyPrefabs == null || enemyPrefabs.Length == 0)
         {
             Debug.Log("Enemy Prefabs array is empty or null!");
@@ -78,23 +50,21 @@ public class EnemySpawn : MonoBehaviour
             return;
         }
 
+        spawnCount = 0; // Reset count to match actual spawns
+
         foreach (Transform spawnPoint in spawnPoints)
         {
             if (spawnPoint == null)
-            {
-                Debug.LogWarning("A spawn point is null, skipping...");
                 continue;
-            }
 
             int randIndex = Random.Range(0, enemyPrefabs.Length);
-            if (enemyPrefabs[randIndex] == null)
-            {
-                Debug.LogWarning("Enemy prefab at index " + randIndex + " is null, skipping...");
-                continue;
-            }
+            GameObject enemyToSpawn = enemyPrefabs[randIndex];
 
-            Instantiate(enemyPrefabs[randIndex], spawnPoint.position, Quaternion.identity);
-            
+            if (enemyToSpawn == null)
+                continue;
+
+            Instantiate(enemyToSpawn, spawnPoint.position, Quaternion.identity);
+            spawnCount++;
             Debug.Log("Spawned enemy at: " + spawnPoint.position);
         }
     }
@@ -116,8 +86,17 @@ public class EnemySpawn : MonoBehaviour
 
         if (spawnCount <= 0)
         {
-            Debug.Log("All enemies defeated.");
-            
+            Debug.Log("All enemies defeated!");
+
+            if (portal != null)
+            {
+                portal.SetActive(true); // Enable portal collider/visuals
+                Debug.Log("Portal activated!");
+            }
+            else
+            {
+                Debug.LogWarning("Portal reference is missing!");
+            }
         }
     }
 }
