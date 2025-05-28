@@ -10,7 +10,7 @@ public class Enemy : Character
     public float maxHealthModifier;
     public float currentHealth;
     private float minHealth = 100;
-    public int damageToPlayer = 10;
+    public float damageToPlayer = 10;
     public Rigidbody2D rb;
 
     public float knockbackForce = 10f;
@@ -86,11 +86,17 @@ public class Enemy : Character
         {
             currentHealth = minHealth;
         }
+        ApplyDifficultyAdjustments();
         healthBar = GetComponentInChildren<HealthBar>();
         if (healthBar != null)
         {
             healthBar.SetMaxHealth(currentHealth);
         }
+    }
+    void ApplyDifficultyAdjustments()
+    {
+        currentHealth = currentHealth * GameSettings.gameDifficulty;
+        damageToPlayer = damageToPlayer * GameSettings.gameDifficulty;
     }
 
     // Update is called once per frame

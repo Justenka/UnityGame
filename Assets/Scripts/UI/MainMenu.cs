@@ -15,4 +15,16 @@ public class MainMenu : MonoBehaviour
         Debug.Log("Quit");
         Application.Quit();
     }
+    public void SetDifficultyToEasy()
+    {
+        GameSettings.gameDifficulty = 0.5f;
+    }
+    public void SetDifficultyToNormal()
+    {
+        GameSettings.gameDifficulty = 1f;
+    }
+    public void SetDifficultyToHard()
+    {
+        GameSettings.gameDifficulty = 2f;
+    }
 }

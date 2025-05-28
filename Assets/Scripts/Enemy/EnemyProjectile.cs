@@ -4,7 +4,7 @@ using static Codice.Client.Common.Connection.AskCredentialsToUser;
 public class EnemyProjectile : MonoBehaviour
 {
     public float lifetime = 5f;
-    public int damage = 10; // Default damage value, can be set by the attacker
+    public float damage = 10; // Default damage value, can be set by the attacker
     public float speed = 10f; // Initial speed of the projectile
     public Vector2 direction; // Direction the projectile will move in
     public DebuffData debuffToApply;
