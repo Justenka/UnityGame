@@ -17273,6 +17273,8 @@ MonoBehaviour:
   - {fileID: 891341378}
   inventoryItemPrefab: {fileID: 6691456716173518486, guid: d49e9ef5159d40a4fa81419ffee19923, type: 3}
   player: {fileID: 999516846}
+  storageUIPanel: {fileID: 430917089}
+  playerGridInventoryPanel: {fileID: 1141953926}
 --- !u!1 &482843806
 GameObject:
   m_ObjectHideFlags: 0

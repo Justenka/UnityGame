@@ -11,6 +11,8 @@ public class InventoryManager : MonoBehaviour
     public GameObject inventoryItemPrefab;
     public Player player;
     private UIManager uiManager;
+    public GameObject storageUIPanel;
+    public GameObject playerGridInventoryPanel;
 
     void Start()
     {
@@ -148,7 +150,7 @@ public class InventoryManager : MonoBehaviour
         // Check if the item is in a ChestSlot (an external inventory)
         InventorySlot chestSlot = parent.GetComponentInParent<InventorySlot>();
         // It implies the item is coming from an external source like a chest.
-        if (chestSlots.Contains(chestSlot))
+        if (chestSlots.Contains(chestSlot) && storageUIPanel != null && storageUIPanel.activeInHierarchy)
         {
             Debug.Log($"Item {item.item.itemName} is in a chest slot. Attempting to move to player inventory.");
             // Force place in first free inventory slot
@@ -172,7 +174,8 @@ public class InventoryManager : MonoBehaviour
 
         // Case 0,5: Item is from player inventory.
         // This implies moving from player inventory to chest.
-        if (uiManager.coreInventory != null && !uiManager.coreInventory.activeInHierarchy)
+        if (uiManager.coreInventory != null && !uiManager.coreInventory.activeInHierarchy &&
+            storageUIPanel != null && storageUIPanel.activeInHierarchy)
         {
             Debug.Log($"Item {item.item.itemName} is in player inventory, and core inventory is disabled. Attempting to move to chest.");
             for (int i = 0; i < chestSlots.Length; i++)
@@ -260,6 +263,11 @@ public class InventoryManager : MonoBehaviour
             Debug.Log($"Attempting to move item {item.item.itemName} from inventory.");
             if (item.item is EquipmentItem equipment)
             {
+                if (playerGridInventoryPanel == null || !playerGridInventoryPanel.activeInHierarchy)
+                {
+                    Debug.LogWarning($"Cannot unequip {item.item.itemName}. PlayerGridInventory is not active.");
+                    return;
+                }
                 Debug.Log($"Item is an EquipmentItem. Trying to equip.");
                 foreach (var slot in equipmentSlots)
                 {
