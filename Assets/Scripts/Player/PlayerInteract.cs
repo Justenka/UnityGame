@@ -12,7 +12,7 @@ public class PlayerInteract : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(InputManager.Instance.GetKeybind("Interact")))
         {
             Vector2 center = playerCollider.bounds.center;
             Collider2D[] colliderArray = Physics2D.OverlapCircleAll(center, interactRange);

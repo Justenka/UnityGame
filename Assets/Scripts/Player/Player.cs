@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -31,29 +30,20 @@ public class Player : Character
     public DebuffUIManager debuffUIManager;
     private Dictionary<System.Type, Debuff> activeDebuffs = new();
 
-
-
-    //[SerializeField]
-    //private InputActionReference attack;
-
-    //private WeaponRotation weaponRotation;
-
     public void Awake()
     {
         InitializeStats();
-        //weaponRotation = GetComponentInChildren<WeaponRotation>();
     }
 
     public virtual void Start()
     {
-        // These are null after scene change and need to be re-found
         Camera mainCamera = Camera.main;
         SpriteRenderer sr = GetComponent<SpriteRenderer>();
 
         if (PlayerPrefs.HasKey("PlayerUsername"))
         {
             Name = PlayerPrefs.GetString("PlayerUsername");
-            if(Name != "")
+            if (Name != "")
             {
                 userName.text = Name;
             }
@@ -63,18 +53,17 @@ public class Player : Character
 
     public void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetKeyDown(InputManager.Instance.GetKeybind("Shoot")))
         {
             GetComponent<EquipmentManager>().UseWeapon(gameObject);
         }
 
         UpdateDebuffs();
-
     }
 
     void LateUpdate()
     {
-        if(userName != null)
+        if (userName != null)
             userName.transform.rotation = Quaternion.identity;
     }
 
@@ -107,7 +96,7 @@ public class Player : Character
         stats[StatType.Defense] = new StatValue { baseValue = 0 };
         stats[StatType.Speed] = new StatValue { baseValue = 4 };
     }
-    
+
     void SetInitialValues()
     {
         float maxHealth = stats[StatType.Health].Total;
@@ -217,9 +206,6 @@ public class Player : Character
         hp.currentValue -= amount;
         if (hp.currentValue < 0) hp.currentValue = 0;
         healthBar.SetHealth(hp.currentValue);
-
-        //if (rechargeHealth != null) StopCoroutine(rechargeHealth);
-        //rechargeHealth = StartCoroutine(RechargeHealth());
     }
     public bool RestoreHealth(int amount)
     {
@@ -276,16 +262,12 @@ public class Player : Character
         Respawn();
         gameObject.SetActive(true);
         respawnMenu.SetActive(false);
-        Time.timeScale = 1; 
+        Time.timeScale = 1;
     }
 
     public void OnQuitButtonClick()
     {
-        // #if UNITY_EDITOR
-        // UnityEditor.EditorApplication.isPlaying = false;
-        // #else
         Application.Quit();
-        // #endif
     }
     void Respawn()
     {
@@ -322,7 +304,6 @@ public class Player : Character
         manaBar.SetMaxMana(stats[StatType.Mana].Total);
         staminaBar.SetMaxStamina(stats[StatType.Stamina].Total);
 
-        // Optional: Clamp current values if above new max
         stats[StatType.Health].currentValue = Mathf.Min(stats[StatType.Health].currentValue, stats[StatType.Health].Total);
         stats[StatType.Mana].currentValue = Mathf.Min(stats[StatType.Mana].currentValue, stats[StatType.Mana].Total);
         stats[StatType.Stamina].currentValue = Mathf.Min(stats[StatType.Stamina].currentValue, stats[StatType.Stamina].Total);
@@ -350,7 +331,6 @@ public class Player : Character
             if (stats.ContainsKey(mod.statType))
             {
                 stats[mod.statType].bonusValue -= mod.value;
-                // Clamp to 0 just in case
                 stats[mod.statType].bonusValue = Mathf.Max(0, stats[mod.statType].bonusValue);
             }
         }

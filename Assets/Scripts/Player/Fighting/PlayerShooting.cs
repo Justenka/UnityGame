@@ -6,7 +6,7 @@ public class PlayerShooting : MonoBehaviour
     private float shootCooldown = 0f;
     private Animator animator;
     private PlayerAudioManager audioManager;
- 
+
     void Start()
     {
         EquipmentManager equipment = GetComponent<EquipmentManager>();
@@ -21,7 +21,9 @@ public class PlayerShooting : MonoBehaviour
     {
         if (shootCooldown > 0f)
             shootCooldown -= Time.deltaTime;
-        if (Input.GetMouseButton(0)) // Left click held
+
+        // Use InputManager to check for the "Shoot" action
+        if (Input.GetKey(InputManager.Instance.GetKeybind("Shoot"))) // Left click held
         {
             WeaponItem weapon = player.GetComponent<EquipmentManager>()?.equippedWeapon;
             if (weapon != null && weapon.actionType == ActionType.Ranged)
@@ -80,6 +82,4 @@ public class PlayerShooting : MonoBehaviour
         shootCooldown = 1f / weapon.fireRate;
         audioManager.PlaySound(audioManager.pop);
     }
-
-
 }
