@@ -16,11 +16,11 @@ public class RangedEnemy : Enemy
     {
         if (animator != null)
         {
-            bool hasXVelocity = animator.HasParameter("xVelocity");
-            Debug.Log("Does animator have xVelocity? " + hasXVelocity);
+            //bool hasXVelocity = animator.HasParameter("xVelocity");
+            //Debug.Log("Does animator have xVelocity? " + hasXVelocity);
 
-            if (!hasXVelocity)
-                Debug.LogError("Animator is missing 'xVelocity' parameter!");
+            //if (!hasXVelocity)
+            //    Debug.LogError("Animator is missing 'xVelocity' parameter!");
         }
 
         base.Start();

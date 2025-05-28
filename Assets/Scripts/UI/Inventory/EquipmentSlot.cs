@@ -8,7 +8,9 @@ public class EquipmentSlot : InventorySlot
     PlayerAudioManager audioManager;
     private void Start()
     {
-        audioManager = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAudioManager>();
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
+            audioManager = player.GetComponent<PlayerAudioManager>();
     }
     public override void OnDrop(PointerEventData eventData)
     {
