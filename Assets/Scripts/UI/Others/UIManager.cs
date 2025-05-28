@@ -95,6 +95,8 @@ public class UIManager : MonoBehaviour
                 // Special handling for UpgradeUI (return items)
                 if (menu.TryGetComponent(out UpgradeUI upgradeUI))
                     upgradeUI.ReturnItemsToInventory();
+                if (menu.TryGetComponent(out EnchantUI enchantUI))
+                    enchantUI.ReturnWeaponToInventory();
             }
         }
 

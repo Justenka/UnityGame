@@ -121,10 +121,10 @@ public class TooltipUI : MonoBehaviour
     {
         return debuff switch
         {
-            DebuffType.Poison => "#44ff44", // green
-            DebuffType.Burn => "#ff4444",   // red
-            DebuffType.Slow => "#44ccff",   // blue
-            DebuffType.Stun => "#ffcc00",   // yellow
+            DebuffType.Poison => "#44ff44",
+            DebuffType.Burn => "#ff4444",
+            DebuffType.Slow => "#44ccff",
+            DebuffType.Stun => "#ffcc00",
             _ => "#ffffff"
         };
     }
