@@ -71,6 +71,7 @@ public class InventorySlot : MonoBehaviour, IDropHandler
         draggedItem.transform.localPosition = Vector3.zero;
 
         Object.FindFirstObjectByType<UpgradeUI>()?.UpdateCostDisplay();
+        Object.FindFirstObjectByType<EnchantUI>()?.UpdateCostDisplay();
         Debug.Log($"Item {draggedItem.item.itemName} dropped into {gameObject.name}");
     }
     public Item GetCurrentItem()

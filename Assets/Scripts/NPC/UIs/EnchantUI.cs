@@ -19,7 +19,8 @@ public class EnchantUI : MonoBehaviour
     public InventoryManager inventoryManager;
 
     private DebuffType selectedDebuff = DebuffType.None;
-    private int enchantCost = 50;
+    public int enchantCost;
+    private List<Toggle> debuffToggles = new();
 
     private void OnEnable()
     {
@@ -29,6 +30,8 @@ public class EnchantUI : MonoBehaviour
 
     private void GenerateDebuffList()
     {
+        debuffToggles.Clear();
+
         foreach (Transform child in debuffListContainer)
             Destroy(child.gameObject);
 
@@ -40,14 +43,26 @@ public class EnchantUI : MonoBehaviour
             var toggle = toggleObj.GetComponent<Toggle>();
             var label = toggleObj.GetComponentInChildren<TMP_Text>();
             label.text = debuff.ToString();
+            debuffToggles.Add(toggle);
 
             toggle.onValueChanged.AddListener((isOn) =>
             {
                 if (isOn)
                 {
+                    // Uncheck all other toggles
+                    foreach (var t in debuffToggles)
+                    {
+                        if (t != toggle) t.isOn = false;
+                    }
+
                     selectedDebuff = debuff;
-                    UpdateCostDisplay();
                 }
+                else if (selectedDebuff == debuff)
+                {
+                    selectedDebuff = DebuffType.None;
+                }
+
+                UpdateCostDisplay();
             });
         }
     }
@@ -64,10 +79,15 @@ public class EnchantUI : MonoBehaviour
             return;
         }
 
+        bool isSameDebuff = weapon.debuffData.debuffType == selectedDebuff;
         bool canAfford = player.currencyHeld >= enchantCost;
-        costText.text = $"Cost: {enchantCost} gold";
-        costText.color = canAfford ? Color.white : Color.red;
-        enchantButton.interactable = canAfford;
+
+        costText.text = isSameDebuff
+            ? "Already Enchanted"
+            : $"Cost: {enchantCost}g";
+
+        costText.color = (canAfford && !isSameDebuff) ? Color.white : Color.red;
+        enchantButton.interactable = canAfford && !isSameDebuff;
     }
 
     public void TryEnchant()
@@ -77,10 +97,17 @@ public class EnchantUI : MonoBehaviour
 
         if (player.currencyHeld < enchantCost) return;
 
-        player.currencyHeld -= enchantCost;
+        if (weapon.debuffData.debuffType == selectedDebuff)
+        {
+            Debug.Log("Weapon already has this enchantment.");
+            return;
+        }
 
-        // Apply the new enchant (override)
+        player.RemoveCurrency(enchantCost);
         weapon.debuffData.debuffType = selectedDebuff;
+        weapon.debuffData.damagePerTick = 10;
+        weapon.debuffData.duration = 3;
+        weapon.debuffData.tickInterval = 2;
         Debug.Log($"Enchanted {weapon.name} with {selectedDebuff}");
 
         UpdateCostDisplay();
