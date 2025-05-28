@@ -4,6 +4,18 @@ using UnityEngine.SceneManagement;
 public class PauseMenuUI : MonoBehaviour
 {
     public GameObject settingsPanel;
+    public GameObject pauseMenuPanel;
+
+    private bool isPauseMenuOpen = false;
+    private bool isSettingsOpen = false;
+
+    void Awake()
+    {
+        if (pauseMenuPanel == null)
+        {
+            pauseMenuPanel = gameObject;
+        }
+    }
 
     void Update()
     {
@@ -13,53 +25,62 @@ public class PauseMenuUI : MonoBehaviour
         }
     }
 
-    private void HandlePauseInput() 
+    private void HandlePauseInput()
     {
-        if (Time.timeScale == 0)
+        if (isSettingsOpen)
         {
-            if (settingsPanel != null && settingsPanel.activeSelf)
-            {
-                CloseSettings();
-            }
-            else
-            {
-                ResumeGame();
-            }
+            CloseSettings();
         }
-        else 
+        else if (isPauseMenuOpen)
         {
-            if (settingsPanel != null)
+            ResumeGame();
+        }
+        else
+        {
+            if (Time.timeScale != 0)
             {
-                settingsPanel.SetActive(false);
+                OpenPauseMenu();
             }
-
-            gameObject.SetActive(true);
-            Time.timeScale = 0;
         }
     }
 
-    public void ResumeGame()
+    public void OpenPauseMenu()
     {
-        if (settingsPanel != null && settingsPanel.activeSelf)
+        if (settingsPanel != null)
         {
             settingsPanel.SetActive(false);
         }
 
-        UIManager.Instance.UnregisterMenu(gameObject);
-
-        gameObject.SetActive(false);
-        Time.timeScale = 1;
+        pauseMenuPanel.SetActive(true);
+        Time.timeScale = 0;
+        isPauseMenuOpen = true;
+        isSettingsOpen = false;
+        UIManager.Instance.RegisterOpenMenu(pauseMenuPanel);
     }
 
+    public void ResumeGame()
+    {
+        if (settingsPanel != null)
+        {
+            settingsPanel.SetActive(false);
+        }
+        pauseMenuPanel.SetActive(false);
+        Time.timeScale = 1;
+        isPauseMenuOpen = false;
+        isSettingsOpen = false; 
+        UIManager.Instance.UnregisterMenu(pauseMenuPanel);
+    }
     public void OpenSettings()
     {
         Debug.Log("Settings button pressed - Opening Settings Panel.");
 
-        gameObject.SetActive(false);
+        pauseMenuPanel.SetActive(false);
+        isPauseMenuOpen = false;
 
         if (settingsPanel != null)
         {
             settingsPanel.SetActive(true);
+            isSettingsOpen = true;
         }
         else
         {
@@ -73,9 +94,11 @@ public class PauseMenuUI : MonoBehaviour
         if (settingsPanel != null)
         {
             settingsPanel.SetActive(false);
+            isSettingsOpen = false;
         }
 
-        gameObject.SetActive(true);
+        pauseMenuPanel.SetActive(true);
+        isPauseMenuOpen = true;
     }
 
     public void ExitGame()
