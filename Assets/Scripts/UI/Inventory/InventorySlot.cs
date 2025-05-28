@@ -78,4 +78,10 @@ public class InventorySlot : MonoBehaviour, IDropHandler
     {
         return GetComponentInChildren<InventoryItem>()?.item;
     }
+    public void ClearSlot()
+    {
+        var itemObj = GetComponentInChildren<InventoryItem>();
+        if (itemObj != null)
+            Destroy(itemObj.gameObject);
+    }
 }

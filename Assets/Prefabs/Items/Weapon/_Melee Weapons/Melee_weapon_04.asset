@@ -22,15 +22,15 @@ MonoBehaviour:
   statModifiers:
   - statType: 3
     baseValue: 10
-    value: 10
+    value: 12
   - statType: 0
     baseValue: 10
-    value: 10
+    value: 12
   - statType: 2
     baseValue: 10
-    value: 10
+    value: 12
   equipmentType: 5
-  equipmentLevel: 1
+  equipmentLevel: 0
   fireRate: 0
   actionType: 0
   projectilePrefab: {fileID: 0}
