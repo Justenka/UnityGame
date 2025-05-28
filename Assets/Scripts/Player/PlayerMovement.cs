@@ -21,6 +21,7 @@ public class PlayerMovement : MonoBehaviour
     public float dashingCooldown = 1f;
     public static event Action OnPlayerMoved;
     public float speedMultiplier = 1f;
+
     private void Start()
     {
         rigidBody = GetComponent<Rigidbody2D>();
@@ -31,9 +32,9 @@ public class PlayerMovement : MonoBehaviour
     {
         if (player.stats[StatType.Stamina].currentValue > 0)
         {
-            if (Input.GetKeyDown(KeyCode.LeftShift))
+            if (Input.GetKeyDown(InputManager.Instance.GetKeybind("Run")))
                 running = true;
-            else if (Input.GetKeyUp(KeyCode.LeftShift))
+            else if (Input.GetKeyUp(InputManager.Instance.GetKeybind("Run")))
                 running = false;
         }
         else running = false;
@@ -62,6 +63,7 @@ public class PlayerMovement : MonoBehaviour
 
     void ProcessInput()
     {
+        // Standard Unity input for movement axes
         float moveX = Input.GetAxisRaw("Horizontal");
         float moveY = Input.GetAxisRaw("Vertical");
         moveDirection = new Vector2(moveX, moveY).normalized;
@@ -110,8 +112,6 @@ public class PlayerMovement : MonoBehaviour
     {
         return speedMultiplier;
     }
-
-
 
     void HandleMovementSounds()
     {
