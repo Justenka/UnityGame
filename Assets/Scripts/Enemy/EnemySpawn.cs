@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class EnemySpawn : MonoBehaviour
@@ -7,9 +8,11 @@ public class EnemySpawn : MonoBehaviour
     private bool hasSpawned = false;
     public bool bossDoor = false;
     int spawnCount = 0;
+    public GameObject portal;
     
     private void Start()
     {
+        
         GameObject roomParent = GameObject.Find("Rooms");
         if(roomParent == null)
         {
@@ -26,7 +29,7 @@ public class EnemySpawn : MonoBehaviour
             Debug.Log($"{room.name} has {spawnCount} spawn points");
         }
     }
-
+    
 
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -37,12 +40,21 @@ public class EnemySpawn : MonoBehaviour
             SpawnEnemies();
             hasSpawned = true;
         }
-        if(other.CompareTag("Player") && spawnCount <= 0 && bossDoor)
+        if (other.CompareTag("Player") && spawnCount < 1 && bossDoor)
         {
+            
+            
+            if (portal != null)
+            {
+                portal.SetActive(true);
+            }
+            else
+            {
+                Debug.Log("Boss Portal not found!");
+            }
             GameObject player = GameObject.Find("Player");
             GameObject temp = GameObject.Find("BossSpawnRoom");
             player.transform.position = temp.transform.position;
-
         }
         else
         {
