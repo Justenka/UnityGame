@@ -140,6 +140,14 @@ public class InventoryManager : MonoBehaviour
                 Destroy(itemInSlot.gameObject);
             }
         }
+        foreach (EquipmentSlot slot  in equipmentSlots)
+        {
+            InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
+            if (itemInSlot != null)
+            {
+                Destroy(itemInSlot.gameObject);
+            }
+        }
     }
 
     //Handles Shift click item moving
