@@ -13,22 +13,22 @@ MonoBehaviour:
   m_Name: Melee_weapon_06
   m_EditorClassIdentifier: 
   itemName: Claymore
-  description: Very sharp and trusty iron sword
+  description: A epic sword that lets you deal a lot of damage on hit
   image: {fileID: 1883226351602351426, guid: 9e8d29ad4fdb80e4e906c316f28a0cec, type: 3}
   price: 0
   stackable: 0
   type: 1
-  rarity: 0
+  rarity: 3
   statModifiers:
   - statType: 3
-    baseValue: 30
-    value: 30
+    baseValue: 125
+    value: 125
   - statType: 0
-    baseValue: 15
-    value: 15
+    baseValue: 50
+    value: 50
   - statType: 2
-    baseValue: 10
-    value: 10
+    baseValue: 50
+    value: 50
   equipmentType: 5
   equipmentLevel: 0
   fireRate: 0

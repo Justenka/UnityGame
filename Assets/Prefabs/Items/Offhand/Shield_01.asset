@@ -13,13 +13,18 @@ MonoBehaviour:
   m_Name: Shield_01
   m_EditorClassIdentifier: 
   itemName: Shield
-  description: 
+  description: A basic shield that helps you defend yourself
   image: {fileID: 21300000, guid: ddff42d4ade038e418a13e2149540b32, type: 2}
   price: 50
   stackable: 0
   type: 4
-  statModifiers: []
+  rarity: 0
+  statModifiers:
+  - statType: 4
+    baseValue: 50
+    value: 50
   equipmentType: 6
+  equipmentLevel: 0
   shieldSprite: {fileID: 21300000, guid: ddff42d4ade038e418a13e2149540b32, type: 2}
   defenseBonus: 10
   xOffset: 0

@@ -13,22 +13,22 @@ MonoBehaviour:
   m_Name: Melee_weapon_07
   m_EditorClassIdentifier: 
   itemName: Curved Sword
-  description: Very sharp and trusty iron sword
+  description: A sword that lets you deal massive amounts of damage on hit
   image: {fileID: 3352286448600257344, guid: 996806a3f5549c148846d1cf4e98b6be, type: 3}
   price: 0
   stackable: 0
   type: 1
-  rarity: 0
+  rarity: 4
   statModifiers:
   - statType: 3
-    baseValue: 30
-    value: 30
+    baseValue: 150
+    value: 150
   - statType: 0
-    baseValue: 15
-    value: 15
+    baseValue: 60
+    value: 60
   - statType: 2
-    baseValue: 10
-    value: 10
+    baseValue: 60
+    value: 60
   equipmentType: 5
   equipmentLevel: 0
   fireRate: 0

@@ -3,7 +3,7 @@ using UnityEngine;
 public class SlowDebuff : Debuff
 {
     private float slowAmount;
-    private float originalSpeedMultiplier = 1f; // Renamed for clarity
+    private float originalSpeedMultiplier = 1f;
 
     public SlowDebuff(float duration, float slowAmount) : base(duration, DebuffType.Slow)
     {
@@ -25,7 +25,7 @@ public class SlowDebuff : Debuff
         }
         else if (enemyAI != null)
         {
-            originalSpeedMultiplier = enemyAI.speed; // Assuming you have a speed multiplier on the enemy AI
+            originalSpeedMultiplier = enemyAI.speed; 
             enemyAI.speed *= (1f - slowAmount);
             Debug.Log($"Slow applied to enemy {target.gameObject.name}");
         }
@@ -34,9 +34,6 @@ public class SlowDebuff : Debuff
     public override void Update(Character target)
     {
         base.Update(target);
-        // No specific update logic needed for the slow debuff itself,
-        // the effect is applied in the Apply method and removed in Remove.
-        // The base.Update handles the duration.
     }
 
     public override void Remove(Character target)

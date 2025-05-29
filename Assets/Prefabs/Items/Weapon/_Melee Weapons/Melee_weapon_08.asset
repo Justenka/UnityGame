@@ -13,22 +13,22 @@ MonoBehaviour:
   m_Name: Melee_weapon_08
   m_EditorClassIdentifier: 
   itemName: Hammer
-  description: Very sharp and trusty iron sword
+  description: A large hammer, that lets you stun enemies on hit
   image: {fileID: 5550953466451710259, guid: 8c2a8b3d3087b2e43b501c94c756cd3b, type: 3}
   price: 0
   stackable: 0
   type: 1
-  rarity: 0
+  rarity: 4
   statModifiers:
   - statType: 3
-    baseValue: 30
-    value: 30
+    baseValue: 175
+    value: 175
   - statType: 0
-    baseValue: 15
-    value: 15
+    baseValue: 70
+    value: 70
   - statType: 2
-    baseValue: 10
-    value: 10
+    baseValue: 70
+    value: 70
   equipmentType: 5
   equipmentLevel: 0
   fireRate: 0
@@ -41,8 +41,8 @@ MonoBehaviour:
   xOffset: 0.01
   yOffset: 0.15
   debuffData:
-    debuffType: 0
-    duration: 10
-    damagePerTick: 50
+    debuffType: 4
+    duration: 3
+    damagePerTick: 0
     tickInterval: 1
     slowAmount: 0.5

@@ -13,22 +13,22 @@ MonoBehaviour:
   m_Name: Melee_weapon_05
   m_EditorClassIdentifier: 
   itemName: Zweihander
-  description: Very sharp and trusty iron sword
+  description: A rare sword that lets you deal decent amount of damage on hit
   image: {fileID: -3958397199422882234, guid: 8195b7649528d0746aba048af47fed5e, type: 3}
   price: 0
   stackable: 0
   type: 1
-  rarity: 4
+  rarity: 2
   statModifiers:
   - statType: 3
-    baseValue: 10
-    value: 11
+    baseValue: 100
+    value: 100
   - statType: 0
-    baseValue: 10
-    value: 11
+    baseValue: 40
+    value: 40
   - statType: 2
-    baseValue: 10
-    value: 11
+    baseValue: 40
+    value: 40
   equipmentType: 5
   equipmentLevel: 5
   fireRate: 0

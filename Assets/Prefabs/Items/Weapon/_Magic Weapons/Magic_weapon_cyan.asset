@@ -12,26 +12,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 718240cdfb2675e41805198cf26310f8, type: 3}
   m_Name: Magic_weapon_cyan
   m_EditorClassIdentifier: 
-  itemName: Staff
-  description: The most basic magic staff
+  itemName: Apprentice staff
+  description: A staff that has been made by a apprentice wizard
   image: {fileID: 2244308655843941415, guid: 5ffe586b61c67144c9e776a05dad2257, type: 3}
   price: 0
   stackable: 0
   type: 1
+  rarity: 1
   statModifiers:
   - statType: 3
-    value: 20
+    baseValue: 0
+    value: 40
   - statType: 1
-    value: 15
+    baseValue: 0
+    value: 50
   - statType: 5
-    value: 2
+    baseValue: 0
+    value: 5
   equipmentType: 5
+  equipmentLevel: 0
   fireRate: 5
   actionType: 1
   projectilePrefab: {fileID: 268461493443850436, guid: c92cbe7b705633b4db0ef87853592023, type: 3}
   projectileSpeed: 8
   manaCost: 5
   weaponSprite: {fileID: 21300000, guid: be6a7b860c0dc124797fc4bc3ed3bf2b, type: 2}
+  animatorController: {fileID: 0}
   xOffset: 0.01
   yOffset: 0.15
   debuffData:

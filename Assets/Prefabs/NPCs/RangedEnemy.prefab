@@ -335,8 +335,11 @@ MonoBehaviour:
     slowAmount: 0.5
   attackRange: 10
   projectilePrefab: {fileID: 268461493443850436, guid: d1d977055d8bda54b86e3cd9c73df5eb, type: 3}
+  projectilePrefabSpecial: {fileID: 0}
   firePoint: {fileID: 4778331393311206638}
   projectileSpeed: 5
+  specialAttackInterval: 5
+  radialProjectileCount: 8
 --- !u!114 &6135554338917737804
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -354,7 +357,6 @@ MonoBehaviour:
   retreatDistance: 5
   stopDistance: 8
   chaseDistance: 12
-  despawnDistance: 80
 --- !u!61 &8547550374988824996
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -437,16 +439,41 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pickupPrefab: {fileID: 7906979942403835689, guid: 19ea26d0a4e19144aa9fd2046c899c88, type: 3}
   dropTable:
+  - type: 0
+    minAmount: 1
+    maxAmount: 10
+    itemData: {fileID: 0}
+    dropChance: 1
   - type: 1
     minAmount: 1
     maxAmount: 1
     itemData: {fileID: 11400000, guid: d9c48ec9a1f84eb42a2115f4eb9c7906, type: 2}
-    dropChance: 0.5
-  - type: 0
+    dropChance: 0.1
+  - type: 1
     minAmount: 1
-    maxAmount: 5
-    itemData: {fileID: 0}
-    dropChance: 1
+    maxAmount: 1
+    itemData: {fileID: 11400000, guid: 1388e054e7234174a99f9abc85525fbe, type: 2}
+    dropChance: 0.1
+  - type: 1
+    minAmount: 1
+    maxAmount: 1
+    itemData: {fileID: 11400000, guid: e3fae4220219ba648aec82f3a188c8b0, type: 2}
+    dropChance: 0.1
+  - type: 1
+    minAmount: 1
+    maxAmount: 1
+    itemData: {fileID: 11400000, guid: e66cd1d608619114ea06730eff445a32, type: 2}
+    dropChance: 0.1
+  - type: 1
+    minAmount: 1
+    maxAmount: 1
+    itemData: {fileID: 11400000, guid: 89a83d27118335946a043c8281a751e2, type: 2}
+    dropChance: 0.05
+  - type: 1
+    minAmount: 1
+    maxAmount: 1
+    itemData: {fileID: 11400000, guid: 927499da968449340b0c1fcf46715067, type: 2}
+    dropChance: 0.025
 --- !u!1 &4800326989252944127
 GameObject:
   m_ObjectHideFlags: 0

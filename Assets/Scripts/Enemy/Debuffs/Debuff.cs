@@ -1,18 +1,18 @@
-using System.Collections.Generic;
 using UnityEngine;
+using System.Collections;
 
 public class Debuff
 {
     protected float duration;
     public DebuffType debuffType;
     public bool IsExpired => duration <= 0;
-    protected float originalDuration; // Store the initial duration
+    protected float originalDuration;
 
     public Debuff(float duration, DebuffType debuffType)
     {
         this.duration = duration;
         this.debuffType = debuffType;
-        this.originalDuration = duration; // Initialize original duration
+        this.originalDuration = duration;
     }
 
     public virtual void Apply(Character target)
