@@ -3,41 +3,64 @@ using UnityEngine;
 
 public class EnemySpawn : MonoBehaviour
 {
-    public GameObject[] enemyPrefabs;
-    public Transform[] spawnPoints;
+    public GameObject[] enemyPrefabs; // Drag & drop enemy prefabs in the Inspector
+    public Transform[] spawnPoints;   // Set these to specific spots in the room
     private bool hasSpawned = false;
     public bool bossDoor = false;
+    int spawnCount = 0;
     public GameObject portal;
-
-    private int spawnCount = 0;
 
     private void Start()
     {
-        // Count only valid spawn points assigned
-        foreach (Transform spawnPoint in spawnPoints)
+        var portalTry = GameObject.Find("BossPortal");
+        portal = portalTry;
+        GameObject roomParent = GameObject.Find("Rooms");
+        if (roomParent == null)
         {
-            if (spawnPoint != null)
-                spawnCount++;
+            Debug.Log("Error with find Rooms");
+            return;
         }
-
-        Debug.Log($"Room has {spawnCount} spawn points.");
-
-        if (portal != null)
-            portal.SetActive(false); // Hide portal until enemies are defeated
+        foreach (Transform room in roomParent.transform)
+        {
+            foreach (Transform child in room)
+            {
+                if (child.name.StartsWith("SpawnPoint"))
+                    spawnCount++;
+            }
+            Debug.Log($"{room.name} has {spawnCount} spawn points");
+        }
     }
+
 
     void OnTriggerEnter2D(Collider2D other)
     {
+
         if (!hasSpawned && other.CompareTag("Player"))
         {
             Debug.Log("Player entered the room! Spawning enemies...");
             SpawnEnemies();
             hasSpawned = true;
         }
+        
+        if (other.CompareTag("Player") && spawnCount < 1 && bossDoor)
+        {
+
+
+            
+            GameObject player = GameObject.Find("Player");
+            GameObject temp = GameObject.Find("BossSpawnRoom");
+            player.transform.position = temp.transform.position;
+        }
+        else
+        {
+            Debug.Log("All enemies are not defeated yet...");
+        }
     }
+
 
     void SpawnEnemies()
     {
+        // Check if arrays are valid
         if (enemyPrefabs == null || enemyPrefabs.Length == 0)
         {
             Debug.Log("Enemy Prefabs array is empty or null!");
@@ -50,21 +73,23 @@ public class EnemySpawn : MonoBehaviour
             return;
         }
 
-        spawnCount = 0; // Reset count to match actual spawns
-
         foreach (Transform spawnPoint in spawnPoints)
         {
             if (spawnPoint == null)
+            {
+                Debug.LogWarning("A spawn point is null, skipping...");
                 continue;
+            }
 
             int randIndex = Random.Range(0, enemyPrefabs.Length);
-            GameObject enemyToSpawn = enemyPrefabs[randIndex];
-
-            if (enemyToSpawn == null)
+            if (enemyPrefabs[randIndex] == null)
+            {
+                Debug.LogWarning("Enemy prefab at index " + randIndex + " is null, skipping...");
                 continue;
+            }
 
-            Instantiate(enemyToSpawn, spawnPoint.position, Quaternion.identity);
-            spawnCount++;
+            Instantiate(enemyPrefabs[randIndex], spawnPoint.position, Quaternion.identity);
+
             Debug.Log("Spawned enemy at: " + spawnPoint.position);
         }
     }
@@ -86,17 +111,24 @@ public class EnemySpawn : MonoBehaviour
 
         if (spawnCount <= 0)
         {
-            Debug.Log("All enemies defeated!");
-
-            if (portal != null)
+            SpriteRenderer sr = portal.GetComponent<SpriteRenderer>();
+            if (sr != null)
             {
-                portal.SetActive(true); // Enable portal collider/visuals
-                Debug.Log("Portal activated!");
+                sr.sortingLayerName = "Map"; // Pakeisk ? norim? Sorting Layer pavadinim?
+                sr.sortingOrder = 0;         // Jei reikia, gali pakeisti ir eil?s tvark?
             }
             else
             {
-                Debug.LogWarning("Portal reference is missing!");
+                Debug.LogWarning("SpriteRenderer nerastas portale!");
             }
+            if (portal != null)
+            {
+                Debug.Log("Portalo nera");
+            }
+            Debug.Log("All enemies defeated.");
+
         }
     }
+    
+
 }

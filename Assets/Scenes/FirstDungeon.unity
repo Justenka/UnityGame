@@ -224,6 +224,7 @@ MonoBehaviour:
   - {fileID: 1281593688}
   - {fileID: 626282659}
   bossDoor: 0
+  portal: {fileID: 0}
 --- !u!1 &57130424
 GameObject:
   m_ObjectHideFlags: 0
@@ -333,6 +334,7 @@ MonoBehaviour:
   - {fileID: 1266682690}
   - {fileID: 1109819988}
   bossDoor: 0
+  portal: {fileID: 0}
 --- !u!1 &57366818
 GameObject:
   m_ObjectHideFlags: 0
@@ -6083,6 +6085,7 @@ MonoBehaviour:
   - {fileID: 1198134230}
   - {fileID: 1189240350}
   bossDoor: 0
+  portal: {fileID: 0}
 --- !u!61 &224374950
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6204,6 +6207,7 @@ MonoBehaviour:
   - {fileID: 498760053}
   - {fileID: 468529885}
   bossDoor: 0
+  portal: {fileID: 0}
 --- !u!61 &287630751
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6286,6 +6290,7 @@ MonoBehaviour:
   - {fileID: 924189094}
   - {fileID: 1666230629}
   bossDoor: 0
+  portal: {fileID: 0}
 --- !u!61 &326824257
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6483,6 +6488,7 @@ MonoBehaviour:
   - {fileID: 1177100078}
   - {fileID: 1344751812}
   bossDoor: 0
+  portal: {fileID: 0}
 --- !u!1 &395986570
 GameObject:
   m_ObjectHideFlags: 0
@@ -6890,6 +6896,7 @@ MonoBehaviour:
   - {fileID: 541534662}
   - {fileID: 338229393}
   bossDoor: 0
+  portal: {fileID: 0}
 --- !u!1 &607335632
 GameObject:
   m_ObjectHideFlags: 0
@@ -7273,10 +7280,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyPrefabs:
-  - {fileID: 0}
+  - {fileID: 8392700563990864181, guid: 979e4a9d2789a2741a4940ca3a773946, type: 3}
   spawnPoints:
   - {fileID: 1722325935}
   bossDoor: 0
+  portal: {fileID: 0}
 --- !u!1 &911344342
 GameObject:
   m_ObjectHideFlags: 0
@@ -80129,6 +80137,7 @@ MonoBehaviour:
   - {fileID: 7531382611090056820, guid: 79d85d09e9f1a974fb00f220abef7310, type: 3}
   spawnPoints: []
   bossDoor: 1
+  portal: {fileID: 0}
 --- !u!1 &1434896929
 GameObject:
   m_ObjectHideFlags: 0
@@ -90345,6 +90354,7 @@ MonoBehaviour:
   - {fileID: 1431353151}
   - {fileID: 2097169250}
   bossDoor: 0
+  portal: {fileID: 0}
 --- !u!114 &1863533489
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -90466,6 +90476,7 @@ MonoBehaviour:
   - {fileID: 971461412}
   - {fileID: 1459830895}
   bossDoor: 0
+  portal: {fileID: 0}
 --- !u!1 &1894382116
 GameObject:
   m_ObjectHideFlags: 0
