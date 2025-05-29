@@ -91,5 +91,8 @@ TagManager:
   - name: UpperWall_Layer_2
     uniqueID: 4245189251
     locked: 0
+  - name: FogOfWar
+    uniqueID: 2090806323
+    locked: 0
   m_RenderingLayers:
   - Default

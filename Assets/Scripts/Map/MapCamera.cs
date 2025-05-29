@@ -8,6 +8,7 @@ public class MapCamera : MonoBehaviour
     public float maxZoom = 200f;
 
     private Camera cam;
+    private bool lastMapState = false;
     private bool isMapOpen => mapUI != null && mapUI.activeSelf;
 
     [SerializeField] private GameObject mapUI; // assign your Map UI Canvas
@@ -19,7 +20,17 @@ public class MapCamera : MonoBehaviour
 
     void Update()
     {
-        if (!isMapOpen) return;
+        bool currentlyOpen = isMapOpen;
+
+        // Detect if the map just opened
+        if (currentlyOpen && !lastMapState)
+        {
+            CenterOnPlayer();
+        }
+
+        lastMapState = currentlyOpen;
+
+        if (!currentlyOpen) return;
 
         HandleZoom();
         HandlePan();
@@ -52,4 +63,18 @@ public class MapCamera : MonoBehaviour
 
         transform.position += move;
     }
+    void CenterOnPlayer()
+{
+    GameObject player = GameObject.FindGameObjectWithTag("Player");
+    if (player != null)
+    {
+        Vector3 playerPos = player.transform.position;
+        playerPos.z = transform.position.z; // keep camera's original Z
+        transform.position = playerPos;
+    }
+    else
+    {
+        Debug.LogWarning("Player not found when trying to center map camera.");
+    }
+}
 }
