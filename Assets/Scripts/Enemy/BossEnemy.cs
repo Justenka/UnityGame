@@ -11,6 +11,7 @@ public class BossEnemy : Enemy
     public float specialAttackInterval = 5f;
     public int radialProjectileCount = 8;
     private float nextSpecialAttackTime;
+    public GameObject returnNPC;
 
     public new void Start()
     {
@@ -190,4 +191,39 @@ public class BossEnemy : Enemy
             enemyAi.enabled = true;
     }
 
+    public override void Die()
+    {
+        
+
+        if (returnNPC == null)
+        {
+            returnNPC = FindInactiveObjectWithTag("ReturnNPC");
+        }
+
+        if (returnNPC != null)
+        {
+            returnNPC.SetActive(true);
+            Debug.Log("Wizard NPC activated!");
+        }
+        else
+        {
+            Debug.LogWarning("No inactive object with tag 'ReturnNPC' found.");
+        }
+
+        base.Die(); // Call base logic
+    }
+
+    // Helper to find inactive objects by tag
+    private GameObject FindInactiveObjectWithTag(string tag)
+    {
+        GameObject[] allObjects = Resources.FindObjectsOfTypeAll<GameObject>();
+        foreach (GameObject obj in allObjects)
+        {
+            if (obj.CompareTag(tag) && !obj.activeInHierarchy)
+            {
+                return obj;
+            }
+        }
+        return null;
+    }
 }

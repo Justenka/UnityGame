@@ -227,7 +227,7 @@ public class Enemy : Character
         animator.SetBool("isHit", false);
     }
 
-    void Die()
+    public virtual void Die()
     {
         if (isDead) return;
         isDead = true;
