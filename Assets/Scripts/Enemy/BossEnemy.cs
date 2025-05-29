@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class RangedEnemy : Enemy
+public class BossEnemy : Enemy
 {
     public float attackRange = 10f;
     public GameObject projectilePrefab;
@@ -94,7 +94,7 @@ public class RangedEnemy : Enemy
             Vector3 targetPosition = enemyAi.player.transform.position;
             targetPosition.z = 0f; // Ensure z is the same
             Vector2 shootDirection = (targetPosition - firePoint.position).normalized;
-            
+
             // Calculate angle in degrees (adjust the +90f if needed)
             float angle = Mathf.Atan2(shootDirection.y, shootDirection.x) * Mathf.Rad2Deg + 90f;
 
@@ -146,9 +146,6 @@ public class RangedEnemy : Enemy
 
     private void SpecialAttack()
     {
-        if (gameObject.tag != "Boss")
-            return;
-
         if (enemyAi != null)
             enemyAi.enabled = false;
 

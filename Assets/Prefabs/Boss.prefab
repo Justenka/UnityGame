@@ -366,7 +366,7 @@ GameObject:
   - component: {fileID: 7615760172697012513}
   - component: {fileID: 6810433686245915510}
   - component: {fileID: 6213662624657204123}
-  - component: {fileID: 1926296605192117668}
+  - component: {fileID: 7721709466149446087}
   - component: {fileID: 8672310783281808542}
   - component: {fileID: 7283635191169131494}
   - component: {fileID: 1890841840737665231}
@@ -476,7 +476,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &1926296605192117668
+--- !u!114 &7721709466149446087
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -485,16 +485,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 8392700563990864181}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b3c445eabe0b9e441b7c838f0fea92fb, type: 3}
+  m_Script: {fileID: 11500000, guid: a78ffedae24d3fa479335272e809ed7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealthModifier: 1
   currentHealth: 0
   damageToPlayer: 10
   rb: {fileID: 0}
-  knockbackForce: 1
+  knockbackForce: 10
   isKnockedBack: 0
-  attackCooldown: 1
+  attackCooldown: 1.5
   lastAttackTime: 0
   playerInTrigger: {fileID: 0}
   isInvincible: 0
@@ -507,14 +507,17 @@ MonoBehaviour:
   healthBar: {fileID: 8307021354373252034}
   debuffToApply:
     debuffType: 0
-    duration: 5
-    damagePerTick: 1
-    tickInterval: 1
-    slowAmount: 0.5
+    duration: 0
+    damagePerTick: 0
+    tickInterval: 0
+    slowAmount: 0
   attackRange: 10
-  projectilePrefab: {fileID: 268461493443850436, guid: d1d977055d8bda54b86e3cd9c73df5eb, type: 3}
+  projectilePrefab: {fileID: 268461493443850436, guid: d43920ba397fb744786afa2ee69f666f, type: 3}
+  projectilePrefabSpecial: {fileID: 268461493443850436, guid: e5248c106b12b1c47b2d1793a8761c3e, type: 3}
   firePoint: {fileID: 7615760172697012513}
   projectileSpeed: 5
+  specialAttackInterval: 5
+  radialProjectileCount: 8
 --- !u!114 &8672310783281808542
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -532,7 +535,6 @@ MonoBehaviour:
   retreatDistance: 5
   stopDistance: 8
   chaseDistance: 12
-  despawnDistance: 80
 --- !u!61 &7283635191169131494
 BoxCollider2D:
   m_ObjectHideFlags: 0
