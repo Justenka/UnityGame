@@ -4,13 +4,9 @@ public class RangedEnemy : Enemy
 {
     public float attackRange = 10f;
     public GameObject projectilePrefab;
-    public GameObject projectilePrefabSpecial;
     public Transform firePoint;
     public float projectileSpeed = 5f;
     private RangedEnemyAI enemyAi;
-    public float specialAttackInterval = 5f;
-    public int radialProjectileCount = 8;
-    private float nextSpecialAttackTime;
 
     public new void Start()
     {
@@ -37,12 +33,6 @@ public class RangedEnemy : Enemy
         if (isDead)
             animator.SetTrigger("Die");
 
-        if (Time.time >= nextSpecialAttackTime)
-        {
-            SpecialAttack();
-            nextSpecialAttackTime = Time.time + specialAttackInterval;
-            return; // Skip normal attack this frame
-        }
 
         float distanceToPlayer = Vector2.Distance(transform.position, enemyAi.player.transform.position);
         // Check if the player is within the attack range
@@ -144,48 +134,6 @@ public class RangedEnemy : Enemy
         Gizmos.DrawWireSphere(transform.position, attackRange);
     }
 
-    private void SpecialAttack()
-    {
-        if (gameObject.tag != "Boss")
-            return;
-
-        if (enemyAi != null)
-            enemyAi.enabled = false;
-
-        float angleStep = 360f / radialProjectileCount;
-        float angle = 0f;
-
-        for (int i = 0; i < radialProjectileCount; i++)
-        {
-            float projectileDirX = Mathf.Cos(angle * Mathf.Deg2Rad);
-            float projectileDirY = Mathf.Sin(angle * Mathf.Deg2Rad);
-            Vector2 shootDirection = new Vector2(projectileDirX, projectileDirY).normalized;
-
-            Quaternion rotation = Quaternion.Euler(0f, 0f, angle);
-            GameObject projectile = Instantiate(projectilePrefabSpecial, firePoint.position, rotation);
-
-            Rigidbody2D projectileRB = projectile.GetComponent<Rigidbody2D>();
-            EnemyProjectile projectileScript = projectile.GetComponent<EnemyProjectile>();
-
-            if (projectileRB != null)
-            {
-                projectileRB.linearVelocity = shootDirection * projectileSpeed;
-            }
-
-            if (projectileScript != null)
-            {
-                projectileScript.damage = damageToPlayer;
-                projectileScript.debuffToApply = debuffToApply;
-            }
-
-            angle += angleStep;
-        }
-
-        // Re-enable AI after a delay (e.g., 1 second)
-        Invoke(nameof(EnableAI), 1f);
-        // Optionally play a special attack animation or effect
-        // animator.SetTrigger("SpecialAttack");
-    }
 
     private void EnableAI()
     {
