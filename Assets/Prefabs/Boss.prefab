@@ -488,9 +488,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a78ffedae24d3fa479335272e809ed7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealthModifier: 1
+  maxHealthModifier: 2.5
   currentHealth: 0
-  damageToPlayer: 10
+  damageToPlayer: 20
   rb: {fileID: 0}
   knockbackForce: 10
   isKnockedBack: 0
@@ -511,13 +511,14 @@ MonoBehaviour:
     damagePerTick: 0
     tickInterval: 0
     slowAmount: 0
-  attackRange: 10
+  attackRange: 20
   projectilePrefab: {fileID: 268461493443850436, guid: d43920ba397fb744786afa2ee69f666f, type: 3}
   projectilePrefabSpecial: {fileID: 268461493443850436, guid: e5248c106b12b1c47b2d1793a8761c3e, type: 3}
   firePoint: {fileID: 7615760172697012513}
-  projectileSpeed: 5
-  specialAttackInterval: 5
-  radialProjectileCount: 8
+  projectileSpeed: 15
+  specialAttackInterval: 8
+  radialProjectileCount: 12
+  returnNPC: {fileID: 0}
 --- !u!114 &8672310783281808542
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -531,9 +532,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  speed: 3
-  retreatDistance: 5
-  stopDistance: 8
+  speed: 5
+  retreatDistance: 8
+  stopDistance: 10
   chaseDistance: 12
 --- !u!61 &7283635191169131494
 BoxCollider2D:

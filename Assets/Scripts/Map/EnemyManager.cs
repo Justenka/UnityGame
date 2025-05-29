@@ -24,13 +24,13 @@ public class EnemyManager : MonoBehaviour
         totalEnemies--;
         Debug.Log($"[EnemyManager] Enemy died. Remaining: {totalEnemies}");
 
-        if (totalEnemies <= 0)
+        if (totalEnemies <= 1)
         {
             Debug.Log("[EnemyManager] All enemies defeated. Activating portal.");
             if (portal != null)
                 portal.SetActive(true);
             else
-                Debug.LogWarning("[EnemyManager] Portal not assigned!");
+                Debug.LogError("[EnemyManager] Portal not assigned!");
         }
     }
 }

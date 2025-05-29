@@ -18,6 +18,7 @@ public class EnemySpawn : MonoBehaviour
         }
 
         int roomEnemyCount = 0;
+
         foreach (Transform room in roomParent.transform)
         {
             foreach (Transform child in room)
@@ -26,9 +27,11 @@ public class EnemySpawn : MonoBehaviour
                     roomEnemyCount++;
             }
             Debug.Log($"{room.name} has {roomEnemyCount} spawn points.");
+            EnemyManager.Instance?.AddEnemies(roomEnemyCount);
+            Debug.Log($"Reseting EnemyCount: {roomEnemyCount}");
+            roomEnemyCount = 0; // Reset for next room
         }
 
-        EnemyManager.Instance?.AddEnemies(roomEnemyCount);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
